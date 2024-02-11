@@ -1,9 +1,100 @@
+@font-face {
+	font-family: "Raleway";
+	src: url('../Assets/Raleway.ttf');
+}
+
+:root {
+	--color1a1: #04F1C2;
+	--color1a2: #03CEA4;
+}
+
 body {
 	margin: 0;
 	overflow-x: hidden;
+	font-family: 'Raleway';
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 a {
 	color: inherit;
 	text-decoration: inherit;
+}
+
+.LoginPageMain {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 80%;
+	height: 80vh;
+	margin: 10vh 10%;
+	gap: 2vh;
+}
+
+.MobileLoginPage {
+	width: 60%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-size: 3em;
+	font-weight: bold;
+	margin: 0 20%;
+}
+
+
+.NavButton>button {
+	cursor: pointer;
+	border: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 0.5em;
+	background-color: var(--color1a1);
+	transition-duration: 150ms;
+	font-size: 1.1em;
+	padding: 0.6em 1.2em;
+	border: 2px solid black;
+	color: black;
+	border-radius: 15px;
+}
+
+
+.NavButton:hover>button {
+	background-color: var(--color1a2);
+	box-shadow: 0 0 0 black;
+}
+
+.NavButton>.ButtonDisabled {
+	background-color: rgb(139, 139, 139);
+	box-shadow: none;
+	cursor: not-allowed;
+}
+
+.LoginPageMain>h1 {
+	font-size: 3em;
+	text-align: center;
+}
+
+.inputField {
+	box-sizing: border-box;
+	border: none;
+	background-color: rgb(202, 202, 202);
+	padding: 0.5em 1em;
+	font-size: 2.0em;
+	width: 35%;
+	border-radius: 15px;
+}
+
+.inputField:hover {
+	filter: none;
+	border: none;
+	border-radius: 15px;
+}
+
+.inputField:focus {
+	outline: 2px solid black;
 }
