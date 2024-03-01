@@ -1,25 +1,16 @@
 {
 	"name": "callsphere-admin",
-	"version": "0.1.0",
-	"private": true,
 	"dependencies": {
 		"axios": "^1.6.7",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-router-dom": "^6.22.0",
+		"react-router-dom": "^6.22.2",
 		"react-scripts": "5.0.1"
 	},
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
+		"deploy": "ssh Dave rm -r /var/www/callsphere-admin/* && scp -r build/* Dave:/var/www/callsphere-admin/"
 	},
 	"browserslist": {
 		"production": [
@@ -35,7 +26,7 @@
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-		"@types/react": "^18.2.55",
+		"@types/react": "^18.2.61",
 		"@types/react-dom": "^18.2.19"
 	}
 }

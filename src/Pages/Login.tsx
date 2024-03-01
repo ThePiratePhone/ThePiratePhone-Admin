@@ -7,8 +7,8 @@ function Login(credentials: Credentials): Promise<boolean> {
 	return new Promise(resolve => {
 		axios
 			.post(`${URL}/admin/login`, {
-				area: credentials.areaId,
-				adminCode: credentials.password
+				area: credentials.onlineCredentials.areaId,
+				adminCode: credentials.onlineCredentials.password
 			})
 			.catch(err => {
 				console.error(err);
@@ -47,7 +47,7 @@ async function testOldToken() {
 	return Login(oldCredentials);
 }
 
-function DesktopLoginPage({ renderApp }: { renderApp: (credentials: Credentials) => void }) {
+function LoginPage({ renderApp }: { renderApp: (credentials: Credentials) => void }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(true);
 	const [ButtonValue, setButtonValue] = useState('Connexion...');
 	const [Areas, setAreas] = useState<Array<Area>>([]);
@@ -84,9 +84,14 @@ function DesktopLoginPage({ renderApp }: { renderApp: (credentials: Credentials)
 		setButtonDisabled(true);
 		setButtonValue('Connexion...');
 
+		const areaid = (document.getElementById('area') as HTMLInputElement).value;
+
 		const credentials = {
-			areaId: (document.getElementById('area') as HTMLInputElement).value,
-			password: (document.getElementById('password') as HTMLInputElement).value
+			areaName: Areas.find(val => val._id === areaid)?.name ?? '',
+			onlineCredentials: {
+				areaId: areaid,
+				password: (document.getElementById('password') as HTMLInputElement).value
+			}
 		};
 
 		Login(credentials).then(result => {
@@ -112,7 +117,7 @@ function DesktopLoginPage({ renderApp }: { renderApp: (credentials: Credentials)
 	}
 
 	return (
-		<div className="LoginPageMain">
+		<div className="LoginPage">
 			<h1>Administration de Callsphere</h1>
 			<select id="area" className="inputField">
 				{Areas.map((area, i) => {
@@ -139,20 +144,6 @@ function DesktopLoginPage({ renderApp }: { renderApp: (credentials: Credentials)
 			</div>
 		</div>
 	);
-}
-
-function MobileLoginPage() {
-	return (
-		<div className="MobileLoginPage">
-			Ce site n'est pas disponible sur mobile.
-			<br />
-			Visitez-le sur PC !
-		</div>
-	);
-}
-
-function LoginPage({ renderApp, isMobile }: { renderApp: (credentials: Credentials) => void; isMobile: boolean }) {
-	return isMobile ? <MobileLoginPage /> : <DesktopLoginPage renderApp={renderApp} />;
 }
 
 export default LoginPage;

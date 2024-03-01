@@ -5,9 +5,9 @@ import './Stylesheets/index.css';
 
 import './declarations.d.ts';
 
+import App from './App';
 import LoginPage from './Pages/Login';
-import App from './Pages/App';
-
+import MobilePage from './Pages/MobilePage';
 import { mobileCheck } from './Utils';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -23,9 +23,17 @@ function renderApp(credentials: Credentials) {
 function renderLogin() {
 	root.render(
 		<React.StrictMode>
-			<LoginPage renderApp={renderApp} isMobile={mobileCheck()} />
+			<LoginPage renderApp={renderApp} />
 		</React.StrictMode>
 	);
 }
 
-renderLogin();
+if (mobileCheck()) {
+	root.render(
+		<React.StrictMode>
+			<MobilePage />
+		</React.StrictMode>
+	);
+} else {
+	renderLogin();
+}
