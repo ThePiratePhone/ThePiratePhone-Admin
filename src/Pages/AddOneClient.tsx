@@ -78,6 +78,7 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 
 		const name = (document.getElementById('name') as HTMLInputElement).value;
 		const phone = (document.getElementById('phone') as HTMLInputElement).value;
+
 		create(name, phone).then(status => {
 			if (status == 1) {
 				setButtonDisabled(false);
@@ -113,12 +114,29 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 		}
 	}
 
+	function next(e: any, index: number) {
+		if (e.key != 'Enter') return;
+		if (index == 0) {
+			document.getElementById('phone')?.focus();
+		} else {
+			click();
+		}
+	}
+
 	return (
 		<div className="AddOneClient">
 			<h1>Ajouter un client</h1>
 			<div>
-				<input disabled={ButtonDisabled} id="name" placeholder="Nom" className="inputField" onChange={change} />
 				<input
+					onKeyUp={e => next(e, 0)}
+					disabled={ButtonDisabled}
+					id="name"
+					placeholder="Nom"
+					className="inputField"
+					onChange={change}
+				/>
+				<input
+					onKeyUp={e => next(e, 1)}
 					disabled={ButtonDisabled}
 					id="phone"
 					placeholder="Téléphone"
