@@ -46,6 +46,12 @@ function ChangePassword({
 			return;
 		}
 
+		if (password == '') {
+			setButtonDisabled(false);
+			setButtonValue('Le mot de passe ne peut pas être vide');
+			return;
+		}
+
 		modify(password).then(result => {
 			if (result) {
 				credentials.onlineCredentials.password = password;
@@ -74,6 +80,7 @@ function ChangePassword({
 					type="password"
 					placeholder="Nouveau mot de passe"
 					className="inputField"
+					disabled={ButtonDisabled}
 					onChange={change}
 				/>
 				<Button

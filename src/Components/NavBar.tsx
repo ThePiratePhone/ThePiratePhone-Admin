@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 
+import Gear from '../Assets/Images/Gear.svg';
+import Headphone from '../Assets/Images/Headphone.svg';
 import Logo from '../Assets/Images/Logo.svg';
 import People from '../Assets/Images/People.svg';
 import Statistic from '../Assets/Images/Statistic.svg';
-import Gear from '../Assets/Images/Gear.svg';
 
 function NavBar() {
 	const links = [
@@ -16,8 +17,12 @@ function NavBar() {
 			image: Statistic
 		},
 		{
-			value: '/Users',
+			value: '/Clients',
 			image: People
+		},
+		{
+			value: '/Users',
+			image: Headphone
 		},
 		{
 			value: '/Settings',

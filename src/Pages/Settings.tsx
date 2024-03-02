@@ -16,7 +16,7 @@ function Settings({ credentials, renderLogin }: { credentials: Credentials; rend
 					</div>
 				</div>
 				<div>
-					<Button value="Changer le mot de passe" link="/ChangePassword" />
+					<Button value="Changer le mot de passe" link="ChangePassword" />
 					<Button value="Se déconnecter" onclick={logOut} />
 				</div>
 			</div>
