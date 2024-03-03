@@ -124,7 +124,7 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 	}
 
 	return (
-		<div className="AddOneClient">
+		<div className="GenericPage">
 			<h1>Ajouter un client</h1>
 			<div>
 				<input

@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import Button from '../Components/Button';
 
-function Settings({ credentials, renderLogin }: { credentials: Credentials; renderLogin: () => void }) {
+function Settings({ renderLogin }: { renderLogin: () => void }) {
 	function logOut() {
 		localStorage.removeItem('credentials');
 		renderLogin();
@@ -10,13 +11,11 @@ function Settings({ credentials, renderLogin }: { credentials: Credentials; rend
 		<div className="Settings">
 			<h1>Paramètres</h1>
 			<div>
-				<div>
-					<div>
-						Organisation: <b>{credentials.areaName}</b>
-					</div>
+				<div className="SettingsList">
+					<Link to="/">Paramètres de l'organisation</Link>
+					<Link to="/">Paramètres de la campagne</Link>
 				</div>
 				<div>
-					<Button value="Changer le mot de passe" link="ChangePassword" />
 					<Button value="Se déconnecter" onclick={logOut} />
 				</div>
 			</div>

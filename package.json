@@ -2,6 +2,7 @@
 	"name": "callsphere-admin",
 	"dependencies": {
 		"axios": "^1.6.7",
+		"papaparse": "^5.4.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.22.2",
@@ -26,6 +27,7 @@
 	},
 	"devDependencies": {
 		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+		"@types/papaparse": "^5.3.14",
 		"@types/react": "^18.2.61",
 		"@types/react-dom": "^18.2.19"
 	}

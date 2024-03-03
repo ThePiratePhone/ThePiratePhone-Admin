@@ -43,7 +43,7 @@ function Clients({ credentials }: { credentials: Credentials }) {
 			</div>
 			<div>
 				<Button value="Ajouter un client" link="AddOne" />
-				<Button value="Importer un fichier de clients" />
+				<Button value="Importer un fichier" link="Add" />
 			</div>
 		</div>
 	);

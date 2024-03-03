@@ -1,14 +1,15 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import { useState } from 'react';
 import Footer from './Components/Footer';
 import NavBar from './Components/NavBar';
+import AddClients from './Pages/AddClients';
+import AddOneClient from './Pages/AddOneClient';
+import ChangePassword from './Pages/ChangePassword';
+import Clients from './Pages/Clients';
 import Dashboard from './Pages/Dashboard';
 import E404 from './Pages/E404';
 import Settings from './Pages/Settings';
-import { useState } from 'react';
-import ChangePassword from './Pages/ChangePassword';
-import Clients from './Pages/Clients';
-import AddOneClient from './Pages/AddOneClient';
 
 function App({ credentials, renderLogin }: { credentials: Credentials; renderLogin: () => void }) {
 	const [Credentials, setCredentials] = useState(credentials);
@@ -27,8 +28,12 @@ function App({ credentials, renderLogin }: { credentials: Credentials; renderLog
 			element: <AddOneClient credentials={Credentials} />
 		},
 		{
+			path: '/Clients/Add',
+			element: <AddClients credentials={Credentials} />
+		},
+		{
 			path: '/Settings',
-			element: <Settings credentials={Credentials} renderLogin={renderLogin} />
+			element: <Settings renderLogin={renderLogin} />
 		},
 		{
 			path: '/Settings/ChangePassword',

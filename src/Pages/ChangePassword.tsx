@@ -72,7 +72,7 @@ function ChangePassword({
 	}
 
 	return (
-		<div className="ChangePassword">
+		<div className="GenericPage">
 			<h1>Changer le mot de passe</h1>
 			<div>
 				<input

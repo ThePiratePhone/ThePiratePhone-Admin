@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Button from '../Components/Button';
 
 const URL = 'https://cs.mpqa.fr:7000/api';
 
@@ -137,11 +138,7 @@ function LoginPage({ renderApp }: { renderApp: (credentials: Credentials) => voi
 				placeholder="Mot de passe"
 				onKeyDown={enter}
 			/>
-			<div className="NavButton">
-				<button onClick={connect} className={ButtonDisabled ? 'ButtonDisabled' : ''}>
-					{ButtonValue}
-				</button>
-			</div>
+			<Button value={ButtonValue} onclick={connect} type={ButtonDisabled ? 'ButtonDisabled' : undefined} />
 		</div>
 	);
 }
