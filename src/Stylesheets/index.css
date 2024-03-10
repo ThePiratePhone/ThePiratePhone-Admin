@@ -16,6 +16,11 @@
 :root {
 	--color1a1: #04F1C2;
 	--color1a2: #03CEA4;
+	--color1atext: black;
+
+	--color2a1: #A182B0;
+	--color2a2: #79568A;
+	--color2atext: white;
 
 	--borderRadius: 10px;
 }
@@ -174,6 +179,7 @@ h1 {
 	justify-content: center;
 	text-align: center;
 	background-color: var(--color1a1);
+	color: var(--color1atext);
 	transition-duration: 150ms;
 	font-size: 1.2em;
 	padding: 0.6em 1.2em;
@@ -192,6 +198,11 @@ h1 {
 
 .ButtonDisabled>button:hover {
 	background-color: rgb(139, 139, 139);
+}
+
+.RedButton>button {
+	background-color: var(--color2a2);
+	color: var(--color2atext);
 }
 
 .GenericPage>div {
@@ -231,7 +242,7 @@ h1 {
 	flex-direction: row;
 	width: 80%;
 	gap: 2vw;
-	margin: 5vh 0;
+	margin-bottom: 5vh;
 }
 
 .SettingsList>a {
@@ -241,7 +252,6 @@ h1 {
 	align-items: center;
 	justify-content: center;
 	font-size: 1.7em;
-	font-family: 'Phudu';
 	font-weight: bold;
 	text-align: center;
 	background-color: rgb(202, 202, 202);
@@ -258,4 +268,10 @@ h1 {
 
 .ErrorsHeader {
 	font-weight: bold;
+}
+
+.Settings {
+	display: flex;
+	flex-direction: column;
+	gap: 5vh;
 }

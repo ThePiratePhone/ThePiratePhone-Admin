@@ -112,7 +112,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 		<div className="GenericPage">
 			<h1>Importer un fichier de clients</h1>
 			<p>
-				<b>Seul le format csv est supporté !</b>
+				<b>Seul le format CSV est supporté !</b>
 				<br />
 				Veillez à bien formater le fichier. La première colonne doit contenir le nom et la deuxième le numéro de
 				téléphone.

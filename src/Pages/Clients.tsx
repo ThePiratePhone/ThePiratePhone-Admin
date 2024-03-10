@@ -44,6 +44,9 @@ function Clients({ credentials }: { credentials: Credentials }) {
 			<div>
 				<Button value="Ajouter un client" link="AddOne" />
 				<Button value="Importer un fichier" link="Add" />
+				<Button value="Rechercher un client" link="Search" />
+				<Button value="Retier un client" link="Remove" />
+				<Button value="Retirer tous les clients" type="RedButton" link="Purge" />
 			</div>
 		</div>
 	);

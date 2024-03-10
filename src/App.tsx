@@ -1,15 +1,18 @@
+import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { useState } from 'react';
 import Footer from './Components/Footer';
 import NavBar from './Components/NavBar';
 import AddClients from './Pages/AddClients';
 import AddOneClient from './Pages/AddOneClient';
-import ChangePassword from './Pages/ChangePassword';
 import Clients from './Pages/Clients';
 import Dashboard from './Pages/Dashboard';
 import E404 from './Pages/E404';
-import Settings from './Pages/Settings';
+import AreaSettings from './Pages/Settings/AreaSettings';
+import CampaignSettings from './Pages/Settings/CampaignSettings';
+import ChangeAreaPassword from './Pages/Settings/ChangeAreaPassword';
+import Settings from './Pages/Settings/Settings';
+import ChangeCampaignPassword from './Pages/Settings/ChangeCampaignPassword';
 
 function App({ credentials, renderLogin }: { credentials: Credentials; renderLogin: () => void }) {
 	const [Credentials, setCredentials] = useState(credentials);
@@ -36,8 +39,20 @@ function App({ credentials, renderLogin }: { credentials: Credentials; renderLog
 			element: <Settings renderLogin={renderLogin} />
 		},
 		{
-			path: '/Settings/ChangePassword',
-			element: <ChangePassword setCredentials={setCredentials} credentials={Credentials} />
+			path: '/Settings/Area',
+			element: <AreaSettings />
+		},
+		{
+			path: '/Settings/Area/ChangePassword',
+			element: <ChangeAreaPassword setCredentials={setCredentials} credentials={Credentials} />
+		},
+		{
+			path: '/Settings/Campaign',
+			element: <CampaignSettings />
+		},
+		{
+			path: '/Settings/Campaign/ChangeKey',
+			element: <ChangeCampaignPassword credentials={Credentials} />
 		},
 		{
 			path: '/*',

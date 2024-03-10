@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import Button from '../Components/Button';
+
+import Button from '../../Components/Button';
 
 function Settings({ renderLogin }: { renderLogin: () => void }) {
 	function logOut() {
@@ -12,8 +13,8 @@ function Settings({ renderLogin }: { renderLogin: () => void }) {
 			<h1>Paramètres</h1>
 			<div>
 				<div className="SettingsList">
-					<Link to="/">Paramètres de l'organisation</Link>
-					<Link to="/">Paramètres de la campagne</Link>
+					<Link to="Area">Paramètres de l'organisation</Link>
+					<Link to="Campaign">Paramètres de la campagne</Link>
 				</div>
 				<div>
 					<Button value="Se déconnecter" onclick={logOut} />

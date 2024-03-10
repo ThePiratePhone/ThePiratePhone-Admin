@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import Button from '../Components/Button';
 import axios from 'axios';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import Button from '../../Components/Button';
 
 const URL = 'https://cs.mpqa.fr:7000/api/admin';
 
-function ChangePassword({
+function ChangeAreaPassword({
 	credentials,
 	setCredentials
 }: {
@@ -42,7 +43,7 @@ function ChangePassword({
 
 		if (password == credentials.onlineCredentials.password) {
 			setButtonDisabled(false);
-			setButtonValue("Le mot de passe est identique à  l'ancien");
+			setButtonValue("Le mot de passe est identique à l'ancien");
 			return;
 		}
 
@@ -56,7 +57,7 @@ function ChangePassword({
 			if (result) {
 				credentials.onlineCredentials.password = password;
 				setCredentials(credentials);
-				navigate('/Settings');
+				navigate('/Settings/Area');
 				return;
 			} else {
 				setButtonDisabled(false);
@@ -73,7 +74,7 @@ function ChangePassword({
 
 	return (
 		<div className="GenericPage">
-			<h1>Changer le mot de passe</h1>
+			<h1>Changer le mot de passe de l'organisation</h1>
 			<div>
 				<input
 					id="password"
@@ -93,4 +94,4 @@ function ChangePassword({
 	);
 }
 
-export default ChangePassword;
+export default ChangeAreaPassword;
