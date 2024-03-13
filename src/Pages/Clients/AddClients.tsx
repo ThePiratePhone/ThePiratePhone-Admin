@@ -57,8 +57,8 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 	const [ButtonValue, setButtonValue] = useState('Ajouter');
 
 	async function send(array: Array<{ name: string; phone: string }>) {
-		return new Promise<any>(async resolve => {
-			let errors = new Array<[{ name: string; phone: string; error: string }]>();
+		return new Promise<Array<{ name: string; phone: string; error: string }> | undefined>(async resolve => {
+			let errors = new Array<{ name: string; phone: string; error: string }>();
 			for (let i = 0; i < array.length; i += 500) {
 				const newArray = new Array<[string, string]>();
 				for (let j = 0; j < 500 && i + j < array.length; j++) {
@@ -107,7 +107,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 				} else {
 					setButtonValue('Confirmé !');
 					setErrors(res);
-					setNumberCount(1);
+					setNumberCount(array.length - res.length);
 				}
 			});
 		});

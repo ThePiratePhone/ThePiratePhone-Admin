@@ -6,6 +6,7 @@ import Button from '../../Components/Button';
 import E404 from '../E404';
 import AddClients from './AddClients';
 import AddOneClient from './AddOneClient';
+import Search from './Explore';
 import Purge from './Purge';
 import Remove from './Remove';
 
@@ -23,7 +24,7 @@ function ClientsHome({ clientCount }: { clientCount: number | null }) {
 			<div>
 				<Button value="Ajouter un client" link="AddOne" />
 				<Button value="Importer un fichier" link="Add" />
-				<Button value="Rechercher un client" link="Search" />
+				<Button value="Rechercher un client" link="Explore" />
 				<Button value="Retier un client" link="Remove" />
 				<Button value="Retirer tous les clients" type="RedButton" link="Purge" />
 			</div>
@@ -65,6 +66,10 @@ function Clients({ credentials }: { credentials: Credentials }) {
 		{
 			path: '/Add',
 			element: <AddClients credentials={credentials} />
+		},
+		{
+			path: '/Explore/*',
+			element: <Search credentials={credentials} />
 		},
 		{
 			path: '/Remove',
