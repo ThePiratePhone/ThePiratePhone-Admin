@@ -1,8 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 
 import Button from '../../Components/Button';
+import E404 from '../E404';
+import AreaSettings from './AreaSettings';
+import CampaignSettings from './CampaignSettings';
+import ChangeAreaPassword from './ChangeAreaPassword';
+import ChangeCampaignPassword from './ChangeCampaignPassword';
 
-function Settings({ renderLogin }: { renderLogin: () => void }) {
+function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
 	function logOut() {
 		localStorage.removeItem('credentials');
 		renderLogin();
@@ -21,6 +26,51 @@ function Settings({ renderLogin }: { renderLogin: () => void }) {
 				</div>
 			</div>
 		</div>
+	);
+}
+
+function Settings({
+	credentials,
+	setCredentials,
+	renderLogin
+}: {
+	credentials: Credentials;
+	setCredentials: (credentials: Credentials) => void;
+	renderLogin: () => void;
+}) {
+	const routes = [
+		{
+			path: '/',
+			element: <SettingsHome renderLogin={renderLogin} />
+		},
+		{
+			path: '/Area',
+			element: <AreaSettings />
+		},
+		{
+			path: '/Area/ChangePassword',
+			element: <ChangeAreaPassword setCredentials={setCredentials} credentials={credentials} />
+		},
+		{
+			path: '/Campaign',
+			element: <CampaignSettings />
+		},
+		{
+			path: '/Campaign/ChangeKey',
+			element: <ChangeCampaignPassword credentials={credentials} />
+		},
+		{
+			path: '/*',
+			element: <E404 />
+		}
+	];
+
+	return (
+		<Routes>
+			{routes.map((element, i) => {
+				return <Route path={element.path} element={element.element} key={i} />;
+			})}
+		</Routes>
 	);
 }
 

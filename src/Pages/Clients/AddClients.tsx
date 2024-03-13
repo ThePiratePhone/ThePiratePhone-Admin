@@ -2,22 +2,33 @@ import axios from 'axios';
 import Papa from 'papaparse';
 import { useState } from 'react';
 
-import Button from '../Components/Button';
+import Button from '../../Components/Button';
 
 const URL = 'https://cs.mpqa.fr:7000/api/admin';
 
-function ErrorsComp({ errors }: { errors: Array<{ name: string; phone: string; error: string }> | null }) {
-	if (errors == null) {
+function ErrorsComp({
+	numberCount,
+	errors
+}: {
+	numberCount: number | null;
+	errors: Array<{ name: string; phone: string; error: string }>;
+}) {
+	if (numberCount == null) {
 		return <></>;
 	}
 
-	if (errors.length == 0) {
-		return <h4>Aucune erreur détéctée</h4>;
+	if (errors) {
+		if (errors.length == 0) {
+			return <h4>{numberCount} numéros ajoutés. Aucune erreur détéctée</h4>;
+		}
 	}
 
 	return (
 		<>
-			<h4>{errors.length == 1 ? '1 erreur détéctée' : errors.length + ' erreurs détéctées'}</h4>
+			<h4>
+				{numberCount} numéros ajoutés.{' '}
+				{errors.length == 1 ? '1 erreur détéctée' : errors.length + ' erreurs détéctées'}
+			</h4>
 			<div className="ClientsErrors">
 				<div className="ErrorsHeader">Nom</div>
 				<div className="ErrorsHeader">Téléphone</div>
@@ -41,7 +52,8 @@ function ErrorsComp({ errors }: { errors: Array<{ name: string; phone: string; e
 function AddClients({ credentials }: { credentials: Credentials }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(true);
 	const [Working, setWorking] = useState(false);
-	const [Errors, setErrors] = useState<Array<{ name: string; phone: string; error: string }> | null>(null);
+	const [Errors, setErrors] = useState<Array<{ name: string; phone: string; error: string }>>(new Array());
+	const [numberCount, setNumberCount] = useState<number | null>(null);
 	const [ButtonValue, setButtonValue] = useState('Ajouter');
 
 	async function send(array: Array<{ name: string; phone: string }>) {
@@ -54,7 +66,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 					newArray.push([client.name, client.phone]);
 				}
 				const res = await axios
-					.post(URL + '/createClients', {
+					.post(URL + '/client/createClients', {
 						adminCode: credentials.onlineCredentials.password,
 						area: credentials.onlineCredentials.areaId,
 						data: newArray
@@ -95,6 +107,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 				} else {
 					setButtonValue('Confirmé !');
 					setErrors(res);
+					setNumberCount(1);
 				}
 			});
 		});
@@ -127,7 +140,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 					onChange={change}
 				/>
 				<Button onclick={click} value={ButtonValue} type={ButtonDisabled ? 'ButtonDisabled' : undefined} />
-				<ErrorsComp errors={Errors} />
+				<ErrorsComp numberCount={numberCount} errors={Errors} />
 			</div>
 		</div>
 	);

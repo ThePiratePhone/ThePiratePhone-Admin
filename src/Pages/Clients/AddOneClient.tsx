@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-import Button from '../Components/Button';
+import Button from '../../Components/Button';
 import { useNavigate } from 'react-router-dom';
 
 const URL = 'https://cs.mpqa.fr:7000/api/admin';
@@ -14,7 +14,7 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 	function create(name: string, phone: string) {
 		return new Promise<number>(resolve => {
 			axios
-				.post(URL + '/createClient', {
+				.post(URL + '/client/createClient', {
 					adminCode: credentials.onlineCredentials.password,
 					area: credentials.onlineCredentials.areaId,
 					phone: phone,
@@ -43,14 +43,13 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 		});
 	}
 
-	function add(name: string, phone: string) {
+	function add(phone: string) {
 		return new Promise<number>(resolve => {
 			axios
 				.post(URL + '/addClientCampaign', {
 					adminCode: credentials.onlineCredentials.password,
 					area: credentials.onlineCredentials.areaId,
-					phone: phone,
-					name: name
+					phone: phone
 				})
 				.then(res => {
 					if (res.data.OK) {
@@ -83,17 +82,8 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 			if (status == 1) {
 				setButtonDisabled(false);
 				setButtonValue('Mauvais numéro de téléphone');
-			} else if (status == 2) {
-				add(name, phone).then(status => {
-					if (status == 0) {
-						navigate('/Clients');
-					} else {
-						setButtonDisabled(false);
-						setButtonValue('Une erreur est survenue');
-					}
-				});
-			} else if (status == 0) {
-				add(name, phone).then(status => {
+			} else if (status == 2 || status == 0) {
+				add(phone).then(status => {
 					if (status == 0) {
 						navigate('/Clients');
 					} else {
