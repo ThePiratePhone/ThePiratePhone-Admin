@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../Components/Button';
 
-const URL = 'https://cs.mpqa.fr:7000/api/admin';
-
 function ChangeAreaPassword({
 	credentials,
 	setCredentials
@@ -20,9 +18,9 @@ function ChangeAreaPassword({
 	function modify(password: string) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(URL + '/changePassword', {
-					adminCode: credentials.onlineCredentials.password,
-					area: credentials.onlineCredentials.areaId,
+				.post(credentials.URL + '/changePassword', {
+					adminCode: credentials.content.password,
+					area: credentials.content.areaId,
 					newAdminCode: password
 				})
 				.then(() => {
@@ -41,7 +39,7 @@ function ChangeAreaPassword({
 		setButtonValue('Vérification...');
 		const password = (document.getElementById('password') as HTMLInputElement).value;
 
-		if (password == credentials.onlineCredentials.password) {
+		if (password == credentials.content.password) {
 			setButtonDisabled(false);
 			setButtonValue("Le mot de passe est identique à l'ancien");
 			return;
@@ -55,7 +53,7 @@ function ChangeAreaPassword({
 
 		modify(password).then(result => {
 			if (result) {
-				credentials.onlineCredentials.password = password;
+				credentials.content.password = password;
 				setCredentials(credentials);
 				navigate('/Settings/Area');
 				return;

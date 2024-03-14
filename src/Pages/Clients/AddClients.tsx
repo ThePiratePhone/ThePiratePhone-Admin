@@ -4,8 +4,6 @@ import { useState } from 'react';
 
 import Button from '../../Components/Button';
 
-const URL = 'https://cs.mpqa.fr:7000/api/admin';
-
 function ErrorsComp({
 	numberCount,
 	errors
@@ -66,9 +64,9 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 					newArray.push([client.name, client.phone]);
 				}
 				const res = await axios
-					.post(URL + '/client/createClients', {
-						adminCode: credentials.onlineCredentials.password,
-						area: credentials.onlineCredentials.areaId,
+					.post(credentials.URL + '/admin/client/createClients', {
+						adminCode: credentials.content.password,
+						area: credentials.content.areaId,
 						data: newArray
 					})
 					.catch(err => {

@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../Components/Button';
 
-const URL = 'https://cs.mpqa.fr:7000/api/admin';
-
 function Purge({ credentials, clientNumber }: { credentials: Credentials; clientNumber: number | null }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
 	const [ButtonValue, setButtonValue] = useState('Supprimer');
@@ -15,9 +13,9 @@ function Purge({ credentials, clientNumber }: { credentials: Credentials; client
 	function remove() {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(URL + '/client/removeClients', {
-					area: credentials.onlineCredentials.areaId,
-					adminCode: credentials.onlineCredentials.password
+				.post(credentials.URL + '/admin/client/removeClients', {
+					area: credentials.content.areaId,
+					adminCode: credentials.content.password
 				})
 				.then(() => resolve(true))
 				.catch(err => {

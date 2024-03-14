@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../Components/Button';
 
-const URL = 'https://cs.mpqa.fr:7000/api/admin';
-
 function ChangeCampaignPassword({ credentials }: { credentials: Credentials }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
 	const [ButtonValue, setButtonValue] = useState('Valider');
@@ -14,9 +12,9 @@ function ChangeCampaignPassword({ credentials }: { credentials: Credentials }) {
 	function modify(password: string) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(URL + '/', {
-					adminCode: credentials.onlineCredentials.password,
-					area: credentials.onlineCredentials.areaId,
+				.post(credentials.URL + '/', {
+					adminCode: credentials.content.password,
+					area: credentials.content.areaId,
 					newAdminCode: password
 				})
 				.then(() => {
@@ -35,7 +33,7 @@ function ChangeCampaignPassword({ credentials }: { credentials: Credentials }) {
 		setButtonValue('Vérification...');
 		const password = (document.getElementById('password') as HTMLInputElement).value;
 
-		if (password == credentials.onlineCredentials.password) {
+		if (password == credentials.content.password) {
 			setButtonDisabled(false);
 			setButtonValue("La clé est identique à l'ancienne");
 			return;

@@ -12,7 +12,10 @@ import { mobileCheck } from './Utils';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
+const URL = 'https://cs.mpqa.fr:7000/api';
+
 function renderApp(credentials: Credentials) {
+	credentials.URL = URL;
 	root.render(
 		<React.StrictMode>
 			<App credentials={credentials} renderLogin={renderLogin} />
@@ -23,7 +26,7 @@ function renderApp(credentials: Credentials) {
 function renderLogin() {
 	root.render(
 		<React.StrictMode>
-			<LoginPage renderApp={renderApp} />
+			<LoginPage URL={URL} renderApp={renderApp} />
 		</React.StrictMode>
 	);
 }

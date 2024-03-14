@@ -2,7 +2,8 @@ declare module '*.svg';
 
 type Credentials = {
 	areaName: string;
-	onlineCredentials: {
+	URL: string;
+	content: {
 		areaId: string;
 		password: string;
 	};

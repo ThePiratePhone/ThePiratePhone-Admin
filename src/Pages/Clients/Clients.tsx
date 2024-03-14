@@ -10,8 +10,6 @@ import Search from './Explore';
 import Purge from './Purge';
 import Remove from './Remove';
 
-const URL = 'https://cs.mpqa.fr:7000/api/admin';
-
 function ClientsHome({ clientCount }: { clientCount: number | null }) {
 	return (
 		<div className="Clients">
@@ -35,9 +33,9 @@ function ClientsHome({ clientCount }: { clientCount: number | null }) {
 function getClientCount(credentials: Credentials) {
 	return new Promise<number | null>(resolve => {
 		axios
-			.post(URL + '/listClientCampaign', {
-				adminCode: credentials.onlineCredentials.password,
-				area: credentials.onlineCredentials.areaId
+			.post(credentials.URL + '/admin/listClientCampaign', {
+				adminCode: credentials.content.password,
+				area: credentials.content.areaId
 			})
 			.then(res => {
 				if (res.data.OK) {

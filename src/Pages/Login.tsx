@@ -1,15 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Button from '../Components/Button';
 
-const URL = 'https://cs.mpqa.fr:7000/api';
+import Button from '../Components/Button';
 
 function Login(credentials: Credentials): Promise<boolean> {
 	return new Promise(resolve => {
 		axios
-			.post(`${URL}/admin/login`, {
-				area: credentials.onlineCredentials.areaId,
-				adminCode: credentials.onlineCredentials.password
+			.post(credentials.URL + '/admin/login', {
+				area: credentials.content.areaId,
+				adminCode: credentials.content.password
 			})
 			.catch(err => {
 				console.error(err);
@@ -25,7 +24,7 @@ function Login(credentials: Credentials): Promise<boolean> {
 	});
 }
 
-function getAreas() {
+function getAreas(URL: string) {
 	return new Promise<Array<Area> | undefined>(resolve => {
 		axios
 			.get(URL + '/getArea')
@@ -43,19 +42,20 @@ function getAreas() {
 	});
 }
 
-async function testOldToken() {
-	const oldCredentials = JSON.parse(window.localStorage.getItem('credentials') as string);
+async function testOldToken(URL: string) {
+	const oldCredentials = JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials;
+	oldCredentials.URL = URL;
 	return Login(oldCredentials);
 }
 
-function LoginPage({ renderApp }: { renderApp: (credentials: Credentials) => void }) {
+function LoginPage({ renderApp, URL }: { renderApp: (credentials: Credentials) => void; URL: string }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(true);
 	const [ButtonValue, setButtonValue] = useState('Connexion...');
-	const [Areas, setAreas] = useState<Array<Area>>([]);
+	const [Areas, setAreas] = useState<Array<Area>>(new Array());
 
 	useEffect(() => {
 		if (window.localStorage.getItem('credentials') != null) {
-			testOldToken().then(result => {
+			testOldToken(URL).then(result => {
 				if (result) {
 					return renderApp(JSON.parse(window.localStorage.getItem('credentials') as string));
 				} else {
@@ -69,7 +69,7 @@ function LoginPage({ renderApp }: { renderApp: (credentials: Credentials) => voi
 	}, [renderApp]);
 
 	function load() {
-		getAreas().then(areas => {
+		getAreas(URL).then(areas => {
 			if (areas) {
 				setAreas(areas);
 				setButtonDisabled(false);
@@ -89,7 +89,8 @@ function LoginPage({ renderApp }: { renderApp: (credentials: Credentials) => voi
 
 		const credentials = {
 			areaName: Areas.find(val => val._id === areaid)?.name ?? '',
-			onlineCredentials: {
+			URL: URL,
+			content: {
 				areaId: areaid,
 				password: (document.getElementById('password') as HTMLInputElement).value
 			}

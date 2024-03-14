@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, Route, Routes, resolvePath, useParams } from 'react-router-dom';
+import { Link, Route, Routes, useParams } from 'react-router-dom';
 
 import { cleanNumber } from '../../Utils';
 import E404 from '../E404';
-
-const URL = 'https://cs.mpqa.fr:7000/api/admin';
 
 function Client({ clients }: { clients: Array<Client> | null }) {
 	if (clients == null) return <></>;
@@ -16,7 +14,7 @@ function Client({ clients }: { clients: Array<Client> | null }) {
 			{clients.map((value, i) => {
 				return (
 					<Link to={value.phone} key={i}>
-						<div>{value.name}</div>
+						<div>{value.name ?? 'Nom inconnu'}</div>
 						<div className="Phone">{cleanNumber(value.phone)}</div>
 					</Link>
 				);
@@ -31,9 +29,9 @@ function Search({ credentials }: { credentials: Credentials }) {
 	function searchPhone(phone: string) {
 		return new Promise<Array<Client> | undefined>(resolve => {
 			axios
-				.post(URL + '/client/searchByPhone', {
-					area: credentials.onlineCredentials.areaId,
-					adminCode: credentials.onlineCredentials.password,
+				.post(credentials.URL + '/admin/client/searchByPhone', {
+					area: credentials.content.areaId,
+					adminCode: credentials.content.password,
 					phone: phone
 				})
 				.then(res => {
@@ -53,9 +51,9 @@ function Search({ credentials }: { credentials: Credentials }) {
 	function searchName(name: string) {
 		return new Promise<Array<Client> | undefined>(resolve => {
 			axios
-				.post(URL + '/client/searchByName', {
-					area: credentials.onlineCredentials.areaId,
-					adminCode: credentials.onlineCredentials.password,
+				.post(credentials.URL + '/admin/client/searchByName', {
+					area: credentials.content.areaId,
+					adminCode: credentials.content.password,
 					name: name
 				})
 				.then(res => {
@@ -158,14 +156,14 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 	function getInfos(phone: string) {
 		return new Promise<ClientInfos | undefined>(resolve => {
 			axios
-				.post(URL + '/client/clientInfo', {
-					adminCode: credentials.onlineCredentials.password,
-					area: credentials.onlineCredentials.areaId,
+				.post(credentials.URL + '/admin/client/clientInfo', {
+					adminCode: credentials.content.password,
+					area: credentials.content.areaId,
 					phone: phone
 				})
 				.then(res => {
-					console.log(res);
 					if (res.data.OK) {
+						console.log(res.data.data);
 						resolve(res.data.data);
 					} else {
 						resolve(undefined);
@@ -182,7 +180,7 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 		getInfos(phone as string).then(res => {
 			setClient(res);
 		});
-	}, [getInfos]);
+	}, []);
 
 	return (
 		<div className="ExplorePage">

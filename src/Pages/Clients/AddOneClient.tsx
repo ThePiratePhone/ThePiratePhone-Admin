@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
-
-import Button from '../../Components/Button';
 import { useNavigate } from 'react-router-dom';
 
-const URL = 'https://cs.mpqa.fr:7000/api/admin';
+import Button from '../../Components/Button';
 
 function AddOneClient({ credentials }: { credentials: Credentials }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
@@ -14,9 +12,9 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 	function create(name: string, phone: string) {
 		return new Promise<number>(resolve => {
 			axios
-				.post(URL + '/client/createClient', {
-					adminCode: credentials.onlineCredentials.password,
-					area: credentials.onlineCredentials.areaId,
+				.post(credentials.URL + '/admin/client/createClient', {
+					adminCode: credentials.content.password,
+					area: credentials.content.areaId,
 					phone: phone,
 					name: name
 				})
@@ -46,9 +44,9 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 	function add(phone: string) {
 		return new Promise<number>(resolve => {
 			axios
-				.post(URL + '/addClientCampaign', {
-					adminCode: credentials.onlineCredentials.password,
-					area: credentials.onlineCredentials.areaId,
+				.post(credentials.URL + '/addClientCampaign', {
+					adminCode: credentials.content.password,
+					area: credentials.content.areaId,
 					phone: phone
 				})
 				.then(res => {
