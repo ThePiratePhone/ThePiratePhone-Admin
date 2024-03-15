@@ -14,13 +14,24 @@
 }
 
 :root {
-	--color1a1: #04F1C2;
-	--color1a2: #03CEA4;
-	--color1atext: black;
+	--color1v1: #00ba96;
+	--color1v2: #00836e;
+	--color1v1Border: #00a485;
+	--color1v2Border: #006758;
+	--color1Text: white;
 
-	--color2a1: #A182B0;
-	--color2a2: #79568A;
-	--color2atext: white;
+	--color2v1: #ae90bc;
+	--color2v2: #a182b0;
+	--color2v1Border: #a182b0;
+	--color2v2Border: #816090;
+	--color2Text: white;
+
+	--inputColor: #cacaca;
+	--inputText: black;
+
+	--disabledButton: #8b8b8b;
+	--disabledButtonBorder: #6d6d6d;
+	--disabledButtonText: white;
 
 	--borderRadius: 10px;
 }
@@ -80,14 +91,15 @@ h1 {
 .inputField {
 	box-sizing: border-box;
 	border: none;
-	background-color: rgb(202, 202, 202);
+	background-color: var(--inputColor);
+	color: var(--inputText);
 	padding: 0.5em 1em;
 	font-size: 1em;
 	border-radius: var(--borderRadius);
 }
 
 .inputField:focus {
-	outline: 2px solid black;
+	outline: none;
 }
 
 .Main {
@@ -178,35 +190,41 @@ h1 {
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	background-color: var(--color1a1);
-	color: var(--color1atext);
+	background-color: var(--color1v1);
+	color: var(--color1Text);
 	transition-duration: 150ms;
 	font-size: 1.2em;
 	padding: 0.6em 1.2em;
-	border: 2px solid black;
+	border: 2px solid var(--color1v1Border);
 	border-radius: var(--borderRadius);
 }
 
 .Button>button:hover {
-	background-color: var(--color1a2);
+	background-color: var(--color1v2);
+	border: 2px solid var(--color1v2Border);
 }
 
 .ButtonDisabled>button {
-	background-color: rgb(139, 139, 139);
+	background-color: var(--disabledButton);
+	border: 2px solid var(--disabledButtonBorder);
+	color: var(--disabledButtonText);
 	cursor: not-allowed;
 }
 
 .ButtonDisabled>button:hover {
-	background-color: rgb(139, 139, 139);
+	background-color: var(--disabledButton);
+	border: 2px solid var(--disabledButtonBorder);
 }
 
 .RedButton>button {
-	background-color: var(--color2a2);
-	color: var(--color2atext);
+	background-color: var(--color2v2);
+	border: 2px solid var(--color2v2Border);
+	color: var(--color2Text);
 }
 
 .RedButton>button:hover {
-	background-color: var(--color2a1);
+	background-color: var(--color2v1);
+	border: 2px solid var(--color2v1Border);
 }
 
 .GenericPage {
