@@ -25,3 +25,11 @@ type ClientInfos = {
 	client: Client;
 	callers: Array<{ id: String; name: string; phone: string; nbCall: string; timeInCall: number }>;
 };
+
+type LoginResponse = {
+	actualCampaignName: string;
+	actualCampaignCallStart: Date;
+	actualCampaignCallEnd: Date;
+	actualCampaignMaxCall: number;
+	actualCampaignTimeBetweenCall: number;
+};

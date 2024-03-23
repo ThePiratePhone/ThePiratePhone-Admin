@@ -8,7 +8,15 @@ import Dashboard from './Pages/Dashboard';
 import E404 from './Pages/E404';
 import Settings from './Pages/Settings/Settings';
 
-function App({ credentials, renderLogin }: { credentials: Credentials; renderLogin: () => void }) {
+function App({
+	credentials,
+	renderLogin,
+	loginResponse
+}: {
+	credentials: Credentials;
+	renderLogin: () => void;
+	loginResponse: LoginResponse;
+}) {
 	const [Credentials, setCredentials] = useState(credentials);
 
 	const routes = [
@@ -22,7 +30,14 @@ function App({ credentials, renderLogin }: { credentials: Credentials; renderLog
 		},
 		{
 			path: '/Settings/*',
-			element: <Settings credentials={credentials} setCredentials={setCredentials} renderLogin={renderLogin} />
+			element: (
+				<Settings
+					loginResponse={loginResponse}
+					credentials={credentials}
+					setCredentials={setCredentials}
+					renderLogin={renderLogin}
+				/>
+			)
 		},
 		{
 			path: '/*',

@@ -4,8 +4,9 @@ import Button from '../../Components/Button';
 import E404 from '../E404';
 import AreaSettings from './AreaSettings';
 import CampaignSettings from './CampaignSettings';
-import ChangeAreaPassword from './ChangeAreaPassword';
-import ChangeCampaignPassword from './ChangeCampaignPassword';
+import ChangeAreaPassword from './Area/ChangePassword';
+import ChangeCampaignPassword from './Campaign/ChangePassword';
+import ChangeHours from './Campaign/ChangeHours';
 
 function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
 	function logOut() {
@@ -32,11 +33,13 @@ function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
 function Settings({
 	credentials,
 	setCredentials,
-	renderLogin
+	renderLogin,
+	loginResponse
 }: {
 	credentials: Credentials;
 	setCredentials: (credentials: Credentials) => void;
 	renderLogin: () => void;
+	loginResponse: LoginResponse;
 }) {
 	const routes = [
 		{
@@ -58,6 +61,10 @@ function Settings({
 		{
 			path: '/Campaign/ChangeKey',
 			element: <ChangeCampaignPassword credentials={credentials} />
+		},
+		{
+			path: '/Campaign/ChangeHours',
+			element: <ChangeHours credentials={credentials} loginResponse={loginResponse} />
 		},
 		{
 			path: '/*',

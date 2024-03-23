@@ -332,3 +332,21 @@ h1 {
 	flex-direction: column;
 	gap: 5vh;
 }
+
+.Settings>div {
+	display: flex;
+	flex-direction: column;
+	gap: 2vh;
+}
+
+.HoursChange {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	gap: 2vw;
+}
+
+.HoursChange>input {
+	font-size: 1.3em;
+}

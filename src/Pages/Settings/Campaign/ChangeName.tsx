@@ -2,9 +2,9 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../../Components/Button';
+import Button from '../../../Components/Button';
 
-function ChangeCampaignPassword({ credentials }: { credentials: Credentials }) {
+function ChangeCampaignName({ credentials }: { credentials: Credentials }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
 	const [ButtonValue, setButtonValue] = useState('Valider');
 	const navigate = useNavigate();
@@ -84,4 +84,4 @@ function ChangeCampaignPassword({ credentials }: { credentials: Credentials }) {
 	);
 }
 
-export default ChangeCampaignPassword;
+export default ChangeCampaignName;

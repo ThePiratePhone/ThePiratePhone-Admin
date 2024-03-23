@@ -2,15 +2,9 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../../Components/Button';
+import Button from '../../../Components/Button';
 
-function ChangeAreaPassword({
-	credentials,
-	setCredentials
-}: {
-	credentials: Credentials;
-	setCredentials: (credentials: Credentials) => void;
-}) {
+function ChangeCampaignPassword({ credentials }: { credentials: Credentials }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
 	const [ButtonValue, setButtonValue] = useState('Valider');
 	const navigate = useNavigate();
@@ -18,10 +12,10 @@ function ChangeAreaPassword({
 	function modify(password: string) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(credentials.URL + '/changePassword', {
+				.post(credentials.URL + '/admin/campaign/changeCampaignPassword', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newAdminCode: password
+					newCampaignCode: password
 				})
 				.then(() => {
 					resolve(true);
@@ -41,21 +35,19 @@ function ChangeAreaPassword({
 
 		if (password == credentials.content.password) {
 			setButtonDisabled(false);
-			setButtonValue("Le mot de passe est identique à l'ancien");
+			setButtonValue("La clé est identique à l'ancienne");
 			return;
 		}
 
 		if (password == '') {
 			setButtonDisabled(false);
-			setButtonValue('Le mot de passe ne peut pas être vide');
+			setButtonValue('La clé ne peut pas être vide');
 			return;
 		}
 
 		modify(password).then(result => {
 			if (result) {
-				credentials.content.password = password;
-				setCredentials(credentials);
-				navigate('/Settings/Area');
+				navigate('/Settings/Campaign');
 				return;
 			} else {
 				setButtonDisabled(false);
@@ -72,12 +64,12 @@ function ChangeAreaPassword({
 
 	return (
 		<div className="GenericPage">
-			<h1>Changer le mot de passe de l'organisation</h1>
+			<h1>Changer la clé d'accès de la campagne</h1>
 			<div>
 				<input
 					id="password"
 					type="password"
-					placeholder="Nouveau mot de passe"
+					placeholder="Nouvelle clé"
 					className="inputField"
 					disabled={ButtonDisabled}
 					onChange={change}
@@ -92,4 +84,4 @@ function ChangeAreaPassword({
 	);
 }
 
-export default ChangeAreaPassword;
+export default ChangeCampaignPassword;

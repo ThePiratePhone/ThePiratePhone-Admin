@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 
 import Button from '../Components/Button';
 
-function Login(credentials: Credentials): Promise<boolean> {
-	return new Promise(resolve => {
+function Login(credentials: Credentials) {
+	return new Promise<LoginResponse | undefined>(resolve => {
 		axios
 			.post(credentials.URL + '/admin/login', {
 				area: credentials.content.areaId,
@@ -12,13 +12,13 @@ function Login(credentials: Credentials): Promise<boolean> {
 			})
 			.catch(err => {
 				console.error(err);
-				resolve(false);
+				resolve(undefined);
 			})
 			.then(response => {
 				if (typeof response == 'undefined') {
-					resolve(false);
+					resolve(undefined);
 				} else {
-					resolve(true);
+					resolve(response.data.data);
 				}
 			});
 	});
@@ -48,7 +48,13 @@ async function testOldToken(URL: string) {
 	return Login(oldCredentials);
 }
 
-function LoginPage({ renderApp, URL }: { renderApp: (credentials: Credentials) => void; URL: string }) {
+function LoginPage({
+	renderApp,
+	URL
+}: {
+	renderApp: (credentials: Credentials, loginResponse: LoginResponse) => void;
+	URL: string;
+}) {
 	const [ButtonDisabled, setButtonDisabled] = useState(true);
 	const [ButtonValue, setButtonValue] = useState('Connexion...');
 	const [Areas, setAreas] = useState<Array<Area>>(new Array());
@@ -57,7 +63,7 @@ function LoginPage({ renderApp, URL }: { renderApp: (credentials: Credentials) =
 		if (window.localStorage.getItem('credentials') != null) {
 			testOldToken(URL).then(result => {
 				if (result) {
-					return renderApp(JSON.parse(window.localStorage.getItem('credentials') as string));
+					return renderApp(JSON.parse(window.localStorage.getItem('credentials') as string), result);
 				} else {
 					window.localStorage.removeItem('credentials');
 					load();
@@ -99,7 +105,7 @@ function LoginPage({ renderApp, URL }: { renderApp: (credentials: Credentials) =
 		Login(credentials).then(result => {
 			if (result) {
 				window.localStorage.setItem('credentials', JSON.stringify(credentials));
-				renderApp(credentials);
+				renderApp(credentials, result);
 			} else {
 				setButtonValue('Identifiants invalides');
 				setButtonDisabled(false);
@@ -121,7 +127,7 @@ function LoginPage({ renderApp, URL }: { renderApp: (credentials: Credentials) =
 	return (
 		<div className="LoginPage">
 			<h1>Administration de Callsphere</h1>
-			<select id="area" className="inputField">
+			<select id="area" className="inputField" disabled={ButtonDisabled}>
 				{Areas.map((area, i) => {
 					return (
 						<option key={i} value={area._id}>
