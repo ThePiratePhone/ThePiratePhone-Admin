@@ -33,3 +33,15 @@ type LoginResponse = {
 	actualCampaignMaxCall: number;
 	actualCampaignTimeBetweenCall: number;
 };
+
+type Campaign = {
+	name: string;
+	calls: {
+		max: number;
+		timeBetween: number;
+	};
+	hours: {
+		start: Date;
+		end: Date;
+	};
+};

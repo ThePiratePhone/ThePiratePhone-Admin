@@ -14,11 +14,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 const URL = 'https://cs.mpqa.fr:7000/api';
 
-function renderApp(credentials: Credentials, loginResponse: LoginResponse) {
+function renderApp(credentials: Credentials, campaign: Campaign) {
 	credentials.URL = URL;
 	root.render(
 		<React.StrictMode>
-			<App credentials={credentials} renderLogin={renderLogin} loginResponse={loginResponse} />
+			<App credentials={credentials} renderLogin={renderLogin} campaign={campaign} />
 		</React.StrictMode>
 	);
 }

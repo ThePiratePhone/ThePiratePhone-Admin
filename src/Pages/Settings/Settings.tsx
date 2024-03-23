@@ -34,12 +34,14 @@ function Settings({
 	credentials,
 	setCredentials,
 	renderLogin,
-	loginResponse
+	campaign,
+	setCampaign
 }: {
 	credentials: Credentials;
 	setCredentials: (credentials: Credentials) => void;
 	renderLogin: () => void;
-	loginResponse: LoginResponse;
+	campaign: Campaign;
+	setCampaign: (campaign: Campaign) => void;
 }) {
 	const routes = [
 		{
@@ -64,7 +66,7 @@ function Settings({
 		},
 		{
 			path: '/Campaign/ChangeHours',
-			element: <ChangeHours credentials={credentials} loginResponse={loginResponse} />
+			element: <ChangeHours setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
 		},
 		{
 			path: '/*',

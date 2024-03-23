@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Button from '../Components/Button';
 
 function Login(credentials: Credentials) {
-	return new Promise<LoginResponse | undefined>(resolve => {
+	return new Promise<Campaign | undefined>(resolve => {
 		axios
 			.post(credentials.URL + '/admin/login', {
 				area: credentials.content.areaId,
@@ -18,7 +18,19 @@ function Login(credentials: Credentials) {
 				if (typeof response == 'undefined') {
 					resolve(undefined);
 				} else {
-					resolve(response.data.data);
+					const loginResponse: LoginResponse = response.data.data;
+					const campaign = {
+						name: loginResponse.actualCampaignName,
+						calls: {
+							max: loginResponse.actualCampaignMaxCall,
+							timeBetween: loginResponse.actualCampaignTimeBetweenCall
+						},
+						hours: {
+							start: new Date(loginResponse.actualCampaignCallStart),
+							end: new Date(loginResponse.actualCampaignCallEnd)
+						}
+					};
+					resolve(campaign);
 				}
 			});
 	});
@@ -52,7 +64,7 @@ function LoginPage({
 	renderApp,
 	URL
 }: {
-	renderApp: (credentials: Credentials, loginResponse: LoginResponse) => void;
+	renderApp: (credentials: Credentials, campaign: Campaign) => void;
 	URL: string;
 }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(true);

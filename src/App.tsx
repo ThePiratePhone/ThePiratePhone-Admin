@@ -11,13 +11,14 @@ import Settings from './Pages/Settings/Settings';
 function App({
 	credentials,
 	renderLogin,
-	loginResponse
+	campaign
 }: {
 	credentials: Credentials;
 	renderLogin: () => void;
-	loginResponse: LoginResponse;
+	campaign: Campaign;
 }) {
 	const [Credentials, setCredentials] = useState(credentials);
+	const [Campaign, setCampaign] = useState(campaign);
 
 	const routes = [
 		{
@@ -32,7 +33,8 @@ function App({
 			path: '/Settings/*',
 			element: (
 				<Settings
-					loginResponse={loginResponse}
+					campaign={Campaign}
+					setCampaign={setCampaign}
 					credentials={credentials}
 					setCredentials={setCredentials}
 					renderLogin={renderLogin}
