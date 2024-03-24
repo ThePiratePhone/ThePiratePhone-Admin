@@ -9,13 +9,13 @@ function ChangeCampaignName({ credentials }: { credentials: Credentials }) {
 	const [ButtonValue, setButtonValue] = useState('Valider');
 	const navigate = useNavigate();
 
-	function modify(password: string) {
+	function modify(name: string) {
 		return new Promise<boolean>(resolve => {
 			axios
 				.post(credentials.URL + '/admin/campaign/changeCampaignPassword', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newCampaignCode: password
+					newCampaignName: name
 				})
 				.then(() => {
 					resolve(true);
@@ -33,15 +33,9 @@ function ChangeCampaignName({ credentials }: { credentials: Credentials }) {
 		setButtonValue('Vérification...');
 		const password = (document.getElementById('password') as HTMLInputElement).value;
 
-		if (password == credentials.content.password) {
-			setButtonDisabled(false);
-			setButtonValue("La clé est identique à l'ancienne");
-			return;
-		}
-
 		if (password == '') {
 			setButtonDisabled(false);
-			setButtonValue('La clé ne peut pas être vide');
+			setButtonValue('Le nom ne peut pas être vide');
 			return;
 		}
 
@@ -64,12 +58,13 @@ function ChangeCampaignName({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="GenericPage">
-			<h1>Changer la clé d'accès de la campagne</h1>
+			<h1>Changer le nom de la campagne</h1>
 			<div>
 				<input
-					id="password"
-					type="password"
-					placeholder="Nouvelle clé"
+					id="name"
+					type="text"
+					placeholder="Nom de la campagne"
+					defaultValue={'Nom de base'}
 					className="inputField"
 					disabled={ButtonDisabled}
 					onChange={change}

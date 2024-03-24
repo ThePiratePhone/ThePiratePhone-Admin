@@ -21,17 +21,28 @@ type Client = {
 	area: string;
 	data: {
 		[key: string]: Array<{
-			status: Satisfaction;
+			status: CallStatus;
 			caller: string;
+			satisfaction: Satisfaction;
+			startCall: Date;
+			endCall: Date;
 		}>;
 	};
 };
 
-type Satisfaction = 'called' | 'not called' | 'not answered' | 'inprogress';
+type Satisfaction = -2 | -1 | 0 | 1 | 2;
+
+type CallStatus = 'called' | 'not called' | 'not answered' | 'inprogress';
 
 type ClientInfos = {
 	client: Client;
-	callers: Array<{ id: string; name: string; phone: string; nbCall: number; calls: any }>;
+	callers: Array<Caller>;
+};
+
+type Caller = {
+	id: string;
+	name: string;
+	phone: string;
 };
 
 type LoginResponse = {

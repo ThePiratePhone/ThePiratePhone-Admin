@@ -26,4 +26,39 @@ function mobileCheck() {
 	});
 }
 
-export { cleanNumber, mobileCheck };
+function cleanStatus(status: CallStatus) {
+	switch (status) {
+		case 'called':
+			return 'Appelé';
+		case 'not called':
+			return 'Pas appelé';
+		case 'not answered':
+			return 'Pas de réponse';
+		case 'inprogress':
+			return 'En cours';
+	}
+}
+
+function cleanSatisfaction(satisfaction: Satisfaction) {
+	switch (satisfaction) {
+		case -2:
+			return 'A retirer';
+		case -1:
+			return 'Pas interessé';
+		case 0:
+			return 'Pas de réponse';
+		case 1:
+			return 'Pas voté pour nous';
+		case 2:
+			return 'Voté pour nous';
+	}
+}
+
+function getCallDuration(start: Date, end: Date) {
+	const duration = Math.abs(end.getTime() - start.getTime());
+	const date = new Date(1970, 0, 1, 0, Math.floor(duration / (1000 * 60)), Math.floor(duration / 1000));
+
+	return date;
+}
+
+export { cleanNumber, cleanSatisfaction, cleanStatus, getCallDuration, mobileCheck };

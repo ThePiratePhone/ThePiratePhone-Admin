@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, Route, Routes, useParams } from 'react-router-dom';
 
-import { cleanNumber } from '../../Utils';
+import { cleanNumber, cleanSatisfaction, cleanStatus, getCallDuration } from '../../Utils';
 import E404 from '../E404';
 
 function Client({ clients }: { clients: Array<Client> | null }) {
@@ -151,7 +151,8 @@ function Search({ credentials }: { credentials: Credentials }) {
 
 function ClientDetail({ credentials, campaign }: { credentials: Credentials; campaign: Campaign }) {
 	const { phone } = useParams();
-	const [Client, setClient] = useState<ClientInfos | null | undefined>(undefined);
+	const [Client, setClient] = useState<Client | null | undefined>(undefined);
+	const [Calls, setCalls] = useState<Array<JSX.Element> | undefined>(undefined);
 
 	function getInfos(phone: string) {
 		return new Promise<ClientInfos | undefined>(resolve => {
@@ -163,7 +164,13 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 				})
 				.then(res => {
 					if (res.data.OK) {
-						console.log(res.data.data);
+						res.data.data.client.data[campaign.id] = res.data.data.client.data[campaign.id].map(
+							(el: any) => {
+								el.startCall = new Date(el.startCall);
+								el.endCall = new Date(el.endCall);
+								return el;
+							}
+						);
 						resolve(res.data.data);
 					} else {
 						resolve(undefined);
@@ -178,32 +185,59 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 
 	useEffect(() => {
 		getInfos(phone as string).then(res => {
-			setClient(res);
+			if (res) {
+				setClient(res.client);
+				if (!res.callers.length) {
+					return;
+				}
+				const calls = new Array();
+				calls.push(
+					<b key={-5}>Date/Heure</b>,
+					<b key={-4}>Durée</b>,
+					<b key={-3}>Appelant</b>,
+					<b key={-2}>Status</b>,
+					<b key={-1}>Résultat</b>
+				);
+				res.client.data[campaign.id].forEach((element, i) => {
+					if (element.status == 'not called') {
+						return;
+					}
+					const duration = getCallDuration(element.startCall, element.endCall);
+					calls.push(
+						<span key={i + 'a'}>
+							<span className="Phone">{element.startCall.toLocaleDateString()}</span>
+							{' à '}
+							<span className="Phone">{element.startCall.toLocaleTimeString()}</span>
+						</span>,
+						<span key={i + 'b'} className="Phone">
+							{duration.getHours() + duration.getMinutes() + duration.getSeconds() != 0
+								? duration.toLocaleTimeString()
+								: 'Inconnue'}
+						</span>,
+						<span key={i + 'c'}>{res.callers.find(el => el.id == element.caller)?.name}</span>,
+						<span key={i + 'd'}>{cleanStatus(element.status)}</span>,
+						<span key={i + 'e'}>{cleanSatisfaction(element.satisfaction)}</span>
+					);
+				});
+				setCalls(calls);
+			}
 		});
 	}, []);
-
-	console.log(Client?.client.data[campaign.id]);
-	console.log(Client?.callers);
 
 	return (
 		<div className="GenericPage">
 			<h1>Informations d'un client</h1>
-			<p>
+			<span>
 				<span>
-					Nom:<h4>{Client ? Client?.client.name : 'Récupération en cours...'}</h4>
+					Nom:<h4>{Client ? Client.name : 'Récupération en cours...'}</h4>
 				</span>
 				<span>
-					Téléphone:{' '}
-					<span className="Phone">{Client ? cleanNumber(Client?.client.phone as string) : ''}</span>
+					Téléphone: <span className="Phone">{Client ? cleanNumber(Client.phone as string) : ''}</span>
 				</span>
-			</p>
+			</span>
 			<div>
 				<b>Appels:</b>
-				{Client
-					? Client.client.data[campaign.id]?.map(element => {
-							return <>{element.status}</>;
-					  })
-					: ''}
+				<div className="ClientCalls">{Calls}</div>
 			</div>
 		</div>
 	);

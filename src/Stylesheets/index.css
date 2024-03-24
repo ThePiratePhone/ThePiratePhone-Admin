@@ -255,7 +255,7 @@ h4 {
 	font-size: 3vh;
 }
 
-.GenericPage>p>span {
+.GenericPage>span>span {
 	display: flex;
 	justify-content: space-between;
 	min-width: 15vw;
@@ -361,4 +361,18 @@ h4 {
 .HoursChange>input {
 	font-size: 1.3em;
 	font-family: 'Montserrat';
+}
+
+.ClientCalls {
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+	align-items: center;
+	width: 50vw;
+	gap: 1vh 0;
+}
+
+.ClientCalls>div {
+	display: flex;
+	width: 60vw;
+	justify-content: space-evenly;
 }
