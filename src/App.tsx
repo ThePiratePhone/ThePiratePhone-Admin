@@ -27,7 +27,7 @@ function App({
 		},
 		{
 			path: '/Clients/*',
-			element: <Clients credentials={Credentials} />
+			element: <Clients campaign={Campaign} credentials={Credentials} />
 		},
 		{
 			path: '/Settings/*',
@@ -35,7 +35,7 @@ function App({
 				<Settings
 					campaign={Campaign}
 					setCampaign={setCampaign}
-					credentials={credentials}
+					credentials={Credentials}
 					setCredentials={setCredentials}
 					renderLogin={renderLogin}
 				/>

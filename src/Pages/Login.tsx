@@ -20,6 +20,7 @@ function Login(credentials: Credentials) {
 				} else {
 					const loginResponse: LoginResponse = response.data.data;
 					const campaign = {
+						id: loginResponse.actualCampaignId,
 						name: loginResponse.actualCampaignName,
 						calls: {
 							max: loginResponse.actualCampaignMaxCall,
@@ -75,7 +76,7 @@ function LoginPage({
 		if (window.localStorage.getItem('credentials') != null) {
 			testOldToken(URL).then(result => {
 				if (result) {
-					return renderApp(JSON.parse(window.localStorage.getItem('credentials') as string), result);
+					renderApp(JSON.parse(window.localStorage.getItem('credentials') as string), result);
 				} else {
 					window.localStorage.removeItem('credentials');
 					load();
@@ -84,7 +85,7 @@ function LoginPage({
 		} else {
 			load();
 		}
-	}, [renderApp]);
+	}, []);
 
 	function load() {
 		getAreas(URL).then(areas => {

@@ -149,9 +149,9 @@ function Search({ credentials }: { credentials: Credentials }) {
 	);
 }
 
-function ClientDetail({ credentials }: { credentials: Credentials }) {
+function ClientDetail({ credentials, campaign }: { credentials: Credentials; campaign: Campaign }) {
 	const { phone } = useParams();
-	const [Client, setClient] = useState<ClientInfos | undefined>(undefined);
+	const [Client, setClient] = useState<ClientInfos | null | undefined>(undefined);
 
 	function getInfos(phone: string) {
 		return new Promise<ClientInfos | undefined>(resolve => {
@@ -182,19 +182,38 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 		});
 	}, []);
 
+	console.log(Client?.client.data[campaign.id]);
+	console.log(Client?.callers);
+
 	return (
-		<div className="ExplorePage">
+		<div className="GenericPage">
 			<h1>Informations d'un client</h1>
-			<div>{Client?.client.name}</div>
+			<p>
+				<span>
+					Nom:<h4>{Client ? Client?.client.name : 'Récupération en cours...'}</h4>
+				</span>
+				<span>
+					Téléphone:{' '}
+					<span className="Phone">{Client ? cleanNumber(Client?.client.phone as string) : ''}</span>
+				</span>
+			</p>
+			<div>
+				<b>Appels:</b>
+				{Client
+					? Client.client.data[campaign.id]?.map(element => {
+							return <>{element.status}</>;
+					  })
+					: ''}
+			</div>
 		</div>
 	);
 }
 
-function Explore({ credentials }: { credentials: Credentials }) {
+function Explore({ credentials, campaign }: { credentials: Credentials; campaign: Campaign }) {
 	return (
 		<Routes>
 			<Route path="/" element={<Search credentials={credentials} />} />
-			<Route path="/:phone" element={<ClientDetail credentials={credentials} />} />
+			<Route path="/:phone" element={<ClientDetail campaign={campaign} credentials={credentials} />} />
 			<Route path="/*" element={<E404 />} />
 		</Routes>
 	);

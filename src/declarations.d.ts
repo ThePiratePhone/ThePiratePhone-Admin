@@ -19,14 +19,23 @@ type Client = {
 	name: stirng;
 	phone: string;
 	area: string;
+	data: {
+		[key: string]: Array<{
+			status: Satisfaction;
+			caller: string;
+		}>;
+	};
 };
+
+type Satisfaction = 'called' | 'not called' | 'not answered' | 'inprogress';
 
 type ClientInfos = {
 	client: Client;
-	callers: Array<{ id: String; name: string; phone: string; nbCall: string; timeInCall: number }>;
+	callers: Array<{ id: string; name: string; phone: string; nbCall: number; calls: any }>;
 };
 
 type LoginResponse = {
+	actualCampaignId: string;
 	actualCampaignName: string;
 	actualCampaignCallStart: Date;
 	actualCampaignCallEnd: Date;
@@ -35,6 +44,7 @@ type LoginResponse = {
 };
 
 type Campaign = {
+	id: string;
 	name: string;
 	calls: {
 		max: number;

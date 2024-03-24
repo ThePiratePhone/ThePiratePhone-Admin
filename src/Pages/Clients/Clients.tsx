@@ -48,7 +48,7 @@ function getClientCount(credentials: Credentials) {
 	});
 }
 
-function Clients({ credentials }: { credentials: Credentials }) {
+function Clients({ credentials, campaign }: { credentials: Credentials; campaign: Campaign }) {
 	const [ClientCount, setClientCount] = useState<number | null>(null);
 	const location = useLocation();
 
@@ -67,7 +67,7 @@ function Clients({ credentials }: { credentials: Credentials }) {
 		},
 		{
 			path: '/Explore/*',
-			element: <Search credentials={credentials} />
+			element: <Search campaign={campaign} credentials={credentials} />
 		},
 		{
 			path: '/Remove',
