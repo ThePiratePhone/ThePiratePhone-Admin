@@ -12,7 +12,7 @@ import Remove from './Remove';
 
 function ClientsHome({ clientCount }: { clientCount: number | null }) {
 	return (
-		<div className="Clients">
+		<div className="Settings">
 			<h1>Clients</h1>
 			<div>
 				<div>
@@ -44,7 +44,10 @@ function getClientCount(credentials: Credentials) {
 					resolve(null);
 				}
 			})
-			.catch(() => resolve(null));
+			.catch(err => {
+				console.error(err);
+				resolve(null);
+			});
 	});
 }
 

@@ -21,7 +21,7 @@ function NavBar() {
 			image: People
 		},
 		{
-			value: '/Users',
+			value: '/Callers',
 			image: Headphone
 		},
 		{

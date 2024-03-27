@@ -2,28 +2,22 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../../../Components/Button';
+import Button from '../../Components/Button';
+import { startWithVowel } from '../../Utils';
 
-function ChangeCampaignName({
-	credentials,
-	campaign,
-	setCampaign
-}: {
-	credentials: Credentials;
-	campaign: Campaign;
-	setCampaign: (campaign: Campaign) => void;
-}) {
+function ChangeCallerPassword({ credentials, caller }: { credentials: Credentials; caller: Caller }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
 	const [ButtonValue, setButtonValue] = useState('Valider');
 	const navigate = useNavigate();
 
-	function modify(name: string) {
+	function modify(pin: string) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(credentials.URL + '/admin/campaign/changeName', {
+				.post(credentials.URL + '/admin/caller/changeCallerPassword', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newName: name
+					Callerphone: caller.phone,
+					newPassword: pin
 				})
 				.then(() => {
 					resolve(true);
@@ -39,19 +33,17 @@ function ChangeCampaignName({
 		if (ButtonDisabled) return;
 		setButtonDisabled(true);
 		setButtonValue('Vérification...');
-		const name = (document.getElementById('value') as HTMLInputElement).value;
+		const pin = (document.getElementById('pin') as HTMLInputElement).value;
 
-		if (name == '') {
+		if (pin == '') {
 			setButtonDisabled(false);
-			setButtonValue('Le nom ne peut pas être vide');
+			setButtonValue('Le mot de passe ne peut pas être vide');
 			return;
 		}
 
-		modify(name).then(result => {
+		modify(pin).then(result => {
 			if (result) {
-				campaign.name = name;
-				setCampaign(campaign);
-				navigate('/Settings/Campaign');
+				navigate('/Callers');
 				return;
 			} else {
 				setButtonDisabled(false);
@@ -66,18 +58,25 @@ function ChangeCampaignName({
 		}
 	}
 
+	function enter(e: any) {
+		if (e.key == 'Enter') {
+			updatePassword();
+		}
+	}
+
 	return (
 		<div className="GenericPage">
-			<h1>Changer le nom de la campagne</h1>
+			<h1>Changer le pin {startWithVowel(caller.name) ? "d'" + caller.name : 'de ' + caller.name}</h1>
 			<div>
 				<input
-					id="value"
-					type="text"
-					placeholder="Nom de la campagne"
-					defaultValue={campaign.name}
+					id="pin"
+					type="tel"
+					placeholder="Nouveau pin"
 					className="inputField"
 					disabled={ButtonDisabled}
+					maxLength={4}
 					onChange={change}
+					onKeyUp={enter}
 				/>
 				<Button
 					type={ButtonDisabled ? 'ButtonDisabled' : undefined}
@@ -89,4 +88,4 @@ function ChangeCampaignName({
 	);
 }
 
-export default ChangeCampaignName;
+export default ChangeCallerPassword;

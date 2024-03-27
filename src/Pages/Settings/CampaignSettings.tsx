@@ -7,6 +7,7 @@ function CampaignSettings() {
 			<div>
 				<Button link="ChangeKey" value="Changer la clé d'accès" />
 				<Button link="ChangeHours" value="Changer les horaires d'appel" />
+				<Button link="ChangeName" value="Changer le nom" />
 			</div>
 		</div>
 	);

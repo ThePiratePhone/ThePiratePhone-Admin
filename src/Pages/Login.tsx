@@ -22,6 +22,7 @@ function Login(credentials: Credentials) {
 					const campaign = {
 						id: loginResponse.actualCampaignId,
 						name: loginResponse.actualCampaignName,
+						areaName: loginResponse.areaName,
 						calls: {
 							max: loginResponse.actualCampaignMaxCall,
 							timeBetween: loginResponse.actualCampaignTimeBetweenCall
@@ -73,10 +74,13 @@ function LoginPage({
 	const [Areas, setAreas] = useState<Array<Area>>(new Array());
 
 	useEffect(() => {
-		if (window.localStorage.getItem('credentials') != null) {
+		const credentials = JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials | null;
+		if (credentials != null) {
 			testOldToken(URL).then(result => {
 				if (result) {
-					renderApp(JSON.parse(window.localStorage.getItem('credentials') as string), result);
+					credentials.URL = URL;
+					credentials.areaName = result.areaName;
+					renderApp(credentials, result);
 				} else {
 					window.localStorage.removeItem('credentials');
 					load();

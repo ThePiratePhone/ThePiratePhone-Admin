@@ -45,7 +45,16 @@ type Caller = {
 	phone: string;
 };
 
+type CallerInfos = {
+	id: string;
+	name: string;
+	phone: string;
+	totalTime: Date;
+	nbCalls: number;
+};
+
 type LoginResponse = {
+	areaName: string;
 	actualCampaignId: string;
 	actualCampaignName: string;
 	actualCampaignCallStart: Date;
@@ -55,6 +64,7 @@ type LoginResponse = {
 };
 
 type Campaign = {
+	areaName: string;
 	id: string;
 	name: string;
 	calls: {

@@ -7,6 +7,7 @@ import Clients from './Pages/Clients/Clients';
 import Dashboard from './Pages/Dashboard';
 import E404 from './Pages/E404';
 import Settings from './Pages/Settings/Settings';
+import Callers from './Pages/Callers/Callers';
 
 function App({
 	credentials,
@@ -28,6 +29,10 @@ function App({
 		{
 			path: '/Clients/*',
 			element: <Clients campaign={Campaign} credentials={Credentials} />
+		},
+		{
+			path: '/Callers/*',
+			element: <Callers credentials={Credentials} />
 		},
 		{
 			path: '/Settings/*',

@@ -4,14 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../Components/Button';
 
-function ChangeCampaignName({
+function ChangeAreaName({
 	credentials,
-	campaign,
-	setCampaign
+	setCredentials
 }: {
 	credentials: Credentials;
-	campaign: Campaign;
-	setCampaign: (campaign: Campaign) => void;
+	setCredentials: (credentials: Credentials) => void;
 }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
 	const [ButtonValue, setButtonValue] = useState('Valider');
@@ -20,7 +18,7 @@ function ChangeCampaignName({
 	function modify(name: string) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(credentials.URL + '/admin/campaign/changeName', {
+				.post(credentials.URL + '/admin/area/changeName', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
 					newName: name
@@ -49,9 +47,9 @@ function ChangeCampaignName({
 
 		modify(name).then(result => {
 			if (result) {
-				campaign.name = name;
-				setCampaign(campaign);
-				navigate('/Settings/Campaign');
+				credentials.areaName = name;
+				setCredentials(credentials);
+				navigate('/Settings/Area');
 				return;
 			} else {
 				setButtonDisabled(false);
@@ -68,13 +66,13 @@ function ChangeCampaignName({
 
 	return (
 		<div className="GenericPage">
-			<h1>Changer le nom de la campagne</h1>
+			<h1>Changer le nom de l'organisation</h1>
 			<div>
 				<input
 					id="value"
 					type="text"
-					placeholder="Nom de la campagne"
-					defaultValue={campaign.name}
+					placeholder="Nom de l'organisation"
+					defaultValue={credentials.areaName}
 					className="inputField"
 					disabled={ButtonDisabled}
 					onChange={change}
@@ -89,4 +87,4 @@ function ChangeCampaignName({
 	);
 }
 
-export default ChangeCampaignName;
+export default ChangeAreaName;

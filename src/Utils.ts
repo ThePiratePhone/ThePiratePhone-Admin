@@ -61,4 +61,12 @@ function getCallDuration(start: Date, end: Date) {
 	return date;
 }
 
-export { cleanNumber, cleanSatisfaction, cleanStatus, getCallDuration, mobileCheck };
+function clearAccents(value: string) {
+	return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function startWithVowel(value: string) {
+	return ['a', 'e', 'i', 'o', 'u', 'y'].includes(clearAccents(value[0].toLowerCase()));
+}
+
+export { cleanNumber, cleanSatisfaction, cleanStatus, getCallDuration, mobileCheck, startWithVowel };
