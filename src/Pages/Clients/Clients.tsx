@@ -7,10 +7,48 @@ import E404 from '../E404';
 import AddClients from './AddClients';
 import AddOneClient from './AddOneClient';
 import Search from './Explore';
+import exportCSV from './Export';
 import Purge from './Purge';
 import Remove from './Remove';
 
-function ClientsHome({ clientCount }: { clientCount: number | null }) {
+function ClientsHome({
+	clientCount,
+	campaign,
+	credentials
+}: {
+	clientCount: number | null;
+	campaign: Campaign;
+	credentials: Credentials;
+}) {
+	const [ButtonDisabled, setButtonDisabled] = useState(false);
+	const [ButtonValue, setButtonValue] = useState('Exporter les clients');
+
+	function exp() {
+		setButtonDisabled(true);
+		setButtonValue('Exportation en cours...');
+		exportCSV(credentials).then(res => {
+			if (res) {
+				const blob = new Blob([res], { type: 'text/csv' });
+				saveFile(blob);
+				setButtonDisabled(false);
+				setButtonValue('Exporté !');
+			} else {
+				setButtonDisabled(false);
+				setButtonValue('Une erreur est survenue');
+			}
+		});
+	}
+
+	async function saveFile(blob: Blob) {
+		const a = document.createElement('a');
+		a.download = 'Export ' + campaign.name + ' ' + new Date().toLocaleDateString() + '.csv';
+		a.href = URL.createObjectURL(blob);
+		a.addEventListener('click', () => {
+			setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+		});
+		a.click();
+	}
+
 	return (
 		<div className="Settings">
 			<h1>Clients</h1>
@@ -23,6 +61,7 @@ function ClientsHome({ clientCount }: { clientCount: number | null }) {
 				<Button value="Ajouter un client" link="AddOne" />
 				<Button value="Importer un fichier" link="Add" />
 				<Button value="Rechercher un client" link="Explore" />
+				<Button type={ButtonDisabled ? 'ButtonDisabled' : ''} value={ButtonValue} onclick={exp} />
 				<Button value="Retier un client" link="Remove" />
 				<Button value="Retirer tous les clients" type="RedButton" link="Purge" />
 			</div>
@@ -58,7 +97,7 @@ function Clients({ credentials, campaign }: { credentials: Credentials; campaign
 	const routes = [
 		{
 			path: '/',
-			element: <ClientsHome clientCount={ClientCount} />
+			element: <ClientsHome campaign={campaign} credentials={credentials} clientCount={ClientCount} />
 		},
 		{
 			path: '/AddOne',
