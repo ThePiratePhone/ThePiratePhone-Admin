@@ -2,9 +2,10 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
+import Button from '../../Components/Button';
 import { cleanNumber, startWithVowel } from '../../Utils';
 import E404 from '../E404';
-import Button from '../../Components/Button';
+import ChangeCallerName from './ChangeName';
 import ChangeCallerPassword from './ChangePassword';
 
 function Caller({ callers }: { callers: Array<Caller> | null }) {
@@ -67,9 +68,9 @@ function Search({ credentials }: { credentials: Credentials }) {
 	);
 }
 
-function CallerDetail({ credentials }: { credentials: Credentials }) {
-	const { phone } = useParams();
-	const [Page, setPage] = useState(<div className="GenericPage"></div>);
+function CallerDetailMain({ credentials, caller }: { credentials: Credentials; caller: CallerInfos }) {
+	const [Caller, setCaller] = useState<CallerInfos>(caller);
+	const [Page, setPage] = useState(<DefaultPage />);
 
 	const navigate = useNavigate();
 
@@ -92,57 +93,73 @@ function CallerDetail({ credentials }: { credentials: Credentials }) {
 		});
 	}
 
-	function RemovePage({ caller }: { caller: Caller }) {
+	function RemovePage() {
 		return (
 			<div className="GenericPage RemovePage">
-				<h1>Supprimer {caller.name}</h1>
+				<h1>Supprimer {Caller.name}</h1>
 				<div>
-					<span>Voulez-vous vraiment supprimer {caller.name} ?</span>
-					<Button value="Supprimer" type="RedButton" onclick={() => remove(caller.phone)} />
+					<span>Voulez-vous vraiment supprimer {Caller.name} ?</span>
+					<Button value="Supprimer" type="RedButton" onclick={() => remove(Caller.phone)} />
 				</div>
 			</div>
 		);
 	}
 
-	function DefaultPage({ caller }: { caller: CallerInfos }) {
+	function DefaultPage() {
 		return (
 			<div className="GenericPage CallerPage">
-				<h1>Informations {startWithVowel(caller.name) ? "d'" + caller.name : 'de ' + caller.name}</h1>
+				<h1>Informations {startWithVowel(Caller.name) ? "d'" + Caller.name : 'de ' + Caller.name}</h1>
 				<span>
 					<span>
-						Nom:<h4>{caller.name}</h4>
+						Nom:<h4>{Caller.name}</h4>
 					</span>
 					<span>
-						Téléphone: <span className="Phone">{cleanNumber(caller.phone)}</span>
+						Téléphone: <span className="Phone">{cleanNumber(Caller.phone)}</span>
 					</span>
 					<span>
-						Nombre d'appel: <span className="Phone">{caller.nbCalls}</span>
+						Nombre d'appel: <span className="Phone">{Caller.nbCalls}</span>
 					</span>
 					<span>
-						Temps en appel: <span className="Phone">{caller.totalTime.toLocaleTimeString()}</span>
+						Temps en appel: <span className="Phone">{Caller.totalTime.toLocaleTimeString()}</span>
 					</span>
-					<Button
-						value="Modifier le pin"
-						onclick={() => {
-							setPage(
-								<ChangeCallerPassword
-									credentials={credentials}
-									caller={{ id: caller.id, name: caller.name, phone: caller.phone }}
-								/>
-							);
-						}}
-					/>
-					<Button
-						value="Supprimer"
-						type="RedButton"
-						onclick={() => {
-							setPage(<RemovePage caller={caller} />);
-						}}
-					/>
+					<Button value="Modifier le nom" onclick={() => renderPage('name')} />
+					<Button value="Modifier le pin" onclick={() => renderPage('password')} />
+					<Button value="Supprimer" type="RedButton" onclick={() => renderPage('delete')} />
 				</span>
 			</div>
 		);
 	}
+
+	function renderPage(link: 'home' | 'password' | 'name' | 'delete') {
+		if (link == 'password') {
+			setPage(<ChangeCallerPassword credentials={credentials} caller={Caller} next={() => renderPage('home')} />);
+		} else if (link == 'name') {
+			setPage(
+				<ChangeCallerName
+					credentials={credentials}
+					caller={Caller}
+					next={(name: string) => {
+						Caller.name = name;
+						setCaller(Caller);
+						renderPage('home');
+					}}
+				/>
+			);
+		} else if (link == 'delete') {
+			setPage(<RemovePage />);
+		} else {
+			setPage(<DefaultPage />);
+		}
+	}
+
+	return Page;
+}
+
+function CallerDetail({ credentials }: { credentials: Credentials }) {
+	const { phone } = useParams();
+	const [Page, setPage] = useState(<div className="GenericPage"></div>);
+
+	const navigate = useNavigate();
 
 	function getInfos() {
 		return new Promise<CallerInfos | undefined>(resolve => {
@@ -179,7 +196,7 @@ function CallerDetail({ credentials }: { credentials: Credentials }) {
 	useEffect(() => {
 		getInfos().then(res => {
 			if (res) {
-				setPage(<DefaultPage caller={res} />);
+				setPage(<CallerDetailMain credentials={credentials} caller={res} />);
 			} else {
 				navigate('/Callers');
 			}
