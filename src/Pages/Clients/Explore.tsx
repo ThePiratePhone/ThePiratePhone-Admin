@@ -236,8 +236,14 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 				</span>
 			</span>
 			<div>
-				<b>Appels:</b>
-				<div className="ClientCalls">{Calls}</div>
+				{Calls ? (
+					<>
+						<b>Appels:</b>
+						<div className="ClientCalls">{Calls}</div>
+					</>
+				) : (
+					<b>Aucun appel</b>
+				)}
 			</div>
 		</div>
 	);
