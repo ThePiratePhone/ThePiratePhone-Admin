@@ -27,6 +27,7 @@ function Caller({ callers }: { callers: Array<Caller> | null }) {
 }
 
 function Search({ credentials }: { credentials: Credentials }) {
+	const [AllCallers, setAllCallers] = useState<Array<Caller> | null>(null);
 	const [Callers, setCallers] = useState<Array<Caller> | null>(null);
 
 	function getCallers() {
@@ -50,9 +51,105 @@ function Search({ credentials }: { credentials: Credentials }) {
 		});
 	}
 
+	function searchPhone(phone: string) {
+		return new Promise<Array<Caller> | undefined>(resolve => {
+			axios
+				.post(credentials.URL + '/admin/caller/searchByPhone', {
+					area: credentials.content.areaId,
+					adminCode: credentials.content.password,
+					phone: phone
+				})
+				.then(res => {
+					if (res.data.OK) {
+						resolve(res.data.data);
+					} else {
+						resolve(undefined);
+					}
+				})
+				.catch(err => {
+					console.error(err);
+					resolve(undefined);
+				});
+		});
+	}
+
+	function searchName(name: string) {
+		return new Promise<Array<Caller> | undefined>(resolve => {
+			axios
+				.post(credentials.URL + '/admin/caller/searchByName', {
+					area: credentials.content.areaId,
+					adminCode: credentials.content.password,
+					name: name
+				})
+				.then(res => {
+					if (res.data.OK) {
+						resolve(res.data.data);
+					} else {
+						resolve(undefined);
+					}
+				})
+				.catch(err => {
+					console.error(err);
+					resolve(undefined);
+				});
+		});
+	}
+
+	function action() {
+		const phone = (document.getElementById('phone') as HTMLInputElement).value.trim();
+		const name = (document.getElementById('name') as HTMLInputElement).value.trim();
+
+		if (name == '' && phone == '') {
+			setCallers(AllCallers);
+			return;
+		}
+		if (phone != '') {
+			searchPhone(phone).then(res => {
+				if (!res) return;
+				setCallers(res);
+			});
+		} else {
+			searchName(name).then(res => {
+				if (!res) return;
+				setCallers(res);
+			});
+		}
+	}
+
+	function changePhone() {
+		(document.getElementById('name') as HTMLInputElement).value = '';
+
+		const oldValue = (document.getElementById('phone') as HTMLInputElement).value;
+		setTimeout(() => {
+			const value = (document.getElementById('phone') as HTMLInputElement).value;
+			if (oldValue == value) {
+				action();
+			}
+		}, 500);
+	}
+
+	function changeName() {
+		(document.getElementById('phone') as HTMLInputElement).value = '';
+
+		const oldValue = (document.getElementById('name') as HTMLInputElement).value;
+		setTimeout(() => {
+			const value = (document.getElementById('name') as HTMLInputElement).value;
+			if (oldValue == value) {
+				action();
+			}
+		}, 500);
+	}
+
+	function enter(e: any) {
+		if (e.key == 'Enter') {
+			action();
+		}
+	}
+
 	useEffect(() => {
 		getCallers().then(res => {
 			if (res) {
+				setAllCallers(res);
 				setCallers(res);
 			}
 		});
@@ -62,6 +159,24 @@ function Search({ credentials }: { credentials: Credentials }) {
 		<div className="ExplorePage">
 			<h1>Gérer les appelants</h1>
 			<div>
+				<div>
+					<input
+						onKeyUp={enter}
+						id="phone"
+						placeholder="Téléphone"
+						type="tel"
+						className="inputField"
+						onChange={changePhone}
+					/>
+					<input
+						onKeyUp={enter}
+						id="name"
+						placeholder="Nom"
+						type="text"
+						className="inputField"
+						onChange={changeName}
+					/>
+				</div>
 				<Caller callers={Callers} />
 			</div>
 		</div>
