@@ -6,7 +6,7 @@ function AreaSettings() {
 			<h1>Paramètres de l'organisation</h1>
 			<div>
 				<Button link="ChangeName" value="Changer le nom" />
-				<Button link="ChangePassword" value="Changer le mot de passe" />
+				<Button link="ChangePassword" value="Changer le mot de passe d'administration" />
 			</div>
 		</div>
 	);

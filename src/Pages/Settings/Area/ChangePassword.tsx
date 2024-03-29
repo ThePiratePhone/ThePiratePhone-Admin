@@ -72,7 +72,7 @@ function ChangeAreaPassword({
 
 	return (
 		<div className="GenericPage">
-			<h1>Changer le mot de passe de l'organisation</h1>
+			<h1>Changer le mot de passe d'administration</h1>
 			<div>
 				<input
 					id="password"
