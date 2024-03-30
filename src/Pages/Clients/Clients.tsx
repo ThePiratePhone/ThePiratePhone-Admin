@@ -26,10 +26,8 @@ function ClientsHome({
 	function exp() {
 		setButtonDisabled(true);
 		setButtonValue('Exportation en cours...');
-		exportCSV(credentials).then(res => {
+		exportCSV(credentials, campaign).then(res => {
 			if (res) {
-				const blob = new Blob([res], { type: 'text/csv' });
-				saveFile(blob);
 				setButtonDisabled(false);
 				setButtonValue('Exporté !');
 			} else {
@@ -37,16 +35,6 @@ function ClientsHome({
 				setButtonValue('Une erreur est survenue');
 			}
 		});
-	}
-
-	async function saveFile(blob: Blob) {
-		const a = document.createElement('a');
-		a.download = 'Export ' + campaign.name + ' ' + new Date().toLocaleDateString() + '.csv';
-		a.href = URL.createObjectURL(blob);
-		a.addEventListener('click', () => {
-			setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
-		});
-		a.click();
 	}
 
 	return (
