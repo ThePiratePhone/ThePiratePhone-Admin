@@ -272,7 +272,13 @@ function CallerDetailMain({ credentials, caller }: { credentials: Credentials; c
 
 function CallerDetail({ credentials }: { credentials: Credentials }) {
 	const { phone } = useParams();
-	const [Page, setPage] = useState(<div className="GenericPage"></div>);
+	const [Page, setPage] = useState(
+		<div className="GenericPage">
+			<div>
+				<b>Récupération en cours...</b>
+			</div>
+		</div>
+	);
 
 	const navigate = useNavigate();
 
