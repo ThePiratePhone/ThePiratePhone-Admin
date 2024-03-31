@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../Components/Button';
 
-function ChangeCallTime({
+function ChangeCallCount({
 	credentials,
 	campaign,
 	setCampaign
@@ -17,13 +17,13 @@ function ChangeCallTime({
 	const [ButtonValue, setButtonValue] = useState('Valider');
 	const navigate = useNavigate();
 
-	function modify(time: number) {
+	function modify(value: number) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(credentials.URL + '/admin/changeTimeBetwenCall', {
+				.post(credentials.URL + '/admin/changeNumberMaxCall', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newTimeBetweenCall: time
+					newNumberMaxCall: value.toString()
 				})
 				.then(() => {
 					resolve(true);
@@ -35,17 +35,15 @@ function ChangeCallTime({
 		});
 	}
 
-	function updateTime() {
+	function updateCount() {
 		if (ButtonDisabled) return;
 		setButtonDisabled(true);
 		setButtonValue('Vérification...');
-		const time = (document.getElementById('time') as HTMLInputElement).value.split(':');
-
-		const value = parseInt(time[0]) * (3600 * 1000) + parseInt(time[1]) * (60 * 1000);
+		const value = parseInt((document.getElementById('value') as HTMLInputElement).value);
 
 		modify(value).then(result => {
 			if (result) {
-				campaign.calls.timeBetween = value;
+				campaign.calls.max = value;
 				setCampaign(campaign);
 				navigate('/Settings/Campaign');
 				return;
@@ -56,36 +54,31 @@ function ChangeCallTime({
 		});
 	}
 
-	function change() {
-		if (ButtonValue != 'Valider') {
-			setButtonValue('Valider');
-		}
-	}
-
-	const value =
-		(campaign.calls.timeBetween / (3600 * 1000)).toFixed().toString().padStart(2, '0') +
-		':' +
-		((campaign.calls.timeBetween % 60000) / 60000).toFixed().toString().padStart(2, '0');
-
 	return (
 		<div className="GenericPage">
-			<h1>Changer le temps entre les appels</h1>
+			<h1>Changer le nombre d'appel</h1>
 			<div>
-				<span>Cette valeur décrit le temps d'attente avant de rappeler un client qui n'a pas répondu.</span>
+				<span>
+					Chaque client sera appelé une seule fois. Cette valeur décrit le nombre d'appel à réeffectuer si le
+					client ne répond pas.
+				</span>
 				<div className="HoursChange">
-					<input
-						defaultValue={value}
-						id="time"
-						type="time"
-						className="inputField"
-						disabled={ButtonDisabled}
-						onChange={change}
-					/>
+					<select id="value" defaultValue={campaign.calls.max} className="inputField">
+						{[1, 2, 3, 4, 5, 10, 20].map((value, i) => (
+							<option key={i} value={value}>
+								{value}
+							</option>
+						))}
+					</select>
 				</div>
-				<Button type={ButtonDisabled ? 'ButtonDisabled' : undefined} value={ButtonValue} onclick={updateTime} />
+				<Button
+					type={ButtonDisabled ? 'ButtonDisabled' : undefined}
+					value={ButtonValue}
+					onclick={updateCount}
+				/>
 			</div>
 		</div>
 	);
 }
 
-export default ChangeCallTime;
+export default ChangeCallCount;

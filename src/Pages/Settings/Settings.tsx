@@ -2,14 +2,15 @@ import { Route, Routes } from 'react-router-dom';
 
 import Button from '../../Components/Button';
 import E404 from '../E404';
+import ChangeAreaName from './Area/ChangeName';
 import ChangeAreaPassword from './Area/ChangePassword';
 import AreaSettings from './AreaSettings';
+import ChangeCallCount from './Campaign/ChangeCallCount';
+import ChangeCallTime from './Campaign/ChangeCallTime';
 import ChangeHours from './Campaign/ChangeHours';
 import ChangeCampaignName from './Campaign/ChangeName';
 import ChangeCampaignPassword from './Campaign/ChangePassword';
 import CampaignSettings from './CampaignSettings';
-import ChangeAreaName from './Area/ChangeName';
-import ChangeCallTime from './Campaign/ChangeCallTime';
 
 function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
 	function logOut() {
@@ -62,6 +63,10 @@ function Settings({
 		{
 			path: '/Campaign',
 			element: <CampaignSettings />
+		},
+		{
+			path: '/Campaign/ChangeCallCount',
+			element: <ChangeCallCount setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
 		},
 		{
 			path: '/Campaign/ChangeCallTime',
