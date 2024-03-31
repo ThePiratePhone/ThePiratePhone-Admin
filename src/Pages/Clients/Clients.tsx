@@ -39,19 +39,19 @@ function ClientsHome({
 
 	return (
 		<div className="Settings">
-			<h1>Clients</h1>
+			<h1>Client·es</h1>
 			<div>
 				<div>
-					Nombre de client: <span className="Phone">{clientCount == null ? '...' : clientCount}</span>
+					Nombre de client·e: <span className="Phone">{clientCount == null ? '...' : clientCount}</span>
 				</div>
 			</div>
 			<div>
-				<Button value="Ajouter un client" link="AddOne" />
+				<Button value="Ajouter un·e client·e" link="AddOne" />
 				<Button value="Importer un fichier" link="Add" />
-				<Button value="Rechercher un client" link="Explore" />
+				<Button value="Rechercher un·e client·e" link="Explore" />
 				<Button type={ButtonDisabled ? 'ButtonDisabled' : ''} value={ButtonValue} onclick={exp} />
-				<Button value="Retier un client" link="Remove" />
-				<Button value="Retirer tous les clients" type="RedButton" link="Purge" />
+				<Button value="Retier un·e client·e" link="Remove" />
+				<Button value="Retirer tous les client·es" type="RedButton" link="Purge" />
 			</div>
 		</div>
 	);

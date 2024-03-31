@@ -41,7 +41,7 @@ function ChangeCallTime({
 		setButtonValue('Vérification...');
 		const time = (document.getElementById('time') as HTMLInputElement).value.split(':');
 
-		const value = parseInt(time[0]) * (3600 * 1000) + parseInt(time[1]) * (60 * 1000);
+		const value = parseInt(time[0]) * 3_600_000 + parseInt(time[1]) * 60_000;
 
 		modify(value).then(result => {
 			if (result) {
@@ -63,15 +63,17 @@ function ChangeCallTime({
 	}
 
 	const value =
-		(campaign.calls.timeBetween / (3600 * 1000)).toFixed().toString().padStart(2, '0') +
+		(campaign.calls.timeBetween / 3_600_000).toFixed().toString().padStart(2, '0') +
 		':' +
-		((campaign.calls.timeBetween % 60000) / 60000).toFixed().toString().padStart(2, '0');
+		((campaign.calls.timeBetween % 60_000) / 60_000).toFixed().toString().padStart(2, '0');
 
 	return (
 		<div className="GenericPage">
 			<h1>Changer le temps entre les appels</h1>
 			<div>
-				<span>Cette valeur décrit le temps d'attente avant de rappeler un client qui n'a pas répondu.</span>
+				<span>
+					Cette valeur représente le temps d'attente avant de rappeler un·e client·e qui n'a pas répondu.
+				</span>
 				<div className="HoursChange">
 					<input
 						defaultValue={value}

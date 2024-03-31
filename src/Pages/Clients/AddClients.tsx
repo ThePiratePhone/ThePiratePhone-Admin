@@ -121,7 +121,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="GenericPage">
-			<h1>Importer un fichier de clients</h1>
+			<h1>Importer un fichier de client·es</h1>
 			<p>
 				<b>Seul le format CSV est supporté !</b>
 				<br />

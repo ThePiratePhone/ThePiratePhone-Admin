@@ -69,7 +69,7 @@ function Remove({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="GenericPage">
-			<h1>Supprimer un client</h1>
+			<h1>Supprimer un·e client·e</h1>
 			<div>
 				<input
 					onKeyUp={enter}

@@ -39,11 +39,11 @@ function Purge({ credentials, clientNumber }: { credentials: Credentials; client
 
 	return (
 		<div className="GenericPage">
-			<h1>Supprimer tous les clients</h1>
+			<h1>Supprimer tous·tes les client·es</h1>
 			<div>
 				<h4>
-					Voulez-vous vraiment supprimer {clientNumber ?? 'TOUS les'}{' '}
-					{clientNumber == null || clientNumber < 2 ? 'client' : 'clients'} ?
+					Voulez-vous vraiment supprimer {clientNumber ?? 'TOUS·TES les'}{' '}
+					{clientNumber == null || clientNumber < 2 ? 'client·e' : 'client·es'} ?
 				</h4>
 				<Button onclick={click} value={ButtonValue} type={ButtonDisabled ? 'ButtonDisabled' : 'RedButton'} />
 			</div>

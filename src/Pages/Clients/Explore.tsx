@@ -123,7 +123,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="ExplorePage">
-			<h1>Rechercher un client</h1>
+			<h1>Rechercher un·e client·e</h1>
 			<div>
 				<div>
 					<input
@@ -194,7 +194,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 				calls.push(
 					<b key={-5}>Date/Heure</b>,
 					<b key={-4}>Durée</b>,
-					<b key={-3}>Appelant</b>,
+					<b key={-3}>Appelant·e</b>,
 					<b key={-2}>Status</b>,
 					<b key={-1}>Résultat</b>
 				);
@@ -226,7 +226,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 
 	return (
 		<div className="GenericPage">
-			<h1>Informations d'un client</h1>
+			<h1>Informations d'un· client·e</h1>
 			<span>
 				<span>
 					Nom:<h4>{Client ? Client.name : 'Récupération en cours...'}</h4>

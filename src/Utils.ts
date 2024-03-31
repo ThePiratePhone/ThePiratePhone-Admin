@@ -29,9 +29,9 @@ function mobileCheck() {
 function cleanStatus(status: CallStatus) {
 	switch (status) {
 		case 'called':
-			return 'Appelé';
+			return 'Appelé·e';
 		case 'not called':
-			return 'Pas appelé';
+			return 'Pas appelé·e';
 		case 'not answered':
 			return 'Pas de réponse';
 		case 'inprogress':
@@ -42,9 +42,9 @@ function cleanStatus(status: CallStatus) {
 function cleanSatisfaction(satisfaction: Satisfaction) {
 	switch (satisfaction) {
 		case -2:
-			return 'A retirer';
+			return 'À retirer';
 		case -1:
-			return 'Pas interessé';
+			return 'Pas interessé·e';
 		case 0:
 			return 'Pas de réponse';
 		case 1:
@@ -56,9 +56,8 @@ function cleanSatisfaction(satisfaction: Satisfaction) {
 
 function getCallDuration(start: Date, end: Date) {
 	const duration = Math.abs(end.getTime() - start.getTime());
-	const date = new Date(1970, 0, 1, 0, Math.floor(duration / (1000 * 60)), Math.floor(duration / 1000));
 
-	return date;
+	return new Date(1970, 0, 1, 0, Math.floor(duration / 60_000), Math.floor(duration / 1000));
 }
 
 function clearAccents(value: string) {
