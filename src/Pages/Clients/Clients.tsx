@@ -60,7 +60,7 @@ function ClientsHome({
 function getClientCount(credentials: Credentials) {
 	return new Promise<number | null>(resolve => {
 		axios
-			.post(credentials.URL + '/admin/listClientCampaign', {
+			.post(credentials.URL + '/admin/campaign/listClientCampaign', {
 				adminCode: credentials.content.password,
 				area: credentials.content.areaId
 			})

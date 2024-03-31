@@ -20,7 +20,7 @@ function ChangeCallTime({
 	function modify(time: number) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(credentials.URL + '/admin/changeTimeBetwenCall', {
+				.post(credentials.URL + '/admin/campaign/changeTimeBetwenCall', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
 					newTimeBetweenCall: time

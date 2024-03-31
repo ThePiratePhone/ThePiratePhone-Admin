@@ -44,7 +44,7 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 	function add(phone: string) {
 		return new Promise<number>(resolve => {
 			axios
-				.post(credentials.URL + '/addClientCampaign', {
+				.post(credentials.URL + '/admin/campaign/addClientCampaign', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
 					phone: phone

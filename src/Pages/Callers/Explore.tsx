@@ -33,7 +33,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 	function getCallers() {
 		return new Promise<Array<Caller> | undefined>(resolve => {
 			axios
-				.post(credentials.URL + '/admin/listCaller', {
+				.post(credentials.URL + '/admin/caller/listCaller', {
 					area: credentials.content.areaId,
 					adminCode: credentials.content.password
 				})

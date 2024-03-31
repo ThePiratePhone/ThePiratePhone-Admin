@@ -20,7 +20,7 @@ function ChangeCallCount({
 	function modify(value: number) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(credentials.URL + '/admin/changeNumberMaxCall', {
+				.post(credentials.URL + '/admin/campaign/changeNumberMaxCall', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
 					newNumberMaxCall: value.toString()

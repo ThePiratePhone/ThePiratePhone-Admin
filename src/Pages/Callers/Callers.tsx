@@ -27,7 +27,7 @@ function CallersHome({ callerCount }: { callerCount: number | null }) {
 function getCallerCount(credentials: Credentials) {
 	return new Promise<number | null>(resolve => {
 		axios
-			.post(credentials.URL + '/admin/listCaller', {
+			.post(credentials.URL + '/admin/caller/listCaller', {
 				adminCode: credentials.content.password,
 				area: credentials.content.areaId
 			})
