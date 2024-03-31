@@ -59,8 +59,8 @@ function ChangeCallCount({
 			<h1>Changer le nombre d'appel</h1>
 			<div>
 				<span>
-					Chaque client·e ne sera appelé·e qu'une fois. Cette valeur représente le nombre d'appel à
-					réeffectuer si le·a client·e ne répond pas.
+					Chaque contact ne sera appelé qu'une fois. Cette valeur représente le nombre d'appel à réeffectuer
+					si le contact ne répond pas.
 				</span>
 				<div className="HoursChange">
 					<select id="value" defaultValue={campaign.calls.max} className="inputField">

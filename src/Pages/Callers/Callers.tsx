@@ -10,15 +10,15 @@ import Search from './Explore';
 function CallersHome({ callerCount }: { callerCount: number | null }) {
 	return (
 		<div className="Settings">
-			<h1>Appelants</h1>
+			<h1>Membres</h1>
 			<div>
 				<div>
-					Nombre d'appelants: <span className="Phone">{callerCount == null ? '...' : callerCount}</span>
+					Nombre de membre: <span className="Phone">{callerCount == null ? '...' : callerCount}</span>
 				</div>
 			</div>
 			<div>
-				<Button value="Créer un appelant" link="Create" />
-				<Button value="Gérer les appelants" link="Explore" />
+				<Button value="Créer un·e membre" link="Create" />
+				<Button value="Gérer les membres" link="Explore" />
 			</div>
 		</div>
 	);

@@ -123,7 +123,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="ExplorePage">
-			<h1>Rechercher un·e client·e</h1>
+			<h1>Rechercher un contact</h1>
 			<div>
 				<div>
 					<input
@@ -226,7 +226,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 
 	return (
 		<div className="GenericPage">
-			<h1>Informations d'un· client·e</h1>
+			<h1>Informations d'un contact</h1>
 			<span>
 				<span>
 					Nom:<h4>{Client ? Client.name : 'Récupération en cours...'}</h4>

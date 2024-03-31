@@ -113,7 +113,7 @@ function AddOneClient({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="GenericPage">
-			<h1>Ajouter un·e client·e</h1>
+			<h1>Ajouter un contact</h1>
 			<div>
 				<input
 					onKeyUp={e => next(e, 0)}

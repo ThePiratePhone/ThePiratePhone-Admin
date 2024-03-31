@@ -45,7 +45,7 @@ function Remove({ credentials }: { credentials: Credentials }) {
 			if (res == 0) {
 				navigate('/Clients');
 			} else if (res == 2) {
-				setButtonValue('Client non trouvé');
+				setButtonValue('Contact non trouvé');
 				setButtonDisabled(false);
 			} else if (res == 3) {
 				setButtonValue('Mauvais numéro');
@@ -69,7 +69,7 @@ function Remove({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="GenericPage">
-			<h1>Supprimer un·e client·e</h1>
+			<h1>Supprimer un contact</h1>
 			<div>
 				<input
 					onKeyUp={enter}

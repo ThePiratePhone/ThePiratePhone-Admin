@@ -86,7 +86,7 @@ function CreateCaller({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="GenericPage">
-			<h1>Créer un appelant</h1>
+			<h1>Créer un·e membre</h1>
 			<div>
 				<input
 					onKeyUp={e => next(e, 0)}

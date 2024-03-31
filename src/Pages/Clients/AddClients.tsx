@@ -17,14 +17,14 @@ function ErrorsComp({
 
 	if (errors) {
 		if (errors.length == 0) {
-			return <h4>{numberCount} numéros ajoutés. Aucune erreur détéctée</h4>;
+			return <h4>{numberCount} contacts ajoutés. Aucune erreur détéctée</h4>;
 		}
 	}
 
 	return (
 		<>
 			<h4>
-				{numberCount} numéros ajoutés.{' '}
+				{numberCount} contacts ajoutés.{' '}
 				{errors.length == 1 ? '1 erreur détéctée' : errors.length + ' erreurs détéctées'}
 			</h4>
 			<div className="ClientsErrors">
@@ -121,7 +121,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="GenericPage">
-			<h1>Importer un fichier de client·es</h1>
+			<h1>Importer un fichier de contact</h1>
 			<p>
 				<b>Seul le format CSV est supporté !</b>
 				<br />

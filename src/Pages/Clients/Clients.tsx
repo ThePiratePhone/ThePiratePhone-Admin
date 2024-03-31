@@ -21,7 +21,7 @@ function ClientsHome({
 	credentials: Credentials;
 }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
-	const [ButtonValue, setButtonValue] = useState('Exporter les clients');
+	const [ButtonValue, setButtonValue] = useState('Exporter les contacts');
 
 	function exp() {
 		setButtonDisabled(true);
@@ -39,19 +39,19 @@ function ClientsHome({
 
 	return (
 		<div className="Settings">
-			<h1>Client·es</h1>
+			<h1>Contacts</h1>
 			<div>
 				<div>
-					Nombre de client·e: <span className="Phone">{clientCount == null ? '...' : clientCount}</span>
+					Nombre de contact: <span className="Phone">{clientCount == null ? '...' : clientCount}</span>
 				</div>
 			</div>
 			<div>
-				<Button value="Ajouter un·e client·e" link="AddOne" />
+				<Button value="Ajouter un contact" link="AddOne" />
 				<Button value="Importer un fichier" link="Add" />
-				<Button value="Rechercher un·e client·e" link="Explore" />
+				<Button value="Rechercher un contact" link="Explore" />
 				<Button type={ButtonDisabled ? 'ButtonDisabled' : ''} value={ButtonValue} onclick={exp} />
-				<Button value="Retier un·e client·e" link="Remove" />
-				<Button value="Retirer tous les client·es" type="RedButton" link="Purge" />
+				<Button value="Supprimer un contact" link="Remove" />
+				<Button value="Supprimer tous les contacts" type="RedButton" link="Purge" />
 			</div>
 		</div>
 	);

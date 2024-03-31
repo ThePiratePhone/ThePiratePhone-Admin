@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Footer from './Components/Footer';
 import NavBar from './Components/NavBar';
+import Callers from './Pages/Callers/Callers';
 import Clients from './Pages/Clients/Clients';
 import Dashboard from './Pages/Dashboard';
 import E404 from './Pages/E404';
 import Settings from './Pages/Settings/Settings';
-import Callers from './Pages/Callers/Callers';
 
 function App({
 	credentials,

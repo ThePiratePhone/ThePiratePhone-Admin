@@ -72,7 +72,7 @@ function ChangeCallTime({
 			<h1>Changer le temps entre les appels</h1>
 			<div>
 				<span>
-					Cette valeur représente le temps d'attente avant de rappeler un·e client·e qui n'a pas répondu.
+					Cette valeur représente le temps d'attente avant de rappeler un contact qui n'a pas répondu.
 				</span>
 				<div className="HoursChange">
 					<input

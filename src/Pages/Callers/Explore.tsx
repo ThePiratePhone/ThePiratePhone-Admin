@@ -157,7 +157,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="ExplorePage">
-			<h1>Gérer les appelants</h1>
+			<h1>Gérer les membres</h1>
 			<div>
 				<div>
 					<input
@@ -297,8 +297,8 @@ function CallerDetail({ credentials }: { credentials: Credentials }) {
 							1970,
 							0,
 							1,
-							Math.floor(duration / (1000 * 3600)),
-							Math.floor(duration / (1000 * 60)),
+							Math.floor(duration / 3_600_000),
+							Math.floor(duration / 60_000),
 							Math.floor(duration / 1000)
 						);
 						res.data.data.totalTime = date;
