@@ -81,10 +81,9 @@ h4 {
 	font-weight: 500;
 }
 
-.LoginPage>h1 {
-	font-size: 4em;
-	text-align: center;
+.LoginPage>img {
 	margin: 15vh 0;
+	height: 15vh;
 }
 
 .LoginPage>.inputField {

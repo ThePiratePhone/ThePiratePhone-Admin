@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import Logo from '../Assets/Images/Logo.svg';
+
 import Button from '../Components/Button';
 
 function Login(credentials: Credentials) {
@@ -143,7 +145,7 @@ function LoginPage({
 
 	return (
 		<div className="LoginPage">
-			<h1>Administration de Callsphere</h1>
+			<img src={Logo} />
 			<select id="area" className="inputField" disabled={ButtonDisabled}>
 				{Areas.map((area, i) => {
 					return (
