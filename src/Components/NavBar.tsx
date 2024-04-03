@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import Data from '../Assets/Images/Data.svg';
 import Gear from '../Assets/Images/Gear.svg';
-import Headphone from '../Assets/Images/Headphone.svg';
 import Logo from '../Assets/Images/Logo.svg';
 import People from '../Assets/Images/People.svg';
 import Statistic from '../Assets/Images/Statistic.svg';
@@ -18,11 +18,11 @@ function NavBar() {
 		},
 		{
 			value: '/Clients',
-			image: People
+			image: Data
 		},
 		{
 			value: '/Callers',
-			image: Headphone
+			image: People
 		},
 		{
 			value: '/Settings',
