@@ -9,7 +9,6 @@ import AddOneClient from './AddOneClient';
 import Search from './Explore';
 import exportCSV from './Export';
 import Purge from './Purge';
-import Remove from './Remove';
 
 function ClientsHome({
 	clientCount,
@@ -50,7 +49,6 @@ function ClientsHome({
 				<Button value="Importer un fichier" link="Add" />
 				<Button value="Rechercher un contact" link="Explore" />
 				<Button type={ButtonDisabled ? 'ButtonDisabled' : ''} value={ButtonValue} onclick={exp} />
-				<Button value="Supprimer un contact" link="Remove" />
 				<Button value="Supprimer tous les contacts" type="RedButton" link="Purge" />
 			</div>
 		</div>
@@ -98,10 +96,6 @@ function Clients({ credentials, campaign }: { credentials: Credentials; campaign
 		{
 			path: '/Explore/*',
 			element: <Search campaign={campaign} credentials={credentials} />
-		},
-		{
-			path: '/Remove',
-			element: <Remove credentials={credentials} />
 		},
 		{
 			path: '/Purge',

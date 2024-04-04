@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, Route, Routes, useParams } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
+import Button from '../../Components/Button';
 import { cleanNumber, cleanSatisfaction, cleanStatus, getCallDuration } from '../../Utils';
 import E404 from '../E404';
 
@@ -154,6 +155,11 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 	const [Client, setClient] = useState<Client | null | undefined>(undefined);
 	const [Calls, setCalls] = useState<Array<JSX.Element> | undefined>(undefined);
 
+	const [ButtonValue, setButtonValue] = useState('Supprimer');
+	const [ButtonDisabled, setButtonDisabled] = useState(false);
+
+	const navigate = useNavigate();
+
 	function getInfos(phone: string) {
 		return new Promise<ClientInfos | undefined>(resolve => {
 			axios
@@ -179,6 +185,22 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 				.catch(err => {
 					console.error(err);
 					resolve(undefined);
+				});
+		});
+	}
+
+	function sendRemoval(phone: string) {
+		return new Promise<boolean>(resolve => {
+			axios
+				.post(credentials.URL + '/admin/client/removeClient', {
+					area: credentials.content.areaId,
+					adminCode: credentials.content.password,
+					phone: phone
+				})
+				.then(() => resolve(true))
+				.catch(err => {
+					console.error(err);
+					resolve(false);
 				});
 		});
 	}
@@ -224,8 +246,23 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 		});
 	}, []);
 
+	function remove() {
+		if (Client) {
+			setButtonDisabled(true);
+			setButtonValue('Suppression...');
+			sendRemoval(Client.phone).then(res => {
+				if (res) {
+					navigate('/Clients');
+				} else {
+					setButtonDisabled(false);
+					setButtonValue('Une erreur est survenue');
+				}
+			});
+		}
+	}
+
 	return (
-		<div className="GenericPage">
+		<div className="GenericPage ClientPage">
 			<h1>Informations d'un contact</h1>
 			<span>
 				<span>
@@ -233,6 +270,13 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 				</span>
 				<span>
 					Téléphone: <span className="Phone">{Client ? cleanNumber(Client.phone as string) : ''}</span>
+				</span>
+				<span>
+					<Button
+						value={ButtonValue}
+						type={ButtonDisabled ? 'ButtonDisabled' : 'RedButton'}
+						onclick={remove}
+					/>
 				</span>
 			</span>
 			<div>
