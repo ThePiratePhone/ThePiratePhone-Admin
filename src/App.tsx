@@ -8,6 +8,7 @@ import Clients from './Pages/Clients/Clients';
 import Dashboard from './Pages/Dashboard';
 import E404 from './Pages/E404';
 import Settings from './Pages/Settings/Settings';
+import Statistics from './Pages/Statistics/GlobalPage';
 
 function App({
 	credentials,
@@ -25,6 +26,10 @@ function App({
 		{
 			path: '/',
 			element: <Dashboard />
+		},
+		{
+			path: '/Statistics/*',
+			element: <Statistics credentials={Credentials} />
 		},
 		{
 			path: '/Clients/*',

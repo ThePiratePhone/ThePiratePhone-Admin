@@ -76,3 +76,20 @@ type Campaign = {
 		end: Date;
 	};
 };
+
+type RatiosResponse = {
+	clientCalled: number;
+	converted: number;
+	failure: number;
+	notAnswered: number;
+	notInterested: number;
+	removed: number;
+};
+
+type ProgressResponse = {
+	totalClientCalled: number;
+	totalCall: number;
+	totalUser: number;
+	totalConvertion: number;
+	totalTime: number;
+};

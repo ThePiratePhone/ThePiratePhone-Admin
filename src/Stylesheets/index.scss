@@ -1,15 +1,15 @@
 @font-face {
-	font-family: "Raleway";
+	font-family: 'Raleway';
 	src: url('../Assets/Fonts/Raleway.ttf');
 }
 
 @font-face {
-	font-family: "Phudu";
+	font-family: 'Phudu';
 	src: url('../Assets/Fonts/Phudu.ttf');
 }
 
 @font-face {
-	font-family: "Montserrat";
+	font-family: 'Montserrat';
 	src: url('../Assets/Fonts/Montserrat.ttf');
 }
 
@@ -62,7 +62,6 @@ h4 {
 	font-family: 'Montserrat';
 }
 
-
 .LoginPage {
 	display: flex;
 	flex-direction: column;
@@ -81,12 +80,12 @@ h4 {
 	font-weight: 500;
 }
 
-.LoginPage>img {
+.LoginPage > img {
 	margin: 15vh 0;
 	height: 15vh;
 }
 
-.LoginPage>.inputField {
+.LoginPage > .inputField {
 	min-width: 30%;
 	font-size: 1.5em;
 }
@@ -115,7 +114,7 @@ h4 {
 	width: 100%;
 }
 
-.App>*:first-child {
+.App > *:first-child {
 	min-height: 70vh;
 	padding: 2vh 2vw;
 }
@@ -126,7 +125,7 @@ h4 {
 	position: sticky;
 	top: 0;
 	left: 0;
-	background-color: #EDE7EF;
+	background-color: #ede7ef;
 	padding: 1vh 1vw;
 	display: flex;
 	flex-direction: column;
@@ -136,7 +135,7 @@ h4 {
 }
 
 .NavBarElement {
-	background-color: #EDE7EF;
+	background-color: #ede7ef;
 	transition-duration: 150ms;
 	padding: 1vw;
 	border-radius: var(--borderRadius);
@@ -146,7 +145,7 @@ h4 {
 	background-color: #ded9e0;
 }
 
-.NavBarElement>img {
+.NavBarElement > img {
 	width: 3.5vw;
 }
 
@@ -176,7 +175,7 @@ h4 {
 	height: 60vh;
 }
 
-.E404>h1 {
+.E404 > h1 {
 	text-align: center;
 	font-size: 3em;
 }
@@ -185,7 +184,7 @@ h4 {
 	width: fit-content;
 }
 
-.Button>button {
+.Button > button {
 	cursor: pointer;
 	border: none;
 	display: flex;
@@ -201,30 +200,30 @@ h4 {
 	border-radius: var(--borderRadius);
 }
 
-.Button>button:hover {
+.Button > button:hover {
 	background-color: var(--color1v2);
 	border: 2px solid var(--color1v2Border);
 }
 
-.ButtonDisabled>button {
+.ButtonDisabled > button {
 	background-color: var(--disabledButton);
 	border: 2px solid var(--disabledButtonBorder);
 	color: var(--disabledButtonText);
 	cursor: not-allowed;
 }
 
-.ButtonDisabled>button:hover {
+.ButtonDisabled > button:hover {
 	background-color: var(--disabledButton);
 	border: 2px solid var(--disabledButtonBorder);
 }
 
-.RedButton>button {
+.RedButton > button {
 	background-color: var(--color2v2);
 	border: 2px solid var(--color2v2Border);
 	color: var(--color2Text);
 }
 
-.RedButton>button:hover {
+.RedButton > button:hover {
 	background-color: var(--color2v1);
 	border: 2px solid var(--color2v1Border);
 }
@@ -235,7 +234,7 @@ h4 {
 	gap: 4vh;
 }
 
-.GenericPage>div {
+.GenericPage > div {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -245,37 +244,37 @@ h4 {
 	gap: 2vh;
 }
 
-.GenericPage>div>input {
+.GenericPage > div > input {
 	font-size: 1.2em;
 }
 
-.GenericPage>div>h4 {
+.GenericPage > div > h4 {
 	font-size: 3vh;
 }
 
-.GenericPage>span>span {
+.GenericPage > span > span {
 	display: flex;
 	justify-content: space-between;
 	min-width: 15vw;
 	max-width: max-content;
 }
 
-.RemovePage>div>span {
+.RemovePage > div > span {
 	font-size: 1.3em;
 	font-weight: bold;
 }
 
-.CallerPage>span {
+.CallerPage > span {
 	display: flex;
 	flex-direction: column;
 	gap: 1vh;
 }
 
-.CallerPage>span>.Button {
+.CallerPage > span > .Button {
 	margin-top: 2vh;
 }
 
-.ExplorePage>div {
+.ExplorePage > div {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -285,12 +284,12 @@ h4 {
 	justify-content: center;
 }
 
-.ExplorePage>div>div {
+.ExplorePage > div > div {
 	display: flex;
 	gap: 1vw;
 }
 
-.ExplorePage>div>div>input {
+.ExplorePage > div > div > input {
 	font-size: 1.2em;
 }
 
@@ -300,7 +299,7 @@ h4 {
 	gap: 1vh;
 }
 
-.ExploreList>a {
+.ExploreList > a {
 	background-color: rgb(202, 202, 202);
 	padding: 2vh 2vw;
 	border-radius: var(--borderRadius);
@@ -323,7 +322,7 @@ h4 {
 	gap: 5vh;
 }
 
-.Settings>div {
+.Settings > div {
 	display: flex;
 	flex-direction: column;
 	gap: 2vh;
@@ -337,7 +336,7 @@ h4 {
 	gap: 2vw;
 }
 
-.HoursChange>input {
+.HoursChange > input {
 	font-size: 1.3em;
 	font-family: 'Montserrat';
 }
@@ -350,15 +349,24 @@ h4 {
 	gap: 1vh 0;
 }
 
-.ClientCalls>div {
+.ClientCalls > div {
 	display: flex;
 	width: 60vw;
 	justify-content: space-evenly;
 }
 
-.DashBoard>div {
+.DashBoard > div {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 60vh;
+}
+
+.StatisticPage > div {
+	display: flex;
+	flex-direction: row;
+
+	div {
+		text-align: center;
+	}
 }
