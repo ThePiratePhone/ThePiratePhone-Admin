@@ -79,6 +79,7 @@ export default class MyPieChart extends PureComponent<{
 					dataKey="value"
 					onMouseEnter={this.onPieEnter}
 					animationDuration={750}
+					paddingAngle={3}
 				>
 					{this.props.datas.map((e, i) => {
 						return <Cell key={i} fill={this.props.colors[i % this.props.colors.length]} />;

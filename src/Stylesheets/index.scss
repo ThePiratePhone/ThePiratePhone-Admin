@@ -369,6 +369,7 @@ h4 {
 .StatisticPage > div {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 
 	div {
 		text-align: center;
