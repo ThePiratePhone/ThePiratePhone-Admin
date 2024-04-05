@@ -69,8 +69,8 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 		getProgress().then(res => {
 			if (res) {
 				const newDatas = new Array<{ name: string; value: number }>();
-				newDatas.push({ name: 'Appelés', value: res.totalUser });
-				newDatas.push({ name: 'Pas appelés', value: res.totalClientCalled - res.totalUser });
+				newDatas.push({ name: 'Appelés', value: res.totalClientCalled });
+				newDatas.push({ name: 'Pas appelés', value: res.totalUser - res.totalClientCalled });
 				setProgress(newDatas);
 			}
 		});
