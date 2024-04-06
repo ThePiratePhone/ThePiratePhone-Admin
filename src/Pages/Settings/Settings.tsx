@@ -10,6 +10,7 @@ import ChangeCallTime from './Campaign/ChangeCallTime';
 import ChangeHours from './Campaign/ChangeHours';
 import ChangeCampaignName from './Campaign/ChangeName';
 import ChangeCampaignPassword from './Campaign/ChangePassword';
+import ChangeScript from './Campaign/ChangeScript';
 import CampaignSettings from './CampaignSettings';
 
 function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
@@ -83,6 +84,10 @@ function Settings({
 		{
 			path: '/Campaign/ChangeName',
 			element: <ChangeCampaignName setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
+		},
+		{
+			path: '/Campaign/ChangeScript',
+			element: <ChangeScript setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
 		},
 		{
 			path: '/*',

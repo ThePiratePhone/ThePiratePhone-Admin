@@ -61,6 +61,7 @@ type LoginResponse = {
 	actualCampaignCallEnd: Date;
 	actualCampaignMaxCall: number;
 	actualCampaignTimeBetweenCall: number;
+	actualCampaignScript: string;
 };
 
 type Campaign = {
@@ -75,6 +76,7 @@ type Campaign = {
 		start: Date;
 		end: Date;
 	};
+	script: string;
 };
 
 type RatiosResponse = {

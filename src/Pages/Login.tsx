@@ -32,7 +32,8 @@ function Login(credentials: Credentials) {
 						hours: {
 							start: new Date(loginResponse.actualCampaignCallStart),
 							end: new Date(loginResponse.actualCampaignCallEnd)
-						}
+						},
+						script: loginResponse.actualCampaignScript
 					};
 					resolve(campaign);
 				}
