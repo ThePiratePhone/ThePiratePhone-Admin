@@ -259,10 +259,6 @@ h4 {
 	max-width: max-content;
 }
 
-.GenericPage > span > span:last-of-type {
-	margin-top: 3vh;
-}
-
 .RemovePage > div > span {
 	font-size: 1.3em;
 	font-weight: bold;
@@ -271,11 +267,11 @@ h4 {
 .CallerPage > span {
 	display: flex;
 	flex-direction: column;
-	gap: 1vh;
+	gap: 0.5vh;
 }
 
 .CallerPage > span > .Button {
-	margin-top: 2vh;
+	margin-top: 1.5vh;
 }
 
 .ExplorePage > div {
@@ -378,6 +374,10 @@ h4 {
 
 .ClientPage > div {
 	margin: 4vh 0;
+}
+
+.ClientPage .Button {
+	margin-top: 3vh;
 }
 
 .TextArea {

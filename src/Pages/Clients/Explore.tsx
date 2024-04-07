@@ -271,13 +271,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 				<span>
 					Téléphone: <span className="Phone">{Client ? cleanNumber(Client.phone as string) : ''}</span>
 				</span>
-				<span>
-					<Button
-						value={ButtonValue}
-						type={ButtonDisabled ? 'ButtonDisabled' : 'RedButton'}
-						onclick={remove}
-					/>
-				</span>
+				<Button value={ButtonValue} type={ButtonDisabled ? 'ButtonDisabled' : 'RedButton'} onclick={remove} />
 			</span>
 			<div>
 				{Calls ? (
