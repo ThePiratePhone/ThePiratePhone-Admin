@@ -125,7 +125,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 			if (oldValue == value) {
 				action();
 			}
-		}, 500);
+		}, 250);
 	}
 
 	function changeName() {
@@ -137,7 +137,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 			if (oldValue == value) {
 				action();
 			}
-		}, 500);
+		}, 250);
 	}
 
 	function enter(e: any) {

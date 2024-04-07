@@ -23,7 +23,8 @@ function ChangeScript({
 				.post(credentials.URL + '/admin/campaign/changeScript', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newScript: script
+					newScript: script,
+					CampaignId: campaign._id
 				})
 				.then(() => {
 					resolve(true);
@@ -51,7 +52,7 @@ function ChangeScript({
 			if (result) {
 				campaign.script = script;
 				setCampaign(campaign);
-				navigate('/Settings/Campaign');
+				navigate('/Settings/Campaigns/' + campaign._id);
 				return;
 			} else {
 				setButtonDisabled(false);

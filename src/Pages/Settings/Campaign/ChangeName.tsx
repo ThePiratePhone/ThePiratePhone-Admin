@@ -23,7 +23,8 @@ function ChangeCampaignName({
 				.post(credentials.URL + '/admin/campaign/changeName', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newName: name
+					newName: name,
+					CampaignId: campaign._id
 				})
 				.then(() => {
 					resolve(true);
@@ -51,7 +52,7 @@ function ChangeCampaignName({
 			if (result) {
 				campaign.name = name;
 				setCampaign(campaign);
-				navigate('/Settings/Campaign');
+				navigate('/Settings/Campaigns/' + campaign._id);
 				return;
 			} else {
 				setButtonDisabled(false);

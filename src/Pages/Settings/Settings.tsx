@@ -5,13 +5,8 @@ import E404 from '../E404';
 import ChangeAreaName from './Area/ChangeName';
 import ChangeAreaPassword from './Area/ChangePassword';
 import AreaSettings from './AreaSettings';
-import ChangeCallCount from './Campaign/ChangeCallCount';
-import ChangeCallTime from './Campaign/ChangeCallTime';
-import ChangeHours from './Campaign/ChangeHours';
-import ChangeCampaignName from './Campaign/ChangeName';
-import ChangeCampaignPassword from './Campaign/ChangePassword';
-import ChangeScript from './Campaign/ChangeScript';
-import CampaignSettings from './CampaignSettings';
+import Campaign from './Campaign/Campaign';
+import CampaignsSettings from './Campaigns';
 
 function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
 	function logOut() {
@@ -24,7 +19,7 @@ function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
 			<h1>Paramètres</h1>
 			<div>
 				<Button link="Area" value="Paramètres de l'organisation" />
-				<Button link="Campaign" value="Paramètres de la campagne" />
+				<Button link="Campaigns" value="Gérer les campagnes" />
 				<Button value="Se déconnecter" type="RedButton" onclick={logOut} />
 			</div>
 		</div>
@@ -35,13 +30,11 @@ function Settings({
 	credentials,
 	setCredentials,
 	renderLogin,
-	campaign,
 	setCampaign
 }: {
 	credentials: Credentials;
 	setCredentials: (credentials: Credentials) => void;
 	renderLogin: () => void;
-	campaign: Campaign;
 	setCampaign: (campaign: Campaign) => void;
 }) {
 	const routes = [
@@ -62,32 +55,12 @@ function Settings({
 			element: <ChangeAreaName setCredentials={setCredentials} credentials={credentials} />
 		},
 		{
-			path: '/Campaign',
-			element: <CampaignSettings />
+			path: '/Campaigns',
+			element: <CampaignsSettings credentials={credentials} />
 		},
 		{
-			path: '/Campaign/ChangeCallCount',
-			element: <ChangeCallCount setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
-		},
-		{
-			path: '/Campaign/ChangeCallTime',
-			element: <ChangeCallTime setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
-		},
-		{
-			path: '/Campaign/ChangeKey',
-			element: <ChangeCampaignPassword credentials={credentials} />
-		},
-		{
-			path: '/Campaign/ChangeHours',
-			element: <ChangeHours setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
-		},
-		{
-			path: '/Campaign/ChangeName',
-			element: <ChangeCampaignName setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
-		},
-		{
-			path: '/Campaign/ChangeScript',
-			element: <ChangeScript setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
+			path: '/Campaigns/:campaignId/*',
+			element: <Campaign setCampaign={setCampaign} credentials={credentials} />
 		},
 		{
 			path: '/*',

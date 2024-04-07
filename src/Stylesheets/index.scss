@@ -383,3 +383,8 @@ h4 {
 	min-width: 15vw;
 	min-height: 10vh;
 }
+
+a.Active {
+	background-color: var(--color1v1);
+	color: var(--color1Text);
+}

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../Components/Button';
 
-function ChangeCampaignPassword({ credentials }: { credentials: Credentials }) {
+function ChangeCampaignPassword({ credentials, campaign }: { credentials: Credentials; campaign: Campaign }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
 	const [ButtonValue, setButtonValue] = useState('Valider');
 	const navigate = useNavigate();
@@ -15,7 +15,8 @@ function ChangeCampaignPassword({ credentials }: { credentials: Credentials }) {
 				.post(credentials.URL + '/admin/campaign/changeCampaignPassword', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newCampaignCode: password
+					newCampaignCode: password,
+					CampaignId: campaign._id
 				})
 				.then(() => {
 					resolve(true);
@@ -47,7 +48,7 @@ function ChangeCampaignPassword({ credentials }: { credentials: Credentials }) {
 
 		modify(password).then(result => {
 			if (result) {
-				navigate('/Settings/Campaign');
+				navigate('/Settings/Campaigns/' + campaign._id);
 				return;
 			} else {
 				setButtonDisabled(false);

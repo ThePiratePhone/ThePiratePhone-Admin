@@ -23,7 +23,8 @@ function ChangeCallCount({
 				.post(credentials.URL + '/admin/campaign/changeNumberMaxCall', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newNumberMaxCall: value.toString()
+					newNumberMaxCall: value.toString(),
+					CampaignId: campaign._id
 				})
 				.then(() => {
 					resolve(true);
@@ -45,7 +46,7 @@ function ChangeCallCount({
 			if (result) {
 				campaign.calls.max = value;
 				setCampaign(campaign);
-				navigate('/Settings/Campaign');
+				navigate('/Settings/Campaigns/' + campaign._id);
 				return;
 			} else {
 				setButtonDisabled(false);

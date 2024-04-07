@@ -23,7 +23,8 @@ function ChangeCallTime({
 				.post(credentials.URL + '/admin/campaign/changeTimeBetwenCall', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newTimeBetweenCall: time
+					newTimeBetweenCall: time,
+					CampaignId: campaign._id
 				})
 				.then(() => {
 					resolve(true);
@@ -47,7 +48,7 @@ function ChangeCallTime({
 			if (result) {
 				campaign.calls.timeBetween = value;
 				setCampaign(campaign);
-				navigate('/Settings/Campaign');
+				navigate('/Settings/Campaigns/' + campaign._id);
 				return;
 			} else {
 				setButtonDisabled(false);

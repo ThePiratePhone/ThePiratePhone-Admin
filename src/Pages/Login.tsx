@@ -22,7 +22,7 @@ function Login(credentials: Credentials) {
 				} else {
 					const loginResponse: LoginResponse = response.data.data;
 					const campaign = {
-						id: loginResponse.actualCampaignId,
+						_id: loginResponse.actualCampaignId,
 						name: loginResponse.actualCampaignName,
 						areaName: loginResponse.areaName,
 						calls: {
@@ -33,7 +33,8 @@ function Login(credentials: Credentials) {
 							start: new Date(loginResponse.actualCampaignCallStart),
 							end: new Date(loginResponse.actualCampaignCallEnd)
 						},
-						script: loginResponse.actualCampaignScript
+						script: loginResponse.actualCampaignScript,
+						active: true
 					};
 					resolve(campaign);
 				}

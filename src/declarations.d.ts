@@ -72,7 +72,7 @@ type LoginResponse = {
 
 type Campaign = {
 	areaName: string;
-	id: string;
+	_id: string;
 	name: string;
 	calls: {
 		max: number;
@@ -82,6 +82,7 @@ type Campaign = {
 		start: Date;
 		end: Date;
 	};
+	active: boolean;
 	script: string;
 };
 

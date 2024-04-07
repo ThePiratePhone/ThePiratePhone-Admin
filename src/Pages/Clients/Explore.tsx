@@ -170,7 +170,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 				})
 				.then(res => {
 					if (res.data.OK) {
-						res.data.data.client.data[campaign.id] = res.data.data.client.data[campaign.id].map(
+						res.data.data.client.data[campaign._id] = res.data.data.client.data[campaign._id].map(
 							(el: any) => {
 								el.startCall = new Date(el.startCall);
 								el.endCall = new Date(el.endCall);
@@ -220,7 +220,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 					<b key={-2}>Status</b>,
 					<b key={-1}>Résultat</b>
 				);
-				res.client.data[campaign.id].forEach((element, i) => {
+				res.client.data[campaign._id].forEach((element, i) => {
 					if (element.status == 'not called') {
 						return;
 					}

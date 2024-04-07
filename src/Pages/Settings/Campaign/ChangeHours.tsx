@@ -24,7 +24,8 @@ function ChangeHours({
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
 					newStartHours: start,
-					newEndHours: end
+					newEndHours: end,
+					CampaignId: campaign._id
 				})
 				.then(() => {
 					resolve(true);
@@ -51,7 +52,7 @@ function ChangeHours({
 				campaign.hours.start = startDate;
 				campaign.hours.end = endDate;
 				setCampaign(campaign);
-				navigate('/Settings/Campaign');
+				navigate('/Settings/Campaigns/' + campaign._id);
 				return;
 			} else {
 				setButtonDisabled(false);

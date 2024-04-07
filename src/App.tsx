@@ -43,7 +43,6 @@ function App({
 			path: '/Settings/*',
 			element: (
 				<Settings
-					campaign={Campaign}
 					setCampaign={setCampaign}
 					credentials={Credentials}
 					setCredentials={setCredentials}
