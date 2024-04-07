@@ -61,12 +61,14 @@ function App({
 		<BrowserRouter>
 			<div className="Main">
 				<NavBar />
-				<div className="App">
-					<Routes>
-						{routes.map((element, i) => {
-							return <Route path={element.path} element={element.element} key={i} />;
-						})}
-					</Routes>
+				<div>
+					<div className="App">
+						<Routes>
+							{routes.map((element, i) => {
+								return <Route path={element.path} element={element.element} key={i} />;
+							})}
+						</Routes>
+					</div>
 					<Footer />
 				</div>
 			</div>

@@ -17,16 +17,30 @@ function ErrorsComp({
 
 	if (errors) {
 		if (errors.length == 0) {
-			return <h4>{numberCount} contacts ajoutés. Aucune erreur détéctée</h4>;
+			return (
+				<h4>
+					<span className="Phone">{numberCount}</span> contacts ajoutés. Aucune erreur détéctée
+				</h4>
+			);
 		}
 	}
 
 	return (
 		<>
-			<h4>
-				{numberCount} contacts ajoutés.{' '}
-				{errors.length == 1 ? '1 erreur détéctée' : errors.length + ' erreurs détéctées'}
-			</h4>
+			<span>
+				<h4>
+					<span className="Phone">{numberCount} contacts ajoutés.</span>{' '}
+					{errors.length == 1 ? (
+						<>
+							<span className="Phone">1</span> erreur détéctée
+						</>
+					) : (
+						<>
+							<span className="Phone">{errors.length}</span> erreurs détéctées
+						</>
+					)}
+				</h4>
+			</span>
 			<div className="ClientsErrors">
 				<div className="ErrorsHeader">Nom</div>
 				<div className="ErrorsHeader">Téléphone</div>
