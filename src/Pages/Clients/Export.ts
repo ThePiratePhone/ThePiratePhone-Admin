@@ -14,7 +14,7 @@ async function exportCSV(credentials: Credentials, campaign: Campaign) {
 					a.download = 'Export ' + campaign.name + ' ' + new Date().toLocaleDateString() + '.csv';
 					a.href = URL.createObjectURL(blob);
 					a.addEventListener('click', () => {
-						setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+						setTimeout(() => URL.revokeObjectURL(a.href), 30_000);
 					});
 					a.click();
 					resolve(res.data);
