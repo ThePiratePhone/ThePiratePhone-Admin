@@ -30,6 +30,12 @@ type Client = {
 	};
 };
 
+type SearchClient = {
+	_id: string;
+	name: stirng;
+	phone: string;
+};
+
 type Satisfaction = -2 | -1 | 0 | 1 | 2;
 
 type CallStatus = 'called' | 'not called' | 'not answered' | 'inprogress';

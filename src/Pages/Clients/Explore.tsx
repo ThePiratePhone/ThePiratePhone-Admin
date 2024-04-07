@@ -6,7 +6,7 @@ import Button from '../../Components/Button';
 import { cleanNumber, cleanSatisfaction, cleanStatus, getCallDuration } from '../../Utils';
 import E404 from '../E404';
 
-function Client({ clients }: { clients: Array<Client> | null }) {
+function Client({ clients }: { clients: Array<SearchClient> | null }) {
 	if (clients == null) return <></>;
 	if (clients.length == 0) return <div>Aucun résultat</div>;
 
@@ -15,7 +15,7 @@ function Client({ clients }: { clients: Array<Client> | null }) {
 			{clients.map((value, i) => {
 				return (
 					<Link to={value.phone} key={i}>
-						<div>{value.name ?? 'Nom inconnu'}</div>
+						<div>{value.name.trim() != '' ? value.name : 'Nom inconnu'}</div>
 						<div className="Phone">{cleanNumber(value.phone)}</div>
 					</Link>
 				);
@@ -25,10 +25,10 @@ function Client({ clients }: { clients: Array<Client> | null }) {
 }
 
 function Search({ credentials }: { credentials: Credentials }) {
-	const [Clients, setClients] = useState<Array<Client> | null>(null);
+	const [Clients, setClients] = useState<Array<SearchClient> | null>(null);
 
 	function searchPhone(phone: string) {
-		return new Promise<Array<Client> | undefined>(resolve => {
+		return new Promise<Array<SearchClient> | undefined>(resolve => {
 			axios
 				.post(credentials.URL + '/admin/client/searchByPhone', {
 					area: credentials.content.areaId,
@@ -50,7 +50,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 	}
 
 	function searchName(name: string) {
-		return new Promise<Array<Client> | undefined>(resolve => {
+		return new Promise<Array<SearchClient> | undefined>(resolve => {
 			axios
 				.post(credentials.URL + '/admin/client/searchByName', {
 					area: credentials.content.areaId,
@@ -101,7 +101,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 			if (oldValue == value) {
 				action();
 			}
-		}, 500);
+		}, 250);
 	}
 
 	function changeName() {
@@ -113,7 +113,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 			if (oldValue == value) {
 				action();
 			}
-		}, 500);
+		}, 250);
 	}
 
 	function enter(e: any) {
