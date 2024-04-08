@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function CampaignsList({ campaigns }: { campaigns: Array<Campaign> | null }) {
-	if (campaigns == null) return <></>;
+	if (campaigns == null) return <h4>Récupération en cours...</h4>;
 	if (campaigns.length == 0) return <div>Aucune campagne</div>;
 
 	return (
