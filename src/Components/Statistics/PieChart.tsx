@@ -83,6 +83,8 @@ export default class MyPieChart extends PureComponent<{
 					cy="50%"
 					innerRadius={100}
 					outerRadius={120}
+					startAngle={-270}
+					endAngle={90}
 					dataKey="value"
 					onMouseEnter={this.onPieEnter}
 					animationDuration={750}
