@@ -51,15 +51,14 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 		});
 	}
 
-	const COLORS = ['#08A47C', '#4775FF', '#E74855', '#FFC482', '#403F4C'];
-	const COLORS2 = ['#08A47C', '#E74855'];
+	const COLORS = ['#08A47C', '#E74855', '#FFC482', '#403F4C'];
+	const COLORS2 = ['#08A47C', '#4775FF', '#E74855'];
 
 	useEffect(() => {
 		getRatios().then(res => {
 			if (res) {
 				const newDatas = new Array<{ name: string; value: number }>();
 				newDatas.push({ name: 'Voté pour nous', value: res.converted });
-				newDatas.push({ name: 'Pas de réponse', value: res.notAnswered });
 				newDatas.push({ name: 'Pas voté pour nous', value: res.failure });
 				newDatas.push({ name: 'Pas interessé·e', value: res.notInterested });
 				newDatas.push({ name: 'À retirer', value: res.removed });
@@ -69,8 +68,9 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 		getProgress().then(res => {
 			if (res) {
 				const newDatas = new Array<{ name: string; value: number }>();
-				newDatas.push({ name: 'Appelés', value: res.totalClientCalled });
-				newDatas.push({ name: 'Pas appelés', value: res.totalUser - res.totalClientCalled });
+				newDatas.push({ name: 'Appelés', value: res.totalCalled });
+				newDatas.push({ name: 'Pas répondu', value: res.totalNotRespond });
+				newDatas.push({ name: 'Pas appelés', value: res.totalUser - res.totalNotRespond - res.totalCalled });
 				setProgress(newDatas);
 			}
 		});

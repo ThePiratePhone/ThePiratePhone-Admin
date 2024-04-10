@@ -90,15 +90,12 @@ type RatiosResponse = {
 	clientCalled: number;
 	converted: number;
 	failure: number;
-	notAnswered: number;
 	notInterested: number;
 	removed: number;
 };
 
 type ProgressResponse = {
-	totalClientCalled: number;
-	totalCall: number;
+	totalCalled: number;
+	totalNotRespond: number;
 	totalUser: number;
-	totalConvertion: number;
-	totalTime: number;
 };
