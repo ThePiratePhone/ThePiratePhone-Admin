@@ -297,9 +297,9 @@ function CallerDetail({ credentials }: { credentials: Credentials }) {
 							1970,
 							0,
 							1,
-							Math.floor(duration / 3_600_000),
-							Math.floor(duration / 60_000),
-							Math.floor(duration / 1000)
+							Math.floor((duration / (1000 * 3600)) % 24),
+							Math.floor((duration / (1000 * 60)) % 60),
+							Math.floor((duration / 1000) % 60)
 						);
 						res.data.data.totalTime = date;
 						resolve(res.data.data);
