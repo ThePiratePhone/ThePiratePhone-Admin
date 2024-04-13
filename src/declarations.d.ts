@@ -100,4 +100,4 @@ type ProgressResponse = {
 	totalUser: number;
 };
 
-type statsResponse = Array<{ date: Date; response: boolean }>;
+type TimeResponse = { date: Date; response: CallStatus };

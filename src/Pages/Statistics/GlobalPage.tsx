@@ -2,10 +2,10 @@ import { Route, Routes } from 'react-router-dom';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Button from '../../Components/Button';
 import MyPieChart from '../../Components/Statistics/PieChart';
 import E404 from '../E404';
-import Button from '../../Components/Button';
-import CallByDate from './CallByDate';
+import ResponseByTime from './ResponseByTime';
 
 function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 	const [Ratios, setRatios] = useState<Array<{ name: string; value: number }>>([]);
@@ -93,7 +93,7 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 					</div>
 					<div>
 						<h4>Avancement des appels</h4>
-						{Ratios.length != 0 ? (
+						{Progress.length != 0 ? (
 							<MyPieChart colors={COLORS2} datas={Progress} />
 						) : (
 							<>Récupération en cours...</>
@@ -101,7 +101,7 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 					</div>
 				</div>
 				<div>
-					<Button value="statistique de reponses" link="callByDate" />
+					<Button value="Réponses sur le temps" link="callByDate" />
 				</div>
 			</div>
 		</div>
@@ -116,7 +116,7 @@ function Satistics({ credentials }: { credentials: Credentials }) {
 		},
 		{
 			path: '/callByDate',
-			element: <CallByDate credentials={credentials} />
+			element: <ResponseByTime credentials={credentials} />
 		},
 		{
 			path: '/*',

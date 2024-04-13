@@ -360,11 +360,16 @@ h4 {
 }
 
 .StatisticPage > div {
+	display: flex;
+	flex-direction: column;
 	div {
 		display: flex;
-		flex-direction: row;
 		flex-wrap: wrap;
 		text-align: center;
+		div {
+			display: flex;
+			flex-direction: column;
+		}
 	}
 }
 
@@ -388,7 +393,7 @@ a.Active {
 	color: var(--color1Text);
 }
 
-.CallByDate {
+.ResponseByTime {
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -398,6 +403,12 @@ a.Active {
 	}
 
 	.inputField {
-		width: 50%;
+		width: min-content;
 	}
+}
+
+.CustomTooltip {
+	background-color: white;
+	padding: 1vh 1vw;
+	border-radius: var(--borderRadius);
 }
