@@ -99,3 +99,5 @@ type ProgressResponse = {
 	totalNotRespond: number;
 	totalUser: number;
 };
+
+type statsResponse = Array<{ date: Date; response: boolean }>;

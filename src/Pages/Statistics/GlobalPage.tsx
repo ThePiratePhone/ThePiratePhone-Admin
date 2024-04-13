@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import MyPieChart from '../../Components/Statistics/PieChart';
 import E404 from '../E404';
+import Button from '../../Components/Button';
+import CallByDate from './CallByDate';
 
 function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 	const [Ratios, setRatios] = useState<Array<{ name: string; value: number }>>([]);
@@ -81,16 +83,25 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 			<h1>Statistiques</h1>
 			<div>
 				<div>
-					<h4>Résultats des appels</h4>
-					{Ratios.length != 0 ? <MyPieChart colors={COLORS} datas={Ratios} /> : <>Récupération en cours...</>}
+					<div>
+						<h4>Résultats des appels</h4>
+						{Ratios.length != 0 ? (
+							<MyPieChart colors={COLORS} datas={Ratios} />
+						) : (
+							<>Récupération en cours...</>
+						)}
+					</div>
+					<div>
+						<h4>Avancement des appels</h4>
+						{Ratios.length != 0 ? (
+							<MyPieChart colors={COLORS2} datas={Progress} />
+						) : (
+							<>Récupération en cours...</>
+						)}
+					</div>
 				</div>
 				<div>
-					<h4>Avancement des appels</h4>
-					{Ratios.length != 0 ? (
-						<MyPieChart colors={COLORS2} datas={Progress} />
-					) : (
-						<>Récupération en cours...</>
-					)}
+					<Button value="statistique de reponses" link="callByDate" />
 				</div>
 			</div>
 		</div>
@@ -102,6 +113,10 @@ function Satistics({ credentials }: { credentials: Credentials }) {
 		{
 			path: '/',
 			element: <GlobalStatisticsPage credentials={credentials} />
+		},
+		{
+			path: '/callByDate',
+			element: <CallByDate credentials={credentials} />
 		},
 		{
 			path: '/*',
