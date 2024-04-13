@@ -35,9 +35,10 @@ const groupDataByGranularity = (data: statsResponse, granularity = 3_600_000) =>
 
 export default class MyBarChart extends PureComponent<{
 	datas: statsResponse;
+	granularity: number;
 }> {
 	render() {
-		const groupedData = groupDataByGranularity(this.props.datas);
+		const groupedData = groupDataByGranularity(this.props.datas, this.props.granularity);
 		return (
 			<ResponsiveContainer width={'90%'} height={600}>
 				<BarChart data={groupedData} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
@@ -50,7 +51,6 @@ export default class MyBarChart extends PureComponent<{
 					/>
 					<YAxis />
 					<Tooltip labelFormatter={label => new Date(label).toLocaleString()} />
-					<Legend />
 					<Brush />
 					<Bar dataKey="count" name="Responses" fill="#8884d8" />
 				</BarChart>
