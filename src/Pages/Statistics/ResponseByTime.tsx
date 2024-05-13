@@ -77,10 +77,17 @@ class MyBarChart extends PureComponent<{
 			if (active && payload && payload.length) {
 				return (
 					<div className="CustomTooltip">
-						<u>{new Date(label).toLocaleString()}</u>
-						<div className="Phone">Réponse: {payload[0].value}%</div>
-						<div className="Phone">Pas de réponse: {payload[1].value}%</div>
-						<div className="Phone">Nombre d'appel: {cleanedData.find(val => val.time == label)?.total}</div>
+						<u className="Phone">{new Date(label).toLocaleString()}</u>
+						<div>
+							Réponse: <span className="Phone">{payload[0].value}%</span>
+						</div>
+						<div>
+							Pas de réponse: <span className="Phone">{payload[1].value}%</span>
+						</div>
+						<div>
+							Nombre d'appel:{' '}
+							<span className="Phone">{cleanedData.find(val => val.time == label)?.total}</span>
+						</div>
 					</div>
 				);
 			}
@@ -175,7 +182,7 @@ function ResponseByTime({ credentials }: { credentials: Credentials }) {
 
 	return (
 		<div className="GenericPage ResponseByTime">
-			<h1>Réponses en fonction des heures</h1>
+			<h1>Réponse en fonction de l'heure</h1>
 			{callByDate.length != 0 ? <MyBarChart datas={callByDate} /> : <h4>Récupération en cours...</h4>}
 		</div>
 	);

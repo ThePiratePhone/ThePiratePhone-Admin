@@ -101,7 +101,7 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 					</div>
 				</div>
 				<div>
-					<Button value="Réponses sur le temps" link="callByDate" />
+					<Button value="Réponse en fonction de l'heure" link="callByDate" />
 				</div>
 			</div>
 		</div>
