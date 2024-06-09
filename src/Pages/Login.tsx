@@ -5,7 +5,7 @@ import Logo from '../Assets/Images/Logo.svg';
 
 import Button from '../Components/Button';
 
-function Login(credentials: Credentials) {
+function login(credentials: Credentials) {
 	return new Promise<Campaign | undefined>(resolve => {
 		axios
 			.post(credentials.URL + '/admin/login', {
@@ -61,9 +61,13 @@ function getAreas(URL: string) {
 }
 
 async function testOldToken(URL: string) {
-	const oldCredentials = JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials;
-	oldCredentials.URL = URL;
-	return Login(oldCredentials);
+	let value: Campaign | undefined;
+	try {
+		const oldCredentials = JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials;
+		oldCredentials.URL = URL;
+		value = await login(oldCredentials);
+	} catch (e) {}
+	return value;
 }
 
 function LoginPage({
@@ -123,7 +127,7 @@ function LoginPage({
 			}
 		};
 
-		Login(credentials).then(result => {
+		login(credentials).then(result => {
 			if (result) {
 				window.localStorage.setItem('credentials', JSON.stringify(credentials));
 				renderApp(credentials, result);
