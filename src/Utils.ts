@@ -51,13 +51,21 @@ function cleanSatisfaction(satisfaction: Satisfaction) {
 			return 'Pas voté pour nous';
 		case 2:
 			return 'Voté pour nous';
+		default:
+			return 'Appel en cours';
 	}
 }
 
 function getCallDuration(start: Date, end: Date) {
-	const duration = Math.abs(end.getTime() - start.getTime());
+	const absDuration = Math.abs(end.getTime() - start.getTime());
 
-	return new Date(1970, 0, 1, 0, Math.floor(duration / 60_000), Math.floor(duration / 1000));
+	const duration = new Date(1970, 0, 1, 0, Math.floor(absDuration / 60_000), Math.floor(absDuration / 1000));
+
+	if (duration.toLocaleTimeString() == 'Invalid Date') return 'Inconnue';
+
+	return duration.getHours() + duration.getMinutes() + duration.getSeconds() != 0
+		? duration.toLocaleTimeString()
+		: 'Inconnue';
 }
 
 function clearAccents(value: string) {

@@ -217,31 +217,42 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 					<b key={-5}>Date/Heure</b>,
 					<b key={-4}>Durée</b>,
 					<b key={-3}>Appelant·e</b>,
-					<b key={-2}>Status</b>,
 					<b key={-1}>Résultat</b>
 				);
 				res.client.data[campaign._id].forEach((element, i) => {
 					if (element.status == 'not called') {
 						return;
 					}
+
+					function GetCallBounds() {
+						if (element.startCall.toLocaleDateString() == 'Invalid Date') {
+							return <>Inconnue</>;
+						}
+						return (
+							<>
+								<span className="Phone">{element.startCall.toLocaleDateString()}</span>
+								{' à '}
+								<span className="Phone">{element.startCall.toLocaleTimeString()}</span>
+							</>
+						);
+					}
+
 					const duration = getCallDuration(element.startCall, element.endCall);
+
 					calls.push(
 						<span key={i + 'a'}>
-							<span className="Phone">{element.startCall.toLocaleDateString()}</span>
-							{' à '}
-							<span className="Phone">{element.startCall.toLocaleTimeString()}</span>
+							<GetCallBounds />
 						</span>,
 						<span key={i + 'b'} className="Phone">
-							{duration.getHours() + duration.getMinutes() + duration.getSeconds() != 0
-								? duration.toLocaleTimeString()
-								: 'Inconnue'}
+							{duration}
 						</span>,
 						<span key={i + 'c'}>{res.callers.find(el => el.id == element.caller)?.name}</span>,
-						<span key={i + 'd'}>{cleanStatus(element.status)}</span>,
 						<span key={i + 'e'}>{cleanSatisfaction(element.satisfaction)}</span>
 					);
 				});
 				setCalls(calls);
+			} else {
+				navigate('/Clients/Explore');
 			}
 		});
 	}, []);
