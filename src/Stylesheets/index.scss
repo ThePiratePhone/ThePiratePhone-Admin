@@ -366,7 +366,7 @@ h4 {
 		display: flex;
 		flex-wrap: wrap;
 		text-align: center;
-		div {
+		.CallStatistics {
 			display: flex;
 			flex-direction: column;
 		}
@@ -395,20 +395,32 @@ a.Active {
 
 .ResponseByTime {
 	display: flex;
-	justify-content: center;
 	flex-direction: column;
-
-	h4 {
-		text-align: center;
+	width: 100%;
+	h1 {
+		text-align: left;
 	}
+}
 
-	.inputField {
-		width: min-content;
-	}
+.recharts-legend-wrapper {
+	display: flex;
+	justify-content: center;
 }
 
 .CustomTooltip {
 	background-color: white;
 	padding: 1vh 1vw;
 	border-radius: var(--borderRadius);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1vh;
+	div {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+	& > span {
+		font-weight: bold;
+	}
 }
