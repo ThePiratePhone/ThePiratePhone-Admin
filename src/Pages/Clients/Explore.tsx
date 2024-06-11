@@ -160,7 +160,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 
 	const navigate = useNavigate();
 
-	function getInfos(phone: string) {
+	function getInfos() {
 		return new Promise<ClientInfos | undefined>(resolve => {
 			axios
 				.post(credentials.URL + '/admin/client/clientInfo', {
@@ -206,7 +206,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 	}
 
 	useEffect(() => {
-		getInfos(phone as string).then(res => {
+		getInfos().then(res => {
 			if (res) {
 				setClient(res.client);
 				if (!res.callers.length) {

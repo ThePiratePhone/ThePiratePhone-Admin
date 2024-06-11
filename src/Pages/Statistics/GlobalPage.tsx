@@ -272,19 +272,23 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 			<div>
 				<div>
 					<div className="CallStatistics">
-						<h4>Résultats des appels</h4>
 						{Ratios.length != 0 ? (
-							<MyPieChart colors={COLORS} datas={Ratios} />
+							<>
+								<h4>Résultats des appels</h4>
+								<MyPieChart colors={COLORS} datas={Ratios} />
+							</>
 						) : (
-							<>Récupération en cours...</>
+							<></>
 						)}
 					</div>
 					<div className="CallStatistics">
-						<h4>Avancement des appels</h4>
 						{Progress.length != 0 ? (
-							<MyPieChart colors={COLORS2} datas={Progress} />
+							<>
+								<h4>Avancement des appels</h4>
+								<MyPieChart colors={COLORS2} datas={Progress} />
+							</>
 						) : (
-							<>Récupération en cours...</>
+							<></>
 						)}
 					</div>
 				</div>
