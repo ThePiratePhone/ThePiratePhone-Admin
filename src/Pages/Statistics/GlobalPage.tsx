@@ -248,8 +248,8 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 		getRatios().then(res => {
 			if (res) {
 				const newDatas = new Array<{ name: string; value: number }>();
-				newDatas.push({ name: 'Voté pour nous', value: res.converted });
-				newDatas.push({ name: 'Pas voté pour nous', value: res.failure });
+				newDatas.push({ name: 'Compte voter', value: res.converted });
+				newDatas.push({ name: 'Ne compte pas voter', value: res.failure });
 				newDatas.push({ name: 'Pas interessé·e', value: res.notInterested });
 				newDatas.push({ name: 'À retirer', value: res.removed });
 				setRatios(newDatas);

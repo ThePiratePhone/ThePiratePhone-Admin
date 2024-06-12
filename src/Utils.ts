@@ -48,9 +48,9 @@ function cleanSatisfaction(satisfaction: Satisfaction) {
 		case 0:
 			return 'Pas de réponse';
 		case 1:
-			return 'Pas voté pour nous';
+			return 'Ne compte pas voter';
 		case 2:
-			return 'Voté pour nous';
+			return 'Compte voter';
 		default:
 			return 'Appel en cours';
 	}
