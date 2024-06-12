@@ -32,7 +32,7 @@ type Client = {
 
 type SearchClient = {
 	_id: string;
-	name: stirng;
+	name: string;
 	phone: string;
 };
 
