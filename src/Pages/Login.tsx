@@ -61,13 +61,15 @@ function getAreas(URL: string) {
 }
 
 async function testOldToken(URL: string) {
-	let value: Campaign | undefined;
-	try {
-		const oldCredentials = JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials;
-		oldCredentials.URL = URL;
-		value = await login(oldCredentials);
-	} catch (e) {}
-	return value;
+	return new Promise<Campaign | undefined>(resolve => {
+		try {
+			const oldCredentials = JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials;
+			oldCredentials.URL = URL;
+			login(oldCredentials).then(resolve);
+		} catch (e) {
+			resolve(undefined);
+		}
+	});
 }
 
 function LoginPage({

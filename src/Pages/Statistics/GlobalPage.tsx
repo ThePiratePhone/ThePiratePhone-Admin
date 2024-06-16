@@ -65,7 +65,7 @@ class MyBarChart extends PureComponent<{
 
 			datas.forEach(val => {
 				val['not answered'] = parseFloat(((val['not answered'] / val.total) * 100).toFixed(1));
-				val.called = parseFloat((100 - val['not answered']).toFixed(1));
+				val.called = 100 - parseFloat(val['not answered'].toFixed(1));
 
 				if (val.total >= 10) values.push(val);
 			});
@@ -131,8 +131,8 @@ class MyBarChart extends PureComponent<{
 					<Area
 						type="monotone"
 						dataKey="not answered"
-						stackId={1}
 						name="Pas répondu"
+						stackId={1}
 						fill="#E74855"
 						stroke="#E74855"
 						yAxisId="left"
@@ -258,9 +258,9 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 		getProgress().then(res => {
 			if (res) {
 				const newDatas = new Array<{ name: string; value: number }>();
-				newDatas.push({ name: 'Appelés', value: res.totalCalled });
+				newDatas.push({ name: 'Appelé·es', value: res.totalCalled });
 				newDatas.push({ name: 'Pas répondu', value: res.totalNotRespond });
-				newDatas.push({ name: 'Pas appelés', value: res.totalUser - res.totalNotRespond - res.totalCalled });
+				newDatas.push({ name: 'Pas appelé·es', value: res.totalUser - res.totalNotRespond - res.totalCalled });
 				setProgress(newDatas);
 			}
 		});
