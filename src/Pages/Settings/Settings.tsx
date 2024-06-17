@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Button from '../../Components/Button';
+import { clearCredentials } from '../../Utils/Storage';
 import E404 from '../E404';
 import ChangeAreaName from './Area/ChangeName';
 import ChangeAreaPassword from './Area/ChangePassword';
 import AreaSettings from './AreaSettings';
 import Campaign from './Campaign/Campaign';
 import CampaignsSettings from './Campaigns';
-import { clearCredentials } from '../../Utils/Storage';
 
 function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
 	function logout() {

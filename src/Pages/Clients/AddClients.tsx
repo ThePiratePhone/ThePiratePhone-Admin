@@ -4,57 +4,42 @@ import { useState } from 'react';
 
 import Button from '../../Components/Button';
 
-function ErrorsComp({
-	numberCount,
-	errors
-}: {
-	numberCount: number | null;
-	errors: Array<{ name: string; phone: string; error: string }>;
-}) {
+function ErrorsComp({ numberCount, errors }: { numberCount: number | null; errors: Array<ClientError> }) {
 	if (numberCount == null) {
 		return <></>;
 	}
 
-	if (errors) {
-		if (errors.length == 0) {
-			return (
-				<h4>
-					<span className="Phone">{numberCount}</span> contacts ajoutés. Aucune erreur détéctée
-				</h4>
-			);
-		}
+	if (errors.length == 0) {
+		return (
+			<h4>
+				<span className="Phone">{numberCount}</span> contacts ajouté·es. Aucune erreur détéctée.
+			</h4>
+		);
 	}
 
 	return (
 		<>
 			<span>
 				<h4>
-					<span className="Phone">{numberCount} contacts ajoutés.</span>{' '}
-					{errors.length == 1 ? (
-						<>
-							<span className="Phone">1</span> erreur détéctée
-						</>
-					) : (
-						<>
-							<span className="Phone">{errors.length}</span> erreurs détéctées
-						</>
-					)}
+					<span className="Phone">{numberCount} contacts ajouté·es.</span>{' '}
+					<span className="Phone">{errors.length}</span>{' '}
+					{errors.length == 1 ? 'erreur détéctée.' : 'erreurs détéctées.'}
 				</h4>
 			</span>
 			<div className="ClientsErrors">
 				<div className="ErrorsHeader">Nom</div>
 				<div className="ErrorsHeader">Téléphone</div>
 				{(() => {
-					const render = new Array();
+					const errorsRender = new Array();
 					errors.forEach((value, i) => {
-						render.push(<div key={i}>{value.name}</div>);
-						render.push(
+						errorsRender.push(<div key={i}>{value.name}</div>);
+						errorsRender.push(
 							<div key={i + 'bis'} className="Phone">
 								{value.phone}
 							</div>
 						);
 					});
-					return render;
+					return errorsRender;
 				})()}
 			</div>
 		</>
@@ -63,14 +48,14 @@ function ErrorsComp({
 
 function AddClients({ credentials }: { credentials: Credentials }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(true);
-	const [Working, setWorking] = useState(false);
-	const [Errors, setErrors] = useState<Array<{ name: string; phone: string; error: string }>>(new Array());
+	const [InputDisabled, setInputDisabled] = useState(false);
+	const [Errors, setErrors] = useState<Array<ClientError>>(new Array());
 	const [numberCount, setNumberCount] = useState<number | null>(null);
 	const [ButtonValue, setButtonValue] = useState('Ajouter');
 
 	async function send(array: Array<{ name: string; phone: string }>) {
-		return new Promise<Array<{ name: string; phone: string; error: string }> | undefined>(async resolve => {
-			let errors = new Array<{ name: string; phone: string; error: string }>();
+		return new Promise<Array<ClientError> | undefined>(async resolve => {
+			let errors = new Array<ClientError>();
 			for (let i = 0; i < array.length; i += 500) {
 				const newArray = new Array<[string, string]>();
 				for (let j = 0; j < 500 && i + j < array.length; j++) {
@@ -88,7 +73,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 						console.error(err);
 					});
 				if (res?.data?.OK) {
-					res.data.errors = res.data.errors.map((values: any) => {
+					res.data.errors = res.data.errors.map((values: Array<string>) => {
 						return { name: values[0], phone: values[1], error: values[2] };
 					});
 					errors = errors.concat(res.data.errors);
@@ -101,11 +86,11 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 	function click() {
 		if (ButtonDisabled) return;
 		setButtonDisabled(true);
-		setWorking(true);
+		setInputDisabled(true);
 		setButtonValue('Vérification...');
 
-		const file = (document.getElementById('file') as HTMLInputElement).files as FileList;
-		file[0].text().then(val => {
+		const file = ((document.getElementById('file') as HTMLInputElement).files as FileList)[0];
+		file.text().then(val => {
 			val = 'name,phone\r\n' + val;
 			val = val.replaceAll('\n\n', '');
 			val = val.replaceAll('\r\n\r\n', '\r\n');
@@ -145,7 +130,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 			</p>
 			<div>
 				<input
-					disabled={Working}
+					disabled={InputDisabled}
 					className="inputField"
 					type="file"
 					id="file"

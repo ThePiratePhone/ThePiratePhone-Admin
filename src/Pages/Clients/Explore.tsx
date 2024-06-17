@@ -117,7 +117,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 		}, 250);
 	}
 
-	function enter(e: any) {
+	function enter(e: React.KeyboardEvent<HTMLInputElement>) {
 		if (e.key == 'Enter') {
 			action();
 		}
@@ -172,7 +172,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 				.then(res => {
 					if (res.data.OK) {
 						res.data.data.client.data[campaign._id] = res.data.data.client.data[campaign._id].map(
-							(el: any) => {
+							(el: Call) => {
 								el.startCall = new Date(el.startCall);
 								el.endCall = new Date(el.endCall);
 								return el;

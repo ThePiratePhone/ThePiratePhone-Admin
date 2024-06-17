@@ -73,7 +73,7 @@ function CreateCaller({ credentials }: { credentials: Credentials }) {
 		}
 	}
 
-	function next(e: any, index: number) {
+	function next(e: React.KeyboardEvent<HTMLInputElement>, index: number) {
 		if (e.key != 'Enter') return;
 		if (index == 0) {
 			document.getElementById('phone')?.focus();

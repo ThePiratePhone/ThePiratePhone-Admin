@@ -14,19 +14,21 @@ type Area = {
 	name: string;
 };
 
+type Call = {
+	status: CallStatus;
+	caller: string;
+	satisfaction: Satisfaction;
+	startCall: Date;
+	endCall: Date;
+};
+
 type Client = {
 	_id: string;
 	name: stirng;
 	phone: string;
 	area: string;
 	data: {
-		[key: string]: Array<{
-			status: CallStatus;
-			caller: string;
-			satisfaction: Satisfaction;
-			startCall: Date;
-			endCall: Date;
-		}>;
+		[key: string]: Array<Call>;
 	};
 };
 
@@ -44,6 +46,8 @@ type ClientInfos = {
 	client: Client;
 	callers: Array<Caller>;
 };
+
+type ClientError = { name: string; phone: string; error: string };
 
 type Caller = {
 	id: string;
