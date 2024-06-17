@@ -147,7 +147,6 @@ class MyBarChart extends PureComponent<{
 						dot={false}
 						strokeDasharray="3 3"
 					/>
-
 					<Legend />
 				</ComposedChart>
 			</ResponsiveContainer>

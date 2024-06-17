@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../Components/Button';
-import { cleanNumber, startWithVowel } from '../../Utils';
+import { cleanNumber } from '../../Utils/Cleaners';
+import { startWithVowel } from '../../Utils/Utils';
 import E404 from '../E404';
 import ChangeCallerName from './ChangeName';
 import ChangeCallerPassword from './ChangePassword';

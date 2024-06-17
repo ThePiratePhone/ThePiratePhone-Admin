@@ -7,10 +7,11 @@ import ChangeAreaPassword from './Area/ChangePassword';
 import AreaSettings from './AreaSettings';
 import Campaign from './Campaign/Campaign';
 import CampaignsSettings from './Campaigns';
+import { clearCredentials } from '../../Utils/Storage';
 
 function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
-	function logOut() {
-		localStorage.removeItem('credentials');
+	function logout() {
+		clearCredentials();
 		renderLogin();
 	}
 
@@ -20,7 +21,7 @@ function SettingsHome({ renderLogin }: { renderLogin: () => void }) {
 			<div>
 				<Button link="Area" value="Paramètres de l'organisation" />
 				<Button link="Campaigns" value="Gérer les campagnes" />
-				<Button value="Se déconnecter" type="RedButton" onclick={logOut} />
+				<Button value="Se déconnecter" type="RedButton" onclick={logout} />
 			</div>
 		</div>
 	);

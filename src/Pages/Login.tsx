@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Logo from '../Assets/Images/Logo.svg';
 
 import Button from '../Components/Button';
+import { clearCredentials, getCredentials, setCredentials } from '../Utils/Storage';
 
 function login(credentials: Credentials) {
 	return new Promise<Campaign | undefined>(resolve => {
@@ -63,7 +64,7 @@ function getAreas(URL: string) {
 async function testOldToken(URL: string) {
 	return new Promise<Campaign | undefined>(resolve => {
 		try {
-			const oldCredentials = JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials;
+			const oldCredentials = getCredentials();
 			oldCredentials.URL = URL;
 			login(oldCredentials).then(resolve);
 		} catch (e) {
@@ -84,7 +85,7 @@ function LoginPage({
 	const [Areas, setAreas] = useState<Array<Area>>(new Array());
 
 	useEffect(() => {
-		const credentials = JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials | null;
+		const credentials = getCredentials();
 		if (credentials != null) {
 			testOldToken(URL).then(result => {
 				if (result) {
@@ -92,7 +93,7 @@ function LoginPage({
 					credentials.areaName = result.areaName;
 					renderApp(credentials, result);
 				} else {
-					window.localStorage.removeItem('credentials');
+					clearCredentials();
 					load();
 				}
 			});
@@ -131,7 +132,7 @@ function LoginPage({
 
 		login(credentials).then(result => {
 			if (result) {
-				window.localStorage.setItem('credentials', JSON.stringify(credentials));
+				setCredentials(credentials);
 				renderApp(credentials, result);
 			} else {
 				setButtonValue('Identifiants invalides');

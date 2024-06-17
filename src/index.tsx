@@ -8,7 +8,7 @@ import './declarations.d.ts';
 import App from './App';
 import LoginPage from './Pages/Login';
 import MobilePage from './Pages/MobilePage';
-import { mobileCheck } from './Utils';
+import { mobileCheck } from './Utils/Utils';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 

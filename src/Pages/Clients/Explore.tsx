@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../Components/Button';
-import { cleanNumber, cleanSatisfaction, cleanStatus, getCallDuration } from '../../Utils';
+import { cleanNumber, cleanSatisfaction } from '../../Utils/Cleaners';
+import { getCallDuration } from '../../Utils/Utils';
 import E404 from '../E404';
 
 function Client({ clients }: { clients: Array<SearchClient> | null }) {

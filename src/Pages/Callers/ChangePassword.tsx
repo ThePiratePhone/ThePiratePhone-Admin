@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '../../Components/Button';
-import { startWithVowel } from '../../Utils';
+import { startWithVowel } from '../../Utils/Utils';
 
 function ChangeCallerPassword({
 	credentials,
