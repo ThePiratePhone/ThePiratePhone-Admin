@@ -2,8 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function CampaignsList({ campaigns }: { campaigns: Array<Campaign> | null }) {
+function CampaignsList({ campaigns }: { campaigns: Array<Campaign> | null | undefined }) {
 	if (campaigns == null) return <h4>Récupération en cours...</h4>;
+	if (campaigns == undefined) return <h4>Une erreur est survenue.</h4>;
 	if (campaigns.length == 0) return <div>Aucune campagne</div>;
 
 	return (
@@ -25,7 +26,7 @@ function CampaignsSettings({ credentials }: { credentials: Credentials }) {
 	function getCampaigns() {
 		return new Promise<Array<Campaign> | undefined>(resolve => {
 			axios
-				.post(credentials.URL + '/admin/campaign/campaign', {
+				.post(credentials.URL + '/admin/campaign/listCampaign', {
 					area: credentials.content.areaId,
 					adminCode: credentials.content.password
 				})

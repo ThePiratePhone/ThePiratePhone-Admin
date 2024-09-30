@@ -5,7 +5,10 @@ function Footer() {
 				The Pirate Phone © <span className="Phone">2024</span>
 			</span>
 			<span className="FooterElement">
-				Un projet de <a href="https://union-etudiante.fr/">l'Union Étudiante</a>
+				Un projet de{' '}
+				<a target="_blank" href="https://union-etudiante.fr/">
+					l'Union Étudiante
+				</a>
 			</span>
 			<span className="FooterElement">Réalisé avec ❤️ depuis Grenoble</span>
 		</div>

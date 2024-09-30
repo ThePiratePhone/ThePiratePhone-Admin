@@ -9,6 +9,7 @@ import ChangeCallTime from './ChangeCallTime';
 import ChangeHours from './ChangeHours';
 import ChangeCampaignName from './ChangeName';
 import ChangeCampaignPassword from './ChangePassword';
+import ChangeResponses from './ChangeResponses';
 import ChangeScript from './ChangeScript';
 import SetActive from './SetActive';
 
@@ -43,7 +44,7 @@ function CampaignMain({
 			element: <ChangeHours setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
 		},
 		{
-			path: 'ChangeName',
+			path: '/ChangeName',
 			element: <ChangeCampaignName setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
 		},
 		{
@@ -51,8 +52,12 @@ function CampaignMain({
 			element: <ChangeScript setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
 		},
 		{
+			path: '/ChangeResponses',
+			element: <ChangeResponses setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
+		},
+		{
 			path: '/SetActive',
-			element: <SetActive credentials={credentials} campaign={campaign} />
+			element: <SetActive credentials={credentials} campaign={campaign} setCampaign={setCampaign} />
 		},
 		{
 			path: '/*',
@@ -109,7 +114,8 @@ function Campaign({
 								start: new Date(res.data.data.callHoursStart),
 								end: new Date(res.data.data.callHoursEnd)
 							},
-							script: res.data.data.script[0],
+							status: res.data.data.status,
+							script: res.data.data.script,
 							active: res.data.data.active
 						};
 						resolve(campaign);

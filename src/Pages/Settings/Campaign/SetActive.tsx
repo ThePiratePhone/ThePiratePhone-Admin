@@ -4,7 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../Components/Button';
 
-function SetActive({ credentials, campaign }: { credentials: Credentials; campaign: Campaign }) {
+function SetActive({
+	credentials,
+	campaign,
+	setCampaign
+}: {
+	credentials: Credentials;
+	campaign: Campaign;
+	setCampaign: (campaign: Campaign) => void;
+}) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
 	const [ButtonValue, setButtonValue] = useState('Activer');
 	const navigate = useNavigate();
@@ -28,13 +36,15 @@ function SetActive({ credentials, campaign }: { credentials: Credentials; campai
 		});
 	}
 
-	function set() {
+	function setActivate() {
 		if (ButtonDisabled) return;
 		setButtonDisabled(true);
 		setButtonValue('Vérification...');
 
 		modify().then(result => {
 			if (result) {
+				campaign.active = true;
+				setCampaign(campaign);
 				navigate('/Settings/Campaigns/' + campaign._id);
 				return;
 			} else {
@@ -52,7 +62,11 @@ function SetActive({ credentials, campaign }: { credentials: Credentials; campai
 				supprimée.
 			</span>
 			<div>
-				<Button type={ButtonDisabled ? 'ButtonDisabled' : 'RedButton'} value={ButtonValue} onclick={set} />
+				<Button
+					type={ButtonDisabled ? 'ButtonDisabled' : 'RedButton'}
+					value={ButtonValue}
+					onclick={setActivate}
+				/>
 			</div>
 		</div>
 	);

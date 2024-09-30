@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import './Stylesheets/index.scss';
@@ -16,27 +15,15 @@ const URL = 'https://pp.mpqa.fr:8443/api';
 
 function renderApp(credentials: Credentials, campaign: Campaign) {
 	credentials.URL = URL;
-	root.render(
-		<React.StrictMode>
-			<App credentials={credentials} renderLogin={renderLogin} campaign={campaign} />
-		</React.StrictMode>
-	);
+	root.render(<App credentials={credentials} renderLogin={renderLogin} campaign={campaign} />);
 }
 
 function renderLogin() {
-	root.render(
-		<React.StrictMode>
-			<LoginPage URL={URL} renderApp={renderApp} />
-		</React.StrictMode>
-	);
+	root.render(<LoginPage URL={URL} renderApp={renderApp} />);
 }
 
 if (mobileCheck()) {
-	root.render(
-		<React.StrictMode>
-			<MobilePage />
-		</React.StrictMode>
-	);
+	root.render(<MobilePage />);
 } else {
 	renderLogin();
 }

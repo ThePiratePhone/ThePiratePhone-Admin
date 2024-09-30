@@ -34,6 +34,7 @@ function login(credentials: Credentials) {
 							start: new Date(loginResponse.actualCampaignCallStart),
 							end: new Date(loginResponse.actualCampaignCallEnd)
 						},
+						status: loginResponse.actualCampaignStatus,
 						script: loginResponse.actualCampaignScript,
 						active: true
 					};

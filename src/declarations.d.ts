@@ -72,6 +72,7 @@ type LoginResponse = {
 	actualCampaignMaxCall: number;
 	actualCampaignTimeBetweenCall: number;
 	actualCampaignScript: string;
+	actualCampaignStatus: Array<string>;
 };
 
 type Campaign = {
@@ -86,6 +87,7 @@ type Campaign = {
 		start: Date;
 		end: Date;
 	};
+	status: Array<string>;
 	active: boolean;
 	script: string;
 };
