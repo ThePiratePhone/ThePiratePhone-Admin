@@ -19,7 +19,7 @@ function ChangeCallerPassword({
 	function modify(pin: string) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(credentials.URL + '/admin/caller/changeCallerPassword', {
+				.post(credentials.URL + '/admin/caller/changePassword', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
 					Callerphone: caller.phone,

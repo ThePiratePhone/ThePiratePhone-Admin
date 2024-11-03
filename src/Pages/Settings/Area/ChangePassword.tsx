@@ -18,10 +18,10 @@ function ChangeAreaPassword({
 	function modify(password: string) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(credentials.URL + '/changePassword', {
+				.post(credentials.URL + '/admin/area/changeAdminPassword', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newAdminCode: password
+					newPassword: password
 				})
 				.then(() => {
 					resolve(true);

@@ -12,7 +12,7 @@ function ChangeCampaignPassword({ credentials, campaign }: { credentials: Creden
 	function modify(password: string) {
 		return new Promise<boolean>(resolve => {
 			axios
-				.post(credentials.URL + '/admin/campaign/changeCampaignPassword', {
+				.post(credentials.URL + '/admin/campaign/changePassword', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
 					newCampaignCode: password,

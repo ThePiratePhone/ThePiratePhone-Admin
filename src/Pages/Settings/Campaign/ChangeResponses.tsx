@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createRef, useEffect, useState } from 'react';
+import { createRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReactSortable } from 'react-sortablejs';
 
@@ -41,7 +41,6 @@ function ChangeResponses({
 			return { name: val, id: i };
 		})
 	);
-	const navigate = useNavigate();
 
 	function modify(status: Array<string>) {
 		return new Promise<boolean>(resolve => {
@@ -73,7 +72,7 @@ function ChangeResponses({
 			if (result) {
 				campaign.status = status;
 				setCampaign(campaign);
-				navigate('/Settings/Campaigns/' + campaign._id);
+				useNavigate()('/Settings/Campaigns/' + campaign._id);
 				return;
 			} else {
 				setButtonDisabled(false);
