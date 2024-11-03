@@ -41,6 +41,7 @@ function ChangeResponses({
 			return { name: val, id: i };
 		})
 	);
+	const navigate = useNavigate();
 
 	function modify(status: Array<string>) {
 		return new Promise<boolean>(resolve => {
@@ -72,7 +73,7 @@ function ChangeResponses({
 			if (result) {
 				campaign.status = status;
 				setCampaign(campaign);
-				useNavigate()('/Settings/Campaigns/' + campaign._id);
+				navigate('/Settings/Campaigns/' + campaign._id);
 				return;
 			} else {
 				setButtonDisabled(false);

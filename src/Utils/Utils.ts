@@ -6,9 +6,7 @@ function mobileCheck() {
 	});
 }
 
-function getCallDuration(start: Date, end: Date) {
-	const absDuration = Math.abs(end.getTime() - start.getTime());
-
+function getCallDuration(absDuration: number) {
 	const duration = new Date(1970, 0, 1, 0, Math.floor(absDuration / 60_000), Math.floor(absDuration / 1000));
 
 	if (duration.toLocaleTimeString() == 'Invalid Date') return 'Inconnue';

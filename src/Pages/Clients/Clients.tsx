@@ -95,7 +95,7 @@ function Clients({ credentials, campaign }: { credentials: Credentials; campaign
 		},
 		{
 			path: '/Explore/*',
-			element: <Search campaign={campaign} credentials={credentials} />
+			element: <Search credentials={credentials} />
 		},
 		{
 			path: '/Purge',
@@ -109,9 +109,7 @@ function Clients({ credentials, campaign }: { credentials: Credentials; campaign
 
 	useEffect(() => {
 		getClientCount(credentials).then(value => {
-			if (value != null) {
-				setClientCount(value);
-			}
+			setClientCount(value ?? 0);
 		});
 	}, [location.pathname]);
 

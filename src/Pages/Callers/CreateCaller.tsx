@@ -32,7 +32,7 @@ function CreateCaller({ credentials }: { credentials: Credentials }) {
 						resolve(-1);
 					} else if (err.response.data.message == 'Wrong phone number') {
 						resolve(1);
-					} else if (err.response.data.message == 'User already exist') {
+					} else if (err.response.data.message == 'caller already exist') {
 						resolve(2);
 					} else {
 						console.error(err);

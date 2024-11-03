@@ -19,7 +19,8 @@ type Call = {
 	caller: string;
 	satisfaction: Satisfaction;
 	startCall: Date;
-	endCall: Date;
+	duration: number;
+	comment: string;
 };
 
 type Client = {
@@ -44,7 +45,7 @@ type CallStatus = 'called' | 'not called' | 'not answered' | 'inprogress';
 
 type ClientInfos = {
 	client: Client;
-	callers: Array<Caller>;
+	call: Array<{ call: Call; caller: Caller }>;
 };
 
 type ClientError = { name: string; phone: string; error: string };

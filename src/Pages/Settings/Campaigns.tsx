@@ -32,7 +32,7 @@ function CampaignsSettings({ credentials }: { credentials: Credentials }) {
 				})
 				.then(res => {
 					if (res.data.OK) {
-						resolve(res.data.data.campaign);
+						resolve(res.data.data.campaigns);
 					} else {
 						resolve(undefined);
 					}

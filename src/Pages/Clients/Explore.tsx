@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../Components/Button';
-import { cleanNumber, cleanSatisfaction } from '../../Utils/Cleaners';
+import { cleanNumber } from '../../Utils/Cleaners';
 import { getCallDuration } from '../../Utils/Utils';
 import E404 from '../E404';
 
@@ -151,7 +151,7 @@ function Search({ credentials }: { credentials: Credentials }) {
 	);
 }
 
-function ClientDetail({ credentials, campaign }: { credentials: Credentials; campaign: Campaign }) {
+function ClientDetail({ credentials }: { credentials: Credentials }) {
 	const { phone } = useParams();
 	const [Client, setClient] = useState<Client | null | undefined>(undefined);
 	const [Calls, setCalls] = useState<Array<JSX.Element> | undefined>(undefined);
@@ -171,13 +171,14 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 				})
 				.then(res => {
 					if (res.data.OK) {
-						res.data.data.client.data[campaign._id] = res.data.data.client.data[campaign._id].map(
-							(el: Call) => {
-								el.startCall = new Date(el.startCall);
-								el.endCall = new Date(el.endCall);
+						if (res.data?.data?.call?.length > 0) {
+							res.data.data.call = res.data.data.call.map((el: { call: any; caller: Caller }) => {
+								el.call.startCall = new Date(el.call.start);
 								return el;
-							}
-						);
+							});
+						} else {
+							res.data.data.call = [];
+						}
 						resolve(res.data.data);
 					} else {
 						resolve(undefined);
@@ -210,7 +211,7 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 		getInfos().then(res => {
 			if (res) {
 				setClient(res.client);
-				if (!res.callers.length) {
+				if (!res.call.length) {
 					return;
 				}
 				const calls = new Array();
@@ -218,37 +219,39 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 					<b key={-5}>Date/Heure</b>,
 					<b key={-4}>Durée</b>,
 					<b key={-3}>Appelant·e</b>,
-					<b key={-1}>Résultat</b>
+					<b key={-2}>Résultat</b>,
+					<b key={-1}>Commentaire</b>
 				);
-				res.client.data[campaign._id].forEach((element, i) => {
-					if (element.status == 'not called') {
+				res.call.forEach((element, i) => {
+					if (element.call.status == 'not called') {
 						return;
 					}
 
 					function GetCallBounds() {
-						if (element.startCall.toLocaleDateString() == 'Invalid Date') {
+						if (element.call.startCall.toLocaleDateString() == 'Invalid Date') {
 							return <>Inconnue</>;
 						}
 						return (
 							<>
-								<span className="Phone">{element.startCall.toLocaleDateString()}</span>
+								<span className="Phone">{element.call.startCall.toLocaleDateString()}</span>
 								{' à '}
-								<span className="Phone">{element.startCall.toLocaleTimeString()}</span>
+								<span className="Phone">{element.call.startCall.toLocaleTimeString()}</span>
 							</>
 						);
 					}
-
-					const duration = getCallDuration(element.startCall, element.endCall);
 
 					calls.push(
 						<span key={i + 'a'}>
 							<GetCallBounds />
 						</span>,
 						<span key={i + 'b'} className="Phone">
-							{duration}
+							{getCallDuration(element.call.duration)}
 						</span>,
-						<span key={i + 'c'}>{res.callers.find(el => el.id == element.caller)?.name}</span>,
-						<span key={i + 'e'}>{cleanSatisfaction(element.satisfaction)}</span>
+						<span key={i + 'c'}>
+							{res.call.find(el => el.caller.id == element.caller.id)?.caller.name}
+						</span>,
+						<span key={i + 'e'}>{element.call.satisfaction}</span>,
+						<span key={i + 'f'}>{element.call.comment ?? 'Aucun commentaire'}</span>
 					);
 				});
 				setCalls(calls);
@@ -299,11 +302,11 @@ function ClientDetail({ credentials, campaign }: { credentials: Credentials; cam
 	);
 }
 
-function Explore({ credentials, campaign }: { credentials: Credentials; campaign: Campaign }) {
+function Explore({ credentials }: { credentials: Credentials }) {
 	return (
 		<Routes>
 			<Route path="/" element={<Search credentials={credentials} />} />
-			<Route path="/:phone" element={<ClientDetail campaign={campaign} credentials={credentials} />} />
+			<Route path="/:phone" element={<ClientDetail credentials={credentials} />} />
 			<Route path="/*" element={<E404 />} />
 		</Routes>
 	);

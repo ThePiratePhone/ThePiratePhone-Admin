@@ -23,7 +23,7 @@ function ErrorsComp({ numberCount, errors }: { numberCount: number | null; error
 				<h4>
 					<span className="Phone">{numberCount} contacts ajouté·es.</span>{' '}
 					<span className="Phone">{errors.length}</span>{' '}
-					{errors.length == 1 ? 'erreur détéctée.' : 'erreurs détéctées.'}
+					{errors.length == 1 ? 'erreur détéctée :' : 'erreurs détéctées :'}
 				</h4>
 			</span>
 			<div className="ClientsErrors">

@@ -70,9 +70,7 @@ function Callers({ credentials }: { credentials: Credentials }) {
 
 	useEffect(() => {
 		getCallerCount(credentials).then(value => {
-			if (value != null) {
-				setCallerCount(value);
-			}
+			setCallerCount(value ?? 0);
 		});
 	}, [location.pathname]);
 

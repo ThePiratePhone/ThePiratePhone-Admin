@@ -23,7 +23,7 @@ function ChangeCallCount({
 				.post(credentials.URL + '/admin/campaign/changeNumberMaxCall', {
 					adminCode: credentials.content.password,
 					area: credentials.content.areaId,
-					newNumberMaxCall: value.toString(),
+					newNumberMaxCall: value,
 					CampaignId: campaign._id
 				})
 				.then(() => {
