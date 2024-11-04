@@ -27,7 +27,7 @@ class MyBarChart extends PureComponent<{
 				{
 					time: number;
 					total: number;
-					toRecal: number;
+					toRecall: number;
 					called: number;
 					inprogress: number;
 				}
@@ -42,7 +42,7 @@ class MyBarChart extends PureComponent<{
 					datas.set(roundedTime, {
 						time: roundedTime,
 						total: 0,
-						toRecal: 0,
+						toRecall: 0,
 						called: 0,
 						inprogress: 0
 					});
@@ -53,20 +53,20 @@ class MyBarChart extends PureComponent<{
 					datas.set(roundedTime, data);
 					data.called++;
 					if (item.satisfaction == 'inprogress') data.inprogress++;
-					if (item.response) data['toRecal']++;
+					if (item.response) data.toRecall++;
 				}
 			});
 
 			const values = new Array<{
 				time: number;
 				total: number;
-				toRecal: number;
+				toRecall: number;
 				called: number;
 			}>();
 
 			datas.forEach(val => {
-				val['toRecal'] = parseFloat(((val['toRecal'] / val.total) * 100).toFixed(1));
-				val.called = 100 - parseFloat(val['toRecal'].toFixed(1));
+				val.toRecall = parseFloat(((val.toRecall / val.total) * 100).toFixed(1));
+				val.called = 100 - parseFloat(val.toRecall.toFixed(1));
 
 				if (val.total >= 10) values.push(val);
 			});
@@ -129,7 +129,7 @@ class MyBarChart extends PureComponent<{
 					/>
 					<Area
 						type="monotone"
-						dataKey="toRecal"
+						dataKey="toRecall"
 						name="Pas répondu"
 						stackId={1}
 						fill="#E74855"
@@ -194,8 +194,8 @@ function ResponseByTime({ credentials }: { credentials: Credentials }) {
 }
 
 function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
-	const [Ratios, setRatios] = useState<Array<{ name: string; value: number }>>([]);
-	const [Progress, setProgress] = useState<Array<{ name: string; value: number }>>([]);
+	const [Ratios, setRatios] = useState<Array<{ name: string; value: number }> | null>([]);
+	const [Progress, setProgress] = useState<Array<{ name: string; value: number }> | null>([]);
 
 	function getRatios() {
 		return new Promise<RatiosResponse | undefined>(resolve => {
@@ -239,7 +239,7 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 		});
 	}
 
-	const COLORS = ['#08A47C', '#E74855', '#FFC482', '#403F4C'];
+	const COLORS = ['#FFC482', '#08A47C', '#E74855', '#403F4C', '#4775FF'];
 	const COLORS2 = ['#08A47C', '#4775FF', '#E74855'];
 
 	useEffect(() => {
@@ -250,6 +250,8 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 					newDatas.push({ name: item.status, value: item.count });
 				});
 				setRatios(newDatas);
+			} else {
+				setRatios(null);
 			}
 		});
 		getProgress().then(res => {
@@ -269,7 +271,7 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 			<div>
 				<div>
 					<div className="CallStatistics">
-						{Ratios.length != 0 ? (
+						{Ratios != null && Ratios.length != 0 ? (
 							<>
 								<h4>Résultats des appels</h4>
 								<MyPieChart colors={COLORS} datas={Ratios} />
@@ -279,7 +281,7 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 						)}
 					</div>
 					<div className="CallStatistics">
-						{Progress.length != 0 ? (
+						{Progress != null && Progress.length != 0 ? (
 							<>
 								<h4>Avancement des appels</h4>
 								<MyPieChart colors={COLORS2} datas={Progress} />
