@@ -27,7 +27,7 @@ class MyBarChart extends PureComponent<{
 				{
 					time: number;
 					total: number;
-					'not answered': number;
+					toRecal: number;
 					called: number;
 					inprogress: number;
 				}
@@ -42,7 +42,7 @@ class MyBarChart extends PureComponent<{
 					datas.set(roundedTime, {
 						time: roundedTime,
 						total: 0,
-						'not answered': 0,
+						toRecal: 0,
 						called: 0,
 						inprogress: 0
 					});
@@ -50,26 +50,26 @@ class MyBarChart extends PureComponent<{
 				const data = datas.get(roundedTime);
 				if (data) {
 					data.total++;
-					data[item.response]++;
 					datas.set(roundedTime, data);
+					data.called++;
+					if (item.satisfaction == 'inprogress') data.inprogress++;
+					if (item.response) data['toRecal']++;
 				}
 			});
 
 			const values = new Array<{
 				time: number;
 				total: number;
-				'not answered': number;
+				toRecal: number;
 				called: number;
-				inprogress: number;
 			}>();
 
 			datas.forEach(val => {
-				val['not answered'] = parseFloat(((val['not answered'] / val.total) * 100).toFixed(1));
-				val.called = 100 - parseFloat(val['not answered'].toFixed(1));
+				val['toRecal'] = parseFloat(((val['toRecal'] / val.total) * 100).toFixed(1));
+				val.called = 100 - parseFloat(val['toRecal'].toFixed(1));
 
 				if (val.total >= 10) values.push(val);
 			});
-
 			return values;
 		}
 
@@ -78,7 +78,6 @@ class MyBarChart extends PureComponent<{
 		}
 
 		const cleanedData = densityGroup(this.props.datas);
-
 		function CustomTooltip({ active, payload, label }) {
 			if (active && payload && payload.length) {
 				return (
@@ -130,7 +129,7 @@ class MyBarChart extends PureComponent<{
 					/>
 					<Area
 						type="monotone"
-						dataKey="not answered"
+						dataKey="toRecal"
 						name="Pas répondu"
 						stackId={1}
 						fill="#E74855"
@@ -247,10 +246,9 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 		getRatios().then(res => {
 			if (res) {
 				const newDatas = new Array<{ name: string; value: number }>();
-				newDatas.push({ name: 'Compte voter', value: res.converted });
-				newDatas.push({ name: 'Ne compte pas voter', value: res.failure });
-				newDatas.push({ name: 'Pas interessé·e', value: res.notInterested });
-				newDatas.push({ name: 'À retirer', value: res.removed });
+				res.callStatus.forEach(item => {
+					newDatas.push({ name: item.status, value: item.count });
+				});
 				setRatios(newDatas);
 			}
 		});

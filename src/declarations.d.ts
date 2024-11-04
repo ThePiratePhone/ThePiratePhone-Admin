@@ -94,11 +94,8 @@ type Campaign = {
 };
 
 type RatiosResponse = {
-	clientCalled: number;
-	converted: number;
-	failure: number;
-	notInterested: number;
-	removed: number;
+	callStatus: [{ status: string; count: number }];
+	clientCall: Number;
 };
 
 type ProgressResponse = {
@@ -107,4 +104,4 @@ type ProgressResponse = {
 	totalUser: number;
 };
 
-type TimeResponse = { date: Date; response: CallStatus };
+type TimeResponse = { date: Date; response: boolean; satisfaction: string };
