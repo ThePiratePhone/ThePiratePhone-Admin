@@ -100,7 +100,7 @@ type RatiosResponse = {
 
 type ProgressResponse = {
 	totalCalled: number;
-	totalNotRespond: number;
+	totalToRecall: number;
 	totalUser: number;
 };
 

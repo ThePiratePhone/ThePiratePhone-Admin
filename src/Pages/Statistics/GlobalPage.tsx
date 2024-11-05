@@ -258,8 +258,8 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 			if (res) {
 				const newDatas = new Array<{ name: string; value: number }>();
 				newDatas.push({ name: 'Appelé·es', value: res.totalCalled });
-				newDatas.push({ name: 'Pas répondu', value: res.totalNotRespond });
-				newDatas.push({ name: 'Pas appelé·es', value: res.totalUser - res.totalNotRespond - res.totalCalled });
+				newDatas.push({ name: 'Pas répondu', value: res.totalToRecall });
+				newDatas.push({ name: 'Pas appelé·es', value: res.totalUser - res.totalToRecall - res.totalCalled });
 				setProgress(newDatas);
 			}
 		});
