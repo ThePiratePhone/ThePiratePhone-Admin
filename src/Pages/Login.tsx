@@ -66,6 +66,7 @@ async function testOldToken(URL: string) {
 	return new Promise<Campaign | undefined>(resolve => {
 		try {
 			const oldCredentials = getCredentials();
+			if (!oldCredentials) throw undefined;
 			oldCredentials.URL = URL;
 			login(oldCredentials).then(resolve);
 		} catch (e) {

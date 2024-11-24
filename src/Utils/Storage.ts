@@ -1,5 +1,12 @@
 function getCredentials() {
-	return JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials;
+	const credentials = JSON.parse(window.localStorage.getItem('credentials') as string) as Credentials;
+
+	if (!credentials?.areaName || !credentials?.content?.areaId || !credentials?.content?.password) {
+		window.localStorage.clear();
+		return undefined;
+	}
+
+	return credentials;
 }
 
 function setCredentials(credentials: Credentials) {
