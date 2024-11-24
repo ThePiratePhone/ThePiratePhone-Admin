@@ -36,14 +36,14 @@ function ChangeResponses({
 }) {
 	const [ButtonDisabled, setButtonDisabled] = useState(false);
 	const [ButtonValue, setButtonValue] = useState('Valider');
-	const [Responses, setResponses] = useState<Array<{ name: string; id: number }>>(
+	const [Responses, setResponses] = useState<Array<{ name: string; toRecall: boolean; id: number }>>(
 		campaign.status.map((val, i) => {
-			return { name: val, id: i };
+			return { ...val, id: i };
 		})
 	);
 	const navigate = useNavigate();
 
-	function modify(status: Array<string>) {
+	function modify(status: Array<CallStatus>) {
 		return new Promise<boolean>(resolve => {
 			axios
 				.post(credentials.URL + '/admin/campaign/setSatisfaction', {
@@ -67,11 +67,9 @@ function ChangeResponses({
 		setButtonDisabled(true);
 		setButtonValue('Vérification...');
 
-		const status = Responses.map(el => el.name);
-
-		modify(status).then(result => {
+		modify(Responses).then(result => {
 			if (result) {
-				campaign.status = status;
+				campaign.status = Responses;
 				setCampaign(campaign);
 				navigate('/Settings/Campaigns/' + campaign._id);
 				return;
@@ -85,7 +83,7 @@ function ChangeResponses({
 	const addResponse = () => {
 		let id = 0;
 		while (Responses.findIndex(val => val.id == id) != -1) id++;
-		setResponses(Responses.concat({ name: 'Nouveau', id: id }));
+		setResponses(Responses.concat({ name: 'Nouveau', toRecall: false, id: id }));
 	};
 
 	const removeResponse = (id: number) => {

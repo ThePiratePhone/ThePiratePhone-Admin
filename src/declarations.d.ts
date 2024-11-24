@@ -15,7 +15,7 @@ type Area = {
 };
 
 type Call = {
-	status: CallStatus;
+	status: string;
 	caller: string;
 	satisfaction: Satisfaction;
 	startCall: Date;
@@ -39,9 +39,10 @@ type SearchClient = {
 	phone: string;
 };
 
-type Satisfaction = -2 | -1 | 0 | 1 | 2;
-
-type CallStatus = 'called' | 'not called' | 'not answered' | 'inprogress';
+type CallStatus = {
+	name: string;
+	toRecall: boolean;
+};
 
 type ClientInfos = {
 	client: Client;
@@ -73,7 +74,7 @@ type LoginResponse = {
 	actualCampaignMaxCall: number;
 	actualCampaignTimeBetweenCall: number;
 	actualCampaignScript: string;
-	actualCampaignStatus: Array<string>;
+	actualCampaignStatus: Array<CallStatus>;
 };
 
 type Campaign = {
@@ -88,7 +89,7 @@ type Campaign = {
 		start: Date;
 		end: Date;
 	};
-	status: Array<string>;
+	status: Array<CallStatus>;
 	active: boolean;
 	script: string;
 };
