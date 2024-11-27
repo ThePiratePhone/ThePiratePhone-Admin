@@ -247,7 +247,7 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 			if (res) {
 				const newDatas = new Array<{ name: string; value: number }>();
 				res.callStatus.forEach(item => {
-					newDatas.push({ name: item.status, value: item.count });
+					newDatas.push({ name: item.name, value: item.count });
 				});
 				setRatios(newDatas);
 			} else {

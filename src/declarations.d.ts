@@ -95,7 +95,7 @@ type Campaign = {
 };
 
 type RatiosResponse = {
-	callStatus: [{ status: string; count: number }];
+	callStatus: [{ name: string; count: number }];
 	clientCall: Number;
 };
 
