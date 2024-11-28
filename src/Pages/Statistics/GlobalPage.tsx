@@ -65,12 +65,17 @@ class MyBarChart extends PureComponent<{
 			}>();
 
 			datas.forEach(val => {
-				val.toRecall = parseFloat(((val.toRecall / val.total) * 100).toFixed(1));
-				val.called = 100 - parseFloat(val.toRecall.toFixed(1));
+				val.toRecall = roundTo((val.toRecall / val.total) * 100, 1);
+				val.called = roundTo(100 - val.toRecall, 1);
 
 				if (val.total >= 10) values.push(val);
 			});
 			return values;
+		}
+
+		function roundTo(num: number, decimals: number): number {
+			const factor = Math.pow(10, decimals);
+			return Math.round(num * factor) / factor;
 		}
 
 		function toPercent(decimal: number) {
