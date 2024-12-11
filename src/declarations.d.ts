@@ -61,8 +61,8 @@ type CallerInfos = {
 	id: string;
 	name: string;
 	phone: string;
-	totalTime: Date;
-	nbCalls: number;
+	totalTimeCampaign: Date;
+	nbCallsCampaign: number;
 };
 
 type LoginResponse = {

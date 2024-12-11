@@ -233,10 +233,10 @@ function CallerDetailMain({ credentials, caller }: { credentials: Credentials; c
 						Téléphone: <span className="Phone">{cleanNumber(Caller.phone)}</span>
 					</span>
 					<span>
-						Nombre d'appel: <span className="Phone">{Caller.nbCalls}</span>
+						Nombre d'appel: <span className="Phone">{Caller.nbCallsCampaign}</span>
 					</span>
 					<span>
-						Temps en appel: <span className="Phone">{Caller.totalTime.toLocaleTimeString()}</span>
+						Temps en appel: <span className="Phone">{Caller.totalTimeCampaign.toLocaleTimeString()}</span>
 					</span>
 					<Button value="Modifier le nom" onclick={() => renderPage('name')} />
 					<Button value="Modifier le pin" onclick={() => renderPage('password')} />
@@ -293,7 +293,7 @@ function CallerDetail({ credentials }: { credentials: Credentials }) {
 				})
 				.then(res => {
 					if (res.data.OK) {
-						const duration = res.data.data.totalTime;
+						const duration = res.data.data.totalTimeCampaign;
 						const date = new Date(
 							1970,
 							0,
@@ -302,7 +302,7 @@ function CallerDetail({ credentials }: { credentials: Credentials }) {
 							Math.floor((duration / (1000 * 60)) % 60),
 							Math.floor((duration / 1000) % 60)
 						);
-						res.data.data.totalTime = date;
+						res.data.data.totalTimeCampaign = date;
 						resolve(res.data.data);
 					} else {
 						resolve(undefined);
