@@ -63,7 +63,7 @@ type CallerInfos = {
 	phone: string;
 	totalTimeCampaign: Date;
 	nbCallsCampaign: number;
-	rank:number;
+	rank: number;
 };
 
 type LoginResponse = {
