@@ -238,6 +238,9 @@ function CallerDetailMain({ credentials, caller }: { credentials: Credentials; c
 					<span>
 						Temps en appel: <span className="Phone">{Caller.totalTimeCampaign.toLocaleTimeString()}</span>
 					</span>
+					<span>
+						Niveau dans le ScoreBoard: <span className="Phone">{Caller.rank}</span>
+					</span>
 					<Button value="Modifier le nom" onclick={() => renderPage('name')} />
 					<Button value="Modifier le pin" onclick={() => renderPage('password')} />
 					<Button value="Supprimer" type="RedButton" onclick={() => renderPage('delete')} />
