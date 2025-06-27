@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6d740668.css",
+    "main.js": "/static/js/main.c9ad4624.js",
+    "static/media/Montserrat.ttf": "/static/media/Montserrat.7e687123cd4528224ce5.ttf",
+    "static/media/Raleway.ttf": "/static/media/Raleway.e14d84ccec6be3ff19e3.ttf",
+    "static/media/Phudu.ttf": "/static/media/Phudu.a15bfdc97badc7b52c50.ttf",
+    "static/media/Logo.svg": "/static/media/Logo.45ececdb4d970ce2cbea9eaae3384913.svg",
+    "static/media/Gear.svg": "/static/media/Gear.f82d8cd69d87a1d9537224c466917c5c.svg",
+    "static/media/People.svg": "/static/media/People.1ac362cf9012dad40be68272c02f6fe2.svg",
+    "index.html": "/index.html",
+    "static/media/Data.svg": "/static/media/Data.dca2b499f998d702a96155fb73396a1b.svg",
+    "static/media/Delete.svg": "/static/media/Delete.720589fa31d33900f4c63a0efcc6f86d.svg",
+    "static/media/Statistic.svg": "/static/media/Statistic.68fafc85db739de90c140165367b8dc7.svg",
+    "main.6d740668.css.map": "/static/css/main.6d740668.css.map",
+    "main.c9ad4624.js.map": "/static/js/main.c9ad4624.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6d740668.css",
+    "static/js/main.c9ad4624.js"
+  ]
+}
