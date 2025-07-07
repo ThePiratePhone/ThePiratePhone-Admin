@@ -45,7 +45,7 @@ function Settings({
 		},
 		{
 			path: '/Area',
-			element: <AreaSettings />
+			element: <AreaSettings credentials={credentials} />
 		},
 		{
 			path: '/Area/ChangePassword',
