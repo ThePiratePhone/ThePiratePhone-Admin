@@ -11,7 +11,7 @@ import { mobileCheck } from './Utils/Utils';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const URL = 'https://pp.mpqa.fr/api';
+const URL = 'http://localhost:8081';
 
 function renderApp(credentials: Credentials, campaign: Campaign) {
 	credentials.URL = URL;
