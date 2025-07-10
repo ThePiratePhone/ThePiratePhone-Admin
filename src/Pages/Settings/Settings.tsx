@@ -3,8 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import Button from '../../Components/Button';
 import { clearCredentials } from '../../Utils/Storage';
 import E404 from '../E404';
-import ChangeAreaName from './Area/ChangeName';
-import ChangeAreaPassword from './Area/ChangePassword';
 import AreaSettings from './AreaSettings';
 import Campaign from './Campaign/Campaign';
 import CampaignsSettings from './Campaigns';
@@ -44,16 +42,8 @@ function Settings({
 			element: <SettingsHome renderLogin={renderLogin} />
 		},
 		{
-			path: '/Area',
-			element: <AreaSettings />
-		},
-		{
-			path: '/Area/ChangePassword',
-			element: <ChangeAreaPassword setCredentials={setCredentials} credentials={credentials} />
-		},
-		{
-			path: '/Area/ChangeName',
-			element: <ChangeAreaName setCredentials={setCredentials} credentials={credentials} />
+			path: '/Area/*',
+			element: <AreaSettings credentials={credentials} setCredentials={setCredentials} />
 		},
 		{
 			path: '/Campaigns',

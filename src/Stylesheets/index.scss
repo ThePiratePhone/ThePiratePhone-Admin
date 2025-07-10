@@ -274,6 +274,13 @@ h4 {
 	max-width: max-content;
 }
 
+.GenericPage > p {
+	margin: auto;
+	width: 50vw;
+	font-size: 1.2em;
+	text-align: justify;
+}
+
 .RemovePage > div > span {
 	font-size: 1.3em;
 	font-weight: bold;
@@ -341,6 +348,13 @@ h4 {
 	display: flex;
 	flex-direction: column;
 	gap: 2vh;
+}
+
+.Settings .smsStatus {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.3em;
 }
 
 .HoursChange {
@@ -440,5 +454,31 @@ a.Active {
 	}
 	& > span {
 		font-weight: bold;
+	}
+}
+
+.circle {
+	border-radius: 50%;
+	height: 1.2em;
+	width: 1.2em;
+}
+.status {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+
+	.circle.success {
+		background-color: var(--color1v1);
+		border: 2px solid var(--color1v1Border);
+	}
+
+	.circle.danger {
+		background-color: var(--color2v1);
+		border: 2px solid var(--color2v1Border);
+	}
+
+	.circle.muted {
+		background-color: var(--disabledButton);
+		border: 2px solid var(--disabledButtonBorder);
 	}
 }
