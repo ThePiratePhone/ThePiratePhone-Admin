@@ -43,7 +43,7 @@ function ChangePhone({
 	PhonesCombo: Array<[string /* phone */, string /* name */]>;
 	credentials: Credentials;
 }) {
-	const adminPhone = PhonesCombo.pop() ?? ['super admin', 'non renseigné'];
+	const adminPhone = PhonesCombo.length > 0 ? PhonesCombo[PhonesCombo.length - 1] : ['super admin', 'non renseigné'];
 	const [admin, setadmin] = useState(adminPhone);
 	const [PhonesName, setPhonesName] = useState(
 		PhonesCombo.map(([phone, name], index) => ({ id: index, phone, name }))
