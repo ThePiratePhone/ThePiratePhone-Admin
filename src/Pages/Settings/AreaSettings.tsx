@@ -150,10 +150,10 @@ function AreaSettingsHome({ credentials }: { credentials: Credentials }) {
 								</li>
 							))}
 						</ul>
-						<Button value="tester ces numeros" onclick={SendSms} />
-						<Button value="mettre a jour les numeros" link="ChangePhone" />
 					</div>
 				)}
+				<Button value="mettre a jour les numeros" link="ChangePhone" />
+				<Button value="tester ces numeros" onclick={SendSms} />
 			</div>
 		</div>
 	);
