@@ -113,6 +113,7 @@ function ChangePhone({
 						remove={() => {
 							const newPhones = PhonesName.filter(el => el.id !== id);
 							setPhonesName(newPhones);
+							modify(newPhones);
 						}}
 					/>
 				))}
