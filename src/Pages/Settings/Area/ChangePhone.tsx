@@ -1,4 +1,4 @@
-import { createRef, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 
 import Delete from '../../../Assets/Images/Delete.svg';
@@ -43,14 +43,14 @@ function ChangePhone({
 	PhonesCombo: Array<[string /* phone */, string /* name */]>;
 	credentials: Credentials;
 }) {
-	//remove admin phone from PhonesCombo
-	const admin = PhonesCombo.pop();
-
-	const [ButtonDisabled, setButtonDisabled] = useState(false);
-	const [ButtonValue, setButtonValue] = useState('Valider');
+	const adminPhone = PhonesCombo.pop() ?? ['super admin', 'non renseigné'];
+	const [admin, setadmin] = useState(adminPhone);
 	const [PhonesName, setPhonesName] = useState(
 		PhonesCombo.map(([phone, name], index) => ({ id: index, phone, name }))
 	);
+
+	const [ButtonDisabled, setButtonDisabled] = useState(false);
+	const [ButtonValue, setButtonValue] = useState('Valider');
 
 	const addResponse = () => {
 		let id = 0;
@@ -99,6 +99,16 @@ function ChangePhone({
 	return (
 		<div className="GenericPage">
 			<h2>Changer le numéros des administrateurs</h2>
+			<p>
+				Dans cette section, vous pouvez modifier, ajouter ou supprimer les numéros de téléphone des
+				administrateurs de cette région. Ces numéros seront utilisés pour envoyer des sms en cas de problème
+				avec les campagnes en cours, notamment des problèmes avec des utilisateurs qui spammeraient le service,
+				la fin des numéros de la campagne ou d’autres erreurs. Dans tous les cas, l'administrateur général
+				recevra une copie de tous les messages. Sur cette instance, l'administrateur général est:{' '}
+				<a href={`tel:${admin[0]}`} className="Phone">
+					<u>{admin[0]}</u>
+				</a>
+			</p>
 			<ReactSortable list={PhonesName} setList={setPhonesName} animation={150} className="ResponsesSettings">
 				{PhonesName.map(({ id, phone, name }) => (
 					<Response
@@ -118,12 +128,14 @@ function ChangePhone({
 					/>
 				))}
 			</ReactSortable>
-			<Button type={ButtonDisabled ? 'ButtonDisabled' : undefined} value="Ajouter" onclick={addResponse} />
-			<Button
-				type={ButtonDisabled ? 'ButtonDisabled' : undefined}
-				value={ButtonValue}
-				onclick={updateResponses}
-			/>
+			<div>
+				<Button type={ButtonDisabled ? 'ButtonDisabled' : undefined} value="Ajouter" onclick={addResponse} />
+				<Button
+					type={ButtonDisabled ? 'ButtonDisabled' : undefined}
+					value={ButtonValue}
+					onclick={updateResponses}
+				/>
+			</div>
 		</div>
 	);
 }
