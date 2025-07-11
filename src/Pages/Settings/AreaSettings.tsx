@@ -152,8 +152,17 @@ function AreaSettingsHome({ credentials }: { credentials: Credentials }) {
 						</ul>
 					</div>
 				)}
-				<Button value="mettre a jour les numeros" link="ChangePhone" />
-				<Button value="tester ces numeros" onclick={SendSms} />
+
+				<Button
+					value="mettre a jour les numeros"
+					link={smsStatus?.service ? 'ChangePhone' : undefined}
+					type={smsStatus?.service ? undefined : 'ButtonDisabled'}
+				/>
+				<Button
+					value="tester ces numeros"
+					onclick={smsStatus?.service ? undefined : SendSms}
+					type={smsStatus?.service ? undefined : 'ButtonDisabled'}
+				/>
 			</div>
 		</div>
 	);
