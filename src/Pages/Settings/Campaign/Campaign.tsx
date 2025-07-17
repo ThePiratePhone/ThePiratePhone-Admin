@@ -12,6 +12,7 @@ import ChangeCampaignPassword from './ChangePassword';
 import ChangeResponses from './ChangeResponses';
 import ChangeScript from './ChangeScript';
 import SetActive from './SetActive';
+import ChangePrioritys from './ChangePriority';
 
 function CampaignMain({
 	setCampaign,
@@ -54,6 +55,10 @@ function CampaignMain({
 		{
 			path: '/ChangeResponses',
 			element: <ChangeResponses setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
+		},
+		{
+			path: '/ChangePriority',
+			element: <ChangePrioritys setCampaign={setCampaign} credentials={credentials} campaign={campaign} />
 		},
 		{
 			path: '/SetActive',
@@ -116,7 +121,8 @@ function Campaign({
 							},
 							status: res.data.data.status,
 							script: res.data.data.script,
-							active: res.data.data.active
+							active: res.data.data.active,
+							sortGroup: res.data.data.sortGroup
 						};
 						resolve(campaign);
 					} else {

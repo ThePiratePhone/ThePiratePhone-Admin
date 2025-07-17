@@ -241,7 +241,8 @@ h4 {
 	gap: 2vh;
 }
 
-.ResponsesSettings {
+.ResponsesSettings,
+.PrioritysSettings {
 	display: flex;
 	flex-direction: column;
 	gap: 2vh;
@@ -250,7 +251,8 @@ h4 {
 	}
 }
 
-.Response {
+.Response,
+.Priority {
 	display: flex;
 	gap: 1vw;
 	& > img {

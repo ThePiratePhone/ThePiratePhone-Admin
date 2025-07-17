@@ -44,6 +44,11 @@ type CallStatus = {
 	toRecall: boolean;
 };
 
+type PriorityStatus = {
+	name: string;
+	id: string;
+};
+
 type ClientInfos = {
 	client: Client;
 	call: Array<{ call: Call; caller: Caller }>;
@@ -76,6 +81,7 @@ type LoginResponse = {
 	actualCampaignTimeBetweenCall: number;
 	actualCampaignScript: string;
 	actualCampaignStatus: Array<CallStatus>;
+	actualCampaignSortGroup: Array<PriorityStatus>;
 };
 
 type Campaign = {
@@ -93,6 +99,7 @@ type Campaign = {
 	status: Array<CallStatus>;
 	active: boolean;
 	script: string;
+	sortGroup: Array<PriorityStatus>;
 };
 
 type RatiosResponse = {
