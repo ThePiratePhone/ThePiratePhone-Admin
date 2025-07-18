@@ -31,6 +31,14 @@ type Client = {
 	data: {
 		[key: string]: Array<Call>;
 	};
+	priority:
+		| [
+				{
+					campaign: String;
+					id: String;
+				}
+		  ]
+		| undefined;
 };
 
 type SearchClient = {

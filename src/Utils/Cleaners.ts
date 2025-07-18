@@ -18,4 +18,31 @@ function cleanNumber(number: string) {
 	return newNumber;
 }
 
-export { cleanNumber };
+function cleanCampaignResponse(response: any): Promise<Campaign | undefined> {
+	return new Promise(resolve => {
+		if (response.data.OK) {
+			const campaign = {
+				_id: response.data.data._id,
+				name: response.data.data.name,
+				areaName: '',
+				calls: {
+					max: response.data.data.nbMaxCallCampaign,
+					timeBetween: response.data.data.timeBetweenCall
+				},
+				hours: {
+					start: new Date(response.data.data.callHoursStart),
+					end: new Date(response.data.data.callHoursEnd)
+				},
+				status: response.data.data.status,
+				script: response.data.data.script,
+				active: response.data.data.active,
+				sortGroup: response.data.data.sortGroup
+			};
+			resolve(campaign);
+		} else {
+			resolve(undefined);
+		}
+	});
+}
+
+export { cleanNumber, cleanCampaignResponse };

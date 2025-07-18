@@ -6,8 +6,8 @@ function Footer() {
 			</span>
 			<span className="FooterElement">
 				Un projet de{' '}
-				<a target="_blank" href="https://union-etudiante.fr/">
-					l'Union Étudiante
+				<a target="_blank" href="https://linktr.ee/coordination.etudiante">
+					la coordination étudiante
 				</a>
 			</span>
 			<span className="FooterElement">Réalisé avec ❤️ depuis Grenoble</span>

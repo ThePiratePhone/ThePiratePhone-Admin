@@ -13,6 +13,7 @@ import ChangeResponses from './ChangeResponses';
 import ChangeScript from './ChangeScript';
 import SetActive from './SetActive';
 import ChangePrioritys from './ChangePriority';
+import { cleanCampaignResponse } from '../../../Utils/Cleaners';
 
 function CampaignMain({
 	setCampaign,
@@ -105,34 +106,7 @@ function Campaign({
 					area: credentials.content.areaId,
 					CampaignId: CAMPAIGNID
 				})
-				.then(res => {
-					if (res.data.OK) {
-						const campaign = {
-							_id: res.data.data._id,
-							name: res.data.data.name,
-							areaName: '',
-							calls: {
-								max: res.data.data.nbMaxCallCampaign,
-								timeBetween: res.data.data.timeBetweenCall
-							},
-							hours: {
-								start: new Date(res.data.data.callHoursStart),
-								end: new Date(res.data.data.callHoursEnd)
-							},
-							status: res.data.data.status,
-							script: res.data.data.script,
-							active: res.data.data.active,
-							sortGroup: res.data.data.sortGroup
-						};
-						resolve(campaign);
-					} else {
-						resolve(undefined);
-					}
-				})
-				.catch(err => {
-					console.error(err);
-					resolve(undefined);
-				});
+				.then(res => resolve(cleanCampaignResponse(res)));
 		});
 	}
 
