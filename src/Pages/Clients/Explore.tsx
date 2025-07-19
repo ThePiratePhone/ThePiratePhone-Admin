@@ -319,6 +319,15 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 		}
 	}
 
+	function updatePhone(el: React.ChangeEvent<HTMLInputElement>) {
+		if (!Client) return;
+		const client = { ...Client };
+		client.phone = el.target.value;
+		setClient(client);
+		setEditButtonDisabled(false);
+		setEditButtonValue('mettre a jour');
+	}
+
 	function updateClient() {
 		if (!Client) return;
 		axios
@@ -341,9 +350,13 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 				}
 			})
 			.catch(err => {
+				console.log(err.status);
 				if (err.response.data.message == 'Wrong phone number') {
 					setEditButtonDisabled(false);
 					setEditButtonValue('Mauvais numéro de téléphone');
+				} else if (err.status == 422) {
+					setEditButtonDisabled(false);
+					setEditButtonValue('duplication detectée');
 				} else {
 					console.error(err);
 					setEditButtonDisabled(false);
@@ -359,7 +372,13 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 					Nom:<h4>{Client ? Client.name : 'Récupération en cours...'}</h4>
 				</span>
 				<span>
-					Téléphone: <span className="Phone">{Client ? cleanNumber(Client.phone as string) : ''}</span>
+					Téléphone:{' '}
+					<input
+						type="text"
+						className="Phone"
+						defaultValue={Client ? cleanNumber(Client.phone as string) : ''}
+						onChange={updatePhone}
+					></input>
 				</span>
 				<span>
 					priorité:
