@@ -271,6 +271,7 @@ h4 {
 
 .GenericPage > span > span {
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 	min-width: 15vw;
 	max-width: max-content;
@@ -409,6 +410,14 @@ h4 {
 
 .ClientPage > div {
 	margin: 4vh 0;
+}
+
+.ClientPage > span {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1vh;
+	width: min-content;
+	align-items: center;
 }
 
 .ClientPage .Button {

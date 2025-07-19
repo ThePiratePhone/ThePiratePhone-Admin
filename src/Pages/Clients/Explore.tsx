@@ -319,6 +319,15 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 		}
 	}
 
+	function updateName(el: React.ChangeEvent<HTMLInputElement>) {
+		if (!Client) return;
+		const client = { ...Client };
+		client.name = el.target.value;
+		setClient(client);
+		setEditButtonDisabled(false);
+		setEditButtonValue('mettre a jour');
+	}
+
 	function updatePhone(el: React.ChangeEvent<HTMLInputElement>) {
 		if (!Client) return;
 		const client = { ...Client };
@@ -368,55 +377,52 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 		<div className="GenericPage ClientPage">
 			<h1>Informations d'un contact</h1>
 			<span>
-				<span>
-					Nom:<h4>{Client ? Client.name : 'Récupération en cours...'}</h4>
-				</span>
-				<span>
-					Téléphone:{' '}
-					<input
-						type="text"
-						className="Phone"
-						defaultValue={Client ? cleanNumber(Client.phone as string) : ''}
-						onChange={updatePhone}
-					></input>
-				</span>
-				<span>
-					priorité:
-					<select name="pets" id="priority" className="inputField" onChange={updatePriority}>
-						{Campaign ? (
-							Campaign.sortGroup.map(el => (
-								<option
-									value={el.id}
-									selected={
-										Campaign &&
-										Client &&
-										Client.priority &&
-										el.id == Client?.priority.find(e => e.campaign == Campaign?._id)?.id
-											? true
-											: false
-									}
-								>
-									{el.name}
-								</option>
-							))
-						) : (
-							<option value="none">aucune campagne en cours</option>
-						)}
-					</select>
-				</span>
-
-				<span>
-					<Button
-						value={RemoveButtonValue}
-						type={RemoveButtonDisabled ? 'ButtonDisabled' : 'RedButton'}
-						onclick={remove}
-					/>
-					<Button
-						value={EditButtonValue}
-						type={EditButtonDisabled ? 'ButtonDisabled' : ''}
-						onclick={updateClient}
-					/>
-				</span>
+				Nom:
+				<input
+					type="text"
+					className="inputField"
+					value={Client ? Client.name : 'Récupération en cours...'}
+					onChange={updateName}
+				/>
+				Téléphone:{' '}
+				<input
+					type="text"
+					className="Phone inputField"
+					value={Client ? cleanNumber(Client.phone) : ''}
+					onChange={updatePhone}
+				/>
+				priorité:
+				<select name="pets" id="priority" className="inputField" onChange={updatePriority}>
+					{Campaign ? (
+						Campaign.sortGroup.map(el => (
+							<option
+								value={el.id}
+								selected={
+									Campaign &&
+									Client &&
+									Client.priority &&
+									el.id == Client?.priority.find(e => e.campaign == Campaign?._id)?.id
+										? true
+										: false
+								}
+							>
+								{el.name}
+							</option>
+						))
+					) : (
+						<option value="none">aucune campagne en cours</option>
+					)}
+				</select>
+				<Button
+					value={RemoveButtonValue}
+					type={RemoveButtonDisabled ? 'ButtonDisabled' : 'RedButton'}
+					onclick={remove}
+				/>
+				<Button
+					value={EditButtonValue}
+					type={EditButtonDisabled ? 'ButtonDisabled' : ''}
+					onclick={updateClient}
+				/>
 			</span>
 			<div>
 				{Calls ? (
