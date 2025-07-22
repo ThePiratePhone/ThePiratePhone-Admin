@@ -53,20 +53,19 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 	const [numberCount, setNumberCount] = useState<number | null>(null);
 	const [ButtonValue, setButtonValue] = useState('Ajouter');
 
-	async function send(array: Array<{ name: string; phone: string }>) {
+	async function send(
+		array: Array<{ phone: string; name: string; firstname?: string; institution?: string; priority?: string }>
+	) {
 		return new Promise<Array<ClientError> | undefined>(async resolve => {
 			let errors = new Array<ClientError>();
+
 			for (let i = 0; i < array.length; i += 500) {
-				const newArray = new Array<[string, string]>();
-				for (let j = 0; j < 500 && i + j < array.length; j++) {
-					const client = array[i + j];
-					newArray.push([client.name, client.phone]);
-				}
+				const chunk = array.slice(i, i + 500);
 				const res = await axios
 					.post(credentials.URL + '/admin/client/createClients', {
 						adminCode: credentials.content.password,
 						area: credentials.content.areaId,
-						data: newArray
+						data: chunk
 					})
 					.catch(err => {
 						resolve(undefined);
@@ -90,24 +89,28 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 		setButtonValue('Vérification...');
 
 		const file = ((document.getElementById('file') as HTMLInputElement).files as FileList)[0];
-		file.text().then(val => {
-			val = 'name,phone\r\n' + val;
-			val = val.replaceAll('\n\n', '');
-			val = val.replaceAll('\r\n\r\n', '\r\n');
-			if (val.endsWith('\r\n')) {
-				val = val.substring(0, val.length - 2);
+		Papa.parse(file, {
+			header: true,
+			skipEmptyLines: true,
+			complete: (
+				results: Papa.ParseResult<{
+					phone: string;
+					name: string;
+					firstname?: string;
+					institution?: string;
+					priority?: string;
+				}>
+			) => {
+				send(results.data).then(res => {
+					if (!res) {
+						setButtonValue('Une erreur est survenue');
+					} else {
+						setButtonValue('Confirmé !');
+						setErrors(res);
+						setNumberCount(results.data.length - res.length);
+					}
+				});
 			}
-			const parser = Papa.parse(val, { header: true, delimiter: ',' });
-			const array = parser.data as Array<{ name: string; phone: string }>;
-			send(array).then(res => {
-				if (!res) {
-					setButtonValue('Une erreur est survenue');
-				} else {
-					setButtonValue('Confirmé !');
-					setErrors(res);
-					setNumberCount(array.length - res.length);
-				}
-			});
 		});
 	}
 
@@ -125,8 +128,9 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 			<p>
 				<b>Seul le format CSV, délimité par des virgules, est supporté !</b>
 				<br />
-				Veillez à bien formater le fichier. La première colonne doit contenir le nom et la deuxième le numéro de
-				téléphone.
+				Veillez à bien formater le fichier. Le fichier doit contenir au moins ces colonnes: phone, name,
+				firstname (optionnel), priority (optionnel). La priorité doit être préalablement créée dans la page de
+				la campagne.
 			</p>
 			<div>
 				<input

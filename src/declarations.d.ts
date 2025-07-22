@@ -31,6 +31,14 @@ type Client = {
 	data: {
 		[key: string]: Array<Call>;
 	};
+	priority:
+		| [
+				{
+					campaign: String;
+					id: String;
+				}
+		  ]
+		| undefined;
 };
 
 type SearchClient = {
@@ -42,6 +50,11 @@ type SearchClient = {
 type CallStatus = {
 	name: string;
 	toRecall: boolean;
+};
+
+type PriorityStatus = {
+	name: string;
+	id: string;
 };
 
 type ClientInfos = {
@@ -76,6 +89,7 @@ type LoginResponse = {
 	actualCampaignTimeBetweenCall: number;
 	actualCampaignScript: string;
 	actualCampaignStatus: Array<CallStatus>;
+	actualCampaignSortGroup: Array<PriorityStatus>;
 };
 
 type Campaign = {
@@ -93,6 +107,7 @@ type Campaign = {
 	status: Array<CallStatus>;
 	active: boolean;
 	script: string;
+	sortGroup: Array<PriorityStatus>;
 };
 
 type RatiosResponse = {

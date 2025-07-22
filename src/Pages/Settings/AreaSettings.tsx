@@ -154,7 +154,7 @@ function AreaSettingsHome({ credentials }: { credentials: Credentials }) {
 				)}
 
 				<Button
-					value="mettre a jour les numeros"
+					value="mettre à jour les numeros"
 					link={smsStatus?.service ? 'ChangePhone' : undefined}
 					type={smsStatus?.service ? undefined : 'ButtonDisabled'}
 				/>

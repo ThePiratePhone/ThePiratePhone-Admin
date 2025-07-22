@@ -3,7 +3,7 @@ import { JSX, useEffect, useState } from 'react';
 import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import Button from '../../Components/Button';
-import { cleanNumber } from '../../Utils/Cleaners';
+import { cleanCampaignResponse, cleanNumber } from '../../Utils/Cleaners';
 import { getCallDuration } from '../../Utils/Utils';
 import E404 from '../E404';
 
@@ -156,8 +156,11 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 	const [Client, setClient] = useState<Client | null | undefined>(undefined);
 	const [Calls, setCalls] = useState<Array<JSX.Element> | undefined>(undefined);
 
-	const [ButtonValue, setButtonValue] = useState('Supprimer');
-	const [ButtonDisabled, setButtonDisabled] = useState(false);
+	const [RemoveButtonValue, setRemoveButtonValue] = useState('Supprimer');
+	const [EditButtonValue, setEditButtonValue] = useState('mettre à jour');
+	const [RemoveButtonDisabled, setRemoveButtonDisabled] = useState(false);
+	const [EditButtonDisabled, setEditButtonDisabled] = useState(true);
+	const [Campaign, setCampaign] = useState<Campaign | undefined>(undefined);
 
 	const navigate = useNavigate();
 
@@ -259,34 +262,167 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 				navigate('/Clients/Explore');
 			}
 		});
+		if (phone) {
+			getCampaign(credentials.content.areaId).then(res => {
+				if (res) {
+					setCampaign(res);
+				} else {
+					setCampaign(undefined);
+				}
+			});
+		}
 	}, []);
 
 	function remove() {
 		if (Client) {
-			setButtonDisabled(true);
-			setButtonValue('Suppression...');
+			setRemoveButtonDisabled(true);
+			setRemoveButtonValue('Suppression...');
 			sendRemoval(Client.phone).then(res => {
 				if (res) {
 					navigate('/Clients');
 				} else {
-					setButtonDisabled(false);
-					setButtonValue('Une erreur est survenue');
+					setRemoveButtonDisabled(false);
+					setRemoveButtonValue('Une erreur est survenue');
 				}
 			});
 		}
 	}
 
+	function getCampaign(areaId: string) {
+		return new Promise<Campaign | undefined>(resolve => {
+			axios
+				.post(credentials.URL + '/admin/campaign/getCampaign', {
+					adminCode: credentials.content.password,
+					area: areaId
+				})
+				.then(res => {
+					const campaignRes = cleanCampaignResponse(res);
+					campaignRes.then(campaign => {
+						if (campaign) {
+							campaign.sortGroup.push({ name: 'default', id: '-1' });
+							resolve(campaign);
+						} else {
+							resolve(undefined);
+						}
+					});
+				});
+		});
+	}
+
+	function updatePriority(el: React.ChangeEvent<HTMLSelectElement>) {
+		if (Client && Campaign && Client.priority) {
+			setEditButtonDisabled(false);
+			const client = { ...Client };
+			client!.priority!.find(e => e.campaign == Campaign._id)!.id = el.target.value;
+			setClient(client);
+			setEditButtonValue('mettre à jour');
+		}
+	}
+
+	function updateName(el: React.ChangeEvent<HTMLInputElement>) {
+		if (!Client) return;
+		const client = { ...Client };
+		client.name = el.target.value;
+		setClient(client);
+		setEditButtonDisabled(false);
+		setEditButtonValue('mettre à jour');
+	}
+
+	function updatePhone(el: React.ChangeEvent<HTMLInputElement>) {
+		if (!Client) return;
+		const client = { ...Client };
+		client.phone = el.target.value;
+		setClient(client);
+		setEditButtonDisabled(false);
+		setEditButtonValue('mettre à jour');
+	}
+
+	function updateClient() {
+		if (!Client) return;
+		axios
+			.post(credentials.URL + '/admin/client/createClient', {
+				adminCode: credentials.content.password,
+				area: credentials.content.areaId,
+				phone: Client?.phone,
+				name: Client?.name,
+				priority: Client?.priority,
+				updateIfExist: true,
+				updateKey: Client._id
+			})
+			.then(res => {
+				if (res.data.OK) {
+					setEditButtonDisabled(true);
+					setEditButtonValue('mis à jour');
+				} else {
+					setEditButtonDisabled(false);
+					setEditButtonValue('Erreur inconnue');
+				}
+			})
+			.catch(err => {
+				console.log(err.status);
+				if (err.response.data.message == 'Wrong phone number') {
+					setEditButtonDisabled(false);
+					setEditButtonValue('Mauvais numéro de téléphone');
+				} else if (err.status == 422) {
+					setEditButtonDisabled(false);
+					setEditButtonValue('duplication detectée');
+				} else {
+					console.error(err);
+					setEditButtonDisabled(false);
+					setEditButtonValue('Erreur inconnue');
+				}
+			});
+	}
 	return (
 		<div className="GenericPage ClientPage">
 			<h1>Informations d'un contact</h1>
 			<span>
-				<span>
-					Nom:<h4>{Client ? Client.name : 'Récupération en cours...'}</h4>
-				</span>
-				<span>
-					Téléphone: <span className="Phone">{Client ? cleanNumber(Client.phone as string) : ''}</span>
-				</span>
-				<Button value={ButtonValue} type={ButtonDisabled ? 'ButtonDisabled' : 'RedButton'} onclick={remove} />
+				Nom:
+				<input
+					type="text"
+					className="inputField"
+					value={Client ? Client.name : 'Récupération en cours...'}
+					onChange={updateName}
+				/>
+				Téléphone:{' '}
+				<input
+					type="text"
+					className="Phone inputField"
+					value={Client ? cleanNumber(Client.phone) : ''}
+					onChange={updatePhone}
+				/>
+				priorité:
+				<select name="pets" id="priority" className="inputField" onChange={updatePriority}>
+					{Campaign ? (
+						Campaign.sortGroup.map(el => (
+							<option
+								value={el.id}
+								selected={
+									Campaign &&
+									Client &&
+									Client.priority &&
+									el.id == Client?.priority.find(e => e.campaign == Campaign?._id)?.id
+										? true
+										: false
+								}
+							>
+								{el.name}
+							</option>
+						))
+					) : (
+						<option value="none">aucune campagne en cours</option>
+					)}
+				</select>
+				<Button
+					value={RemoveButtonValue}
+					type={RemoveButtonDisabled ? 'ButtonDisabled' : 'RedButton'}
+					onclick={remove}
+				/>
+				<Button
+					value={EditButtonValue}
+					type={EditButtonDisabled ? 'ButtonDisabled' : ''}
+					onclick={updateClient}
+				/>
 			</span>
 			<div>
 				{Calls ? (

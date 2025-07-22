@@ -36,7 +36,8 @@ function login(credentials: Credentials) {
 						},
 						status: loginResponse.actualCampaignStatus,
 						script: loginResponse.actualCampaignScript,
-						active: true
+						active: true,
+						sortGroup: loginResponse.actualCampaignSortGroup
 					};
 					resolve(campaign);
 				}
