@@ -157,7 +157,7 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 	const [Calls, setCalls] = useState<Array<JSX.Element> | undefined>(undefined);
 
 	const [RemoveButtonValue, setRemoveButtonValue] = useState('Supprimer');
-	const [EditButtonValue, setEditButtonValue] = useState('mettre a jour');
+	const [EditButtonValue, setEditButtonValue] = useState('mettre à jour');
 	const [RemoveButtonDisabled, setRemoveButtonDisabled] = useState(false);
 	const [EditButtonDisabled, setEditButtonDisabled] = useState(true);
 	const [Campaign, setCampaign] = useState<Campaign | undefined>(undefined);
@@ -315,7 +315,7 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 			const client = { ...Client };
 			client!.priority!.find(e => e.campaign == Campaign._id)!.id = el.target.value;
 			setClient(client);
-			setEditButtonValue('mettre a jour');
+			setEditButtonValue('mettre à jour');
 		}
 	}
 
@@ -325,7 +325,7 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 		client.name = el.target.value;
 		setClient(client);
 		setEditButtonDisabled(false);
-		setEditButtonValue('mettre a jour');
+		setEditButtonValue('mettre à jour');
 	}
 
 	function updatePhone(el: React.ChangeEvent<HTMLInputElement>) {
@@ -334,7 +334,7 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 		client.phone = el.target.value;
 		setClient(client);
 		setEditButtonDisabled(false);
-		setEditButtonValue('mettre a jour');
+		setEditButtonValue('mettre à jour');
 	}
 
 	function updateClient() {

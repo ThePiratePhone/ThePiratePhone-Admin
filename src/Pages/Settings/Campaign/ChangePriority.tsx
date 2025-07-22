@@ -96,7 +96,7 @@ function ChangePrioritys({
 
 	return (
 		<div className="GenericPage">
-			<h1>Changer les groupe de priorité de la campagne</h1>
+			<h1>Changer les groupes de priorités de la campagne</h1>
 			<div>
 				<ReactSortable list={Prioritys} setList={setPrioritys} animation={150} className="PrioritysSettings">
 					{Prioritys.map(el => {

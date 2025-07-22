@@ -11,7 +11,7 @@ function CampaignSettings({ campaign }: { campaign: Campaign }) {
 				<Button link="ChangeHours" value="Changer les horaires d'appel" />
 				<Button link="ChangeCallCount" value="Changer le nombre d'appel" />
 				<Button link="ChangeResponses" value="Changer les réponses" />
-				<Button link="ChangePriority" value="Changer les priorité" />
+				<Button link="ChangePriority" value="Changer les priorités" />
 				<Button link="ChangeCallTime" value="Changer le temps entre les appels" />
 				{campaign.active ? <></> : <Button link="SetActive" value="Activer la campagne" type="RedButton" />}
 			</div>
