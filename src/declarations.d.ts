@@ -26,6 +26,7 @@ type Call = {
 type Client = {
 	_id: string;
 	name: stirng;
+	firstname: string;
 	phone: string;
 	area: string;
 	data: {

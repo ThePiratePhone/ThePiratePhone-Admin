@@ -328,6 +328,15 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 		setEditButtonValue('mettre à jour');
 	}
 
+	function updateFirstname(el: React.ChangeEvent<HTMLInputElement>) {
+		if (!Client) return;
+		const client = { ...Client };
+		client.firstname = el.target.value;
+		setClient(client);
+		setEditButtonDisabled(false);
+		setEditButtonValue('mettre à jour');
+	}
+
 	function updatePhone(el: React.ChangeEvent<HTMLInputElement>) {
 		if (!Client) return;
 		const client = { ...Client };
@@ -345,6 +354,7 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 				area: credentials.content.areaId,
 				phone: Client?.phone,
 				name: Client?.name,
+				firstName: Client?.firstname,
 				priority: Client?.priority,
 				updateIfExist: true,
 				updateKey: Client._id
@@ -384,7 +394,14 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 					value={Client ? Client.name : 'Récupération en cours...'}
 					onChange={updateName}
 				/>
-				Téléphone:{' '}
+				Prénom:
+				<input
+					type="text"
+					className="inputField"
+					value={Client ? Client.firstname : 'Récupération en cours...'}
+					onChange={updateFirstname}
+				/>
+				Téléphone:
 				<input
 					type="text"
 					className="Phone inputField"
