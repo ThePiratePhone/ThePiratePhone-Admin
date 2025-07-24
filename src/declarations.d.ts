@@ -40,12 +40,15 @@ type Client = {
 				}
 		  ]
 		| undefined;
+	firstIntegration: Date;
+	integrationReason: string;
 };
 
 type SearchClient = {
 	_id: string;
-	name: string;
 	phone: string;
+	name: string;
+	firstname: string;
 };
 
 type CallStatus = {

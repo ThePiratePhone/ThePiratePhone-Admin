@@ -16,7 +16,11 @@ function Client({ clients }: { clients: Array<SearchClient> | null }) {
 			{clients.map((value, i) => {
 				return (
 					<Link to={value.phone} key={i}>
-						<div>{value.name.trim() != '' ? value.name : 'Nom inconnu'}</div>
+						<div>
+							{value.name || value.firstname
+								? `${value.name ?? ''} ${value.firstname ?? ''}`.trim()
+								: 'Nom inconnu'}
+						</div>
 						<div className="Phone">{cleanNumber(value.phone)}</div>
 					</Link>
 				);
@@ -346,6 +350,15 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 		setEditButtonValue('mettre à jour');
 	}
 
+	function updateIntegration(el: React.ChangeEvent<HTMLInputElement>) {
+		if (!Client) return;
+		const client = { ...Client };
+		client.integrationReason = el.target.value;
+		setClient(client);
+		setEditButtonDisabled(false);
+		setEditButtonValue('mettre à jour');
+	}
+
 	function updateClient() {
 		if (!Client) return;
 		axios
@@ -356,6 +369,7 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 				name: Client?.name,
 				firstName: Client?.firstname,
 				priority: Client?.priority,
+				integrationReason: Client.integrationReason,
 				updateIfExist: true,
 				updateKey: Client._id
 			})
@@ -408,7 +422,7 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 					value={Client ? cleanNumber(Client.phone) : ''}
 					onChange={updatePhone}
 				/>
-				priorité:
+				Priorité:
 				<select name="pets" id="priority" className="inputField" onChange={updatePriority}>
 					{Campaign ? (
 						Campaign.sortGroup.map(el => (
@@ -430,6 +444,13 @@ function ClientDetail({ credentials }: { credentials: Credentials }) {
 						<option value="none">aucune campagne en cours</option>
 					)}
 				</select>
+				Source de donnée:
+				<input
+					type="text"
+					className="inputField"
+					value={Client ? Client.integrationReason : ''}
+					onChange={updateIntegration}
+				></input>
 				<Button
 					value={RemoveButtonValue}
 					type={RemoveButtonDisabled ? 'ButtonDisabled' : 'RedButton'}
