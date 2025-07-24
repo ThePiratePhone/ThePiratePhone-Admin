@@ -52,6 +52,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 	const [Errors, setErrors] = useState<Array<ClientError>>(new Array());
 	const [numberCount, setNumberCount] = useState<number | null>(null);
 	const [ButtonValue, setButtonValue] = useState('Ajouter');
+	const [defaultDataSource, setDefaultDataSource] = useState<string>('import manuel');
 
 	async function send(
 		array: Array<{ phone: string; name: string; firstname?: string; institution?: string; priority?: string }>
@@ -65,7 +66,8 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 					.post(credentials.URL + '/admin/client/createClients', {
 						adminCode: credentials.content.password,
 						area: credentials.content.areaId,
-						data: chunk
+						data: chunk,
+						defaultReason: defaultDataSource
 					})
 					.catch(err => {
 						resolve(undefined);
@@ -129,10 +131,20 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 				<b>Seul le format CSV, délimité par des virgules, est supporté !</b>
 				<br />
 				Veillez à bien formater le fichier. Le fichier doit contenir au moins ces colonnes: phone, name,
-				firstname (optionnel), priority (optionnel). La priorité doit être préalablement créée dans la page de
-				la campagne.
+				firstname (optionnel), priority (optionnel), firstIntegration(optionnel date au format js),
+				integrationReason(optionnel). La priorité doit être préalablement créée dans la page de la campagne.
 			</p>
 			<div>
+				<span className="addClientsDefaultDataSource">
+					<label htmlFor="defaultDataSource">source de donnée (si aucune n'est presente dans le csv)</label>
+					<input
+						id="defaultDataSource"
+						type="text"
+						className="inputField"
+						defaultValue="import manuel"
+						onChange={el => setDefaultDataSource(el.target.value)}
+					/>
+				</span>
 				<input
 					disabled={InputDisabled}
 					className="inputField"

@@ -493,3 +493,10 @@ a.Active {
 		border: 2px solid var(--disabledButtonBorder);
 	}
 }
+
+.addClientsDefaultDataSource {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1vw;
+}

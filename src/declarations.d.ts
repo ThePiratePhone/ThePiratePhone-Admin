@@ -40,6 +40,8 @@ type Client = {
 				}
 		  ]
 		| undefined;
+	firstIntegration: Date;
+	integrationReason: string;
 };
 
 type SearchClient = {
