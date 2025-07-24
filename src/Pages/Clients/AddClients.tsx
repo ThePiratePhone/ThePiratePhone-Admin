@@ -136,7 +136,7 @@ function AddClients({ credentials }: { credentials: Credentials }) {
 			</p>
 			<div>
 				<span className="addClientsDefaultDataSource">
-					<label htmlFor="defaultDataSource">source de donnée (si aucune n'est presente dans le csv)</label>
+					<label htmlFor="defaultDataSource">source de donnée (si aucune n'est présente dans le csv)</label>
 					<input
 						id="defaultDataSource"
 						type="text"
