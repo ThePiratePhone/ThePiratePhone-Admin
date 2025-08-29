@@ -106,6 +106,7 @@ function ChangeResponses({
 			<div>
 				<ReactSortable list={Responses} setList={setResponses} animation={150} className="ResponsesSettings">
 					{Responses.map(el => {
+						if (el.name == '[hide] validate by API') return <></>;
 						return (
 							<Response
 								update={(name: string) => updateResponse(name, el.id)}

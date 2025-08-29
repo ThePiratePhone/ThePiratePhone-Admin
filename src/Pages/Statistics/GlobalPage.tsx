@@ -265,6 +265,10 @@ function GlobalStatisticsPage({ credentials }: { credentials: Credentials }) {
 				newDatas.push({ name: 'Appelé·es', value: res.totalCalled });
 				newDatas.push({ name: 'Pas répondu', value: res.totalToRecall });
 				newDatas.push({ name: 'Pas appelé·es', value: res.totalUser - res.totalToRecall - res.totalCalled });
+				newDatas.push({
+					name: "validé avant l'apel",
+					value: res.totalValidate
+				});
 				setProgress(newDatas);
 			}
 		});
